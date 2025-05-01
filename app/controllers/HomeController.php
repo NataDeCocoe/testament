@@ -11,6 +11,10 @@ class HomeController extends BaseController{
     public function showContactUs(){
         $this->views('landing/contact');
     }
+
+    public function showHomePage(){
+        $this->views('pages/home');
+    }
 }
 
 ?>

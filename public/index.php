@@ -35,6 +35,12 @@ foreach ($routes as $pattern => $handler) {
         }
     }
 }
+if ($_SERVER['REQUEST_URI'] === '/logout') {
+    require_once '../app/controllers/AuthController.php';
+    $controller = new AuthController();
+    $controller->logout();
+}
+
 
 if (!$matched) {
     header("HTTP/1.0 404 Not Found");

@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.getElementById("l-form");
     const emailInput = document.getElementById("floatingInput");
-    const passwordInput = document.getElementById("floatingPassword");
+    const passwordInput = document.getElementById("lpassword");
     const emailError = document.getElementById("emailError");
     const passwordError = document.getElementById("passError");
 
@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let isValid = true;
 
-
         if (emailInput.value.trim() === "") {
             emailInput.classList.add("is-invalid");
             emailError.textContent = "Email is required";
@@ -18,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         } else {
             emailInput.classList.remove("is-invalid");
-            emailInput.classList.add("is-valid");
             emailError.style.display = "none";
         }
 
@@ -35,17 +33,42 @@ document.addEventListener("DOMContentLoaded", function () {
             isValid = false;
         } else {
             passwordInput.classList.remove("is-invalid");
-            passwordInput.classList.add("is-valid");
             passwordError.style.display = "none";
         }
 
-        if (isValid) {
-            window.location.href = "homepage.html";
-        }
+        if (!isValid) return;
+
+
+        const formData = new FormData(form);
+
+        fetch("/login", {
+            method: "POST",
+            body: formData,
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "/home";
+                } else {
+                    if (data.error === "invalid_email") {
+                        emailInput.classList.add("is-invalid");
+                        emailError.textContent = "Email not found";
+                        emailError.style.display = "block";
+                    } else if (data.error === "wrong_password") {
+                        passwordInput.classList.add("is-invalid");
+                        passwordError.textContent = "Incorrect password";
+                        passwordError.style.display = "block";
+                    }
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+            });
     });
-
-
-    emailInput.addEventListener("input", function () {
+emailInput.addEventListener("input", function () {
         if (emailInput.value.trim() !== "") {
             emailInput.classList.remove("is-invalid");
             emailInput.classList.add("is-valid");
@@ -62,6 +85,26 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+function validateForm() {
+    let valid = true;
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("passwordError").innerText = "";
+
+    if (email.trim() === "") {
+        document.getElementById("emailError").innerText = "Email is required";
+        valid = false;
+    }
+
+    if (password.trim() === "") {
+        document.getElementById("passwordError").innerText = "Password is required";
+        valid = false;
+    }
+
+    return valid;
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const links = document.querySelectorAll(".nav-link");

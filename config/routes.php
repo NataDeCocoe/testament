@@ -9,5 +9,7 @@ $routes = [
     'POST:/login' => 'AuthController@login',
     'GET:/register' => 'AuthController@showRegisterForm',
     'POST:/register' => 'AuthController@register',
+    'GET:/home' => 'HomeController@showHomePage',
+    'GET:/logout' => 'AuthController@logout',
 ];
 ?>

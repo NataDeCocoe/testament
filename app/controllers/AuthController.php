@@ -54,10 +54,10 @@ class AuthController extends BaseController{
             $secretkey = 'PFaEXcN4KvQgrLD6lA4abvdu0gBCkzQyA/49tyq+hXI=';
             $passHashed = password_hash($password, PASSWORD_DEFAULT);
             $phoneHashed = hash_hmac('sha256', $phone, $secretkey);
-            $emailHashed = hash_hmac('sha224', $email, $secretkey);
 
 
-            if ($userModel->create($firstname, $lastname, $emailHashed, $phoneHashed, $address, $passHashed)) {
+
+            if ($userModel->create($firstname, $lastname, $email, $phoneHashed, $address, $passHashed)) {
                 $response['success'] = true;
                 $response['message'] = 'Registration successful!';
                 $this->jsonResponse($response);
@@ -88,11 +88,54 @@ class AuthController extends BaseController{
         }
     }
 
+    public function login() {
+        $email = $_POST['floatingInput'] ?? '';
+        $password = $_POST['lpassword'] ?? '';
+
+        $userModel = new User();
+        $user = $userModel->findByEmail($email);
+
+        $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
+            strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+        if (!$user) {
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'error' => 'invalid_email']);
+                return;
+            }
+        }
+
+        if (!password_verify($password, $user['password'])) {
+            if ($isAjax) {
+                echo json_encode(['success' => false, 'error' => 'wrong_password']);
+                return;
+            }
+        }
+
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_role'] = $user['role'];
+
+        if ($isAjax) {
+            echo json_encode(['success' => true]);
+
+        } else {
+            $this->redirect('/home');
+        }
+    }
+
+
+    public function logout() {
+        session_destroy();
+        $this->redirect('/login');
+    }
+
     private function jsonResponse(array $response, int $statusCode = 200) {
         header('Content-Type: application/json');
         http_response_code($statusCode);
         echo json_encode($response);
         exit;
     }
+
+
 }
 ?>

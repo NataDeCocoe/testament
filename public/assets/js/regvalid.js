@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         let isValid = true;
 
-        // Reset all validation states
+
         [firstName, lastName, email, phone, address, password, confirmPass].forEach(field => {
             field.classList.remove("is-invalid", "is-valid");
         });

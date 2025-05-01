@@ -23,18 +23,18 @@
 <?php include __DIR__ . '/../layouts/navbar.php' ?>
 <!--Section-->
 <section>
-    <form id="l-form" action="/login" method="POST">
+    <form id="l-form" method="POST">
         <div class="d-flex align-items-center flex-column py-5 bg-body-tertiary">
             <img class="mt-5" src="/assets/images/Testament_Logo.png" alt="testament logo" width="129px" height="91px">
             <h2>Sign in to your account</h2>
             <div class="center-form mt-4">
                 <div class="login-form">
                     <div class="form-floating mb-4">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="Email@example.com">
+                        <input type="email" name="floatingInput" class="form-control" id="floatingInput" placeholder="Email@example.com">
                         <div class="invalid-feedback" id="emailError"></div>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                        <input type="password" name="lpassword" class="form-control" id="lpassword" placeholder="Password">
                         <div class="invalid-feedback" id="passError"></div>
                     </div>
                     <div class="d-flex justify-content-end"><small><a id="fpaswword" class="custom-color" href="#">Forgot
