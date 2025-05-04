@@ -55,11 +55,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     if (data.error === "invalid_email") {
                         emailInput.classList.add("is-invalid");
-                        emailError.textContent = "Email not found";
+                        passwordInput.classList.add("is-invalid");
+                        emailError.textContent = "Email not found.";
                         emailError.style.display = "block";
                     } else if (data.error === "wrong_password") {
+                        emailInput.classList.add("is-invalid");
                         passwordInput.classList.add("is-invalid");
-                        passwordError.textContent = "Incorrect password";
+                        passwordError.textContent = "Incorrect password.";
                         passwordError.style.display = "block";
                     }
                 }
@@ -106,22 +108,22 @@ function validateForm() {
     return valid;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    const links = document.querySelectorAll(".nav-link");
-    const currentPage = window.location.pathname.split("/").pop(); // Get current page file name
-
-
-    links.forEach(link => link.classList.remove("active"));
-
-
-    links.forEach(link => {
-        const linkPage = link.getAttribute("href").split("/").pop();
-
-        if (linkPage === currentPage) {
-            link.classList.add("active");
-        }
-    });
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//     const links = document.querySelectorAll(".nav-link");
+//     const currentPage = window.location.pathname.split("/").pop();
+//
+//
+//     links.forEach(link => link.classList.remove("active"));
+//
+//
+//     links.forEach(link => {
+//         const linkPage = link.getAttribute("href").split("/").pop();
+//
+//         if (linkPage === currentPage) {
+//             link.classList.add("active");
+//         }
+//     });
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
     const checkbox = document.getElementById('chk-box');
@@ -145,11 +147,19 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("keydown", function(event) {
     if (event.altKey && event.shiftKey && event.key.toLowerCase() === "l") {
         let aPanel = document.getElementById('admin');
+        document.getElementById("overlay").style.display = "block";
         aPanel.classList.remove('hidden');
         aPanel.classList.add('show')
-
     }
 });
+document.addEventListener("click", function(event) {
+    if (event.target.id === "overlay") {
+        let aPanel = document.getElementById('admin');
+        document.getElementById("overlay").style.display = "none";
+        aPanel.classList.remove('show');
+        aPanel.classList.add('hidden');
+    }
+})
 
 document.addEventListener("click");
 function adminDashboard(){

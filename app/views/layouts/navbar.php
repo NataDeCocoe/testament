@@ -18,13 +18,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/about">About us</a>
+                    <a class="nav-link <?= $_SERVER['REQUEST_URI'] === '/about' ? 'active' : '' ?>" href="/about">About us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/contact">Contact us</a>
+                    <a class="nav-link <?= $_SERVER['REQUEST_URI'] === '/contact' ? 'active' : '' ?>" href="/contact">Contact us</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " aria-current="page" href="/login">Login</a>
+                    <a class="nav-link <?= $_SERVER['REQUEST_URI'] === '/login' ? 'active' : '' ?>" href="/login">Login</a>
                 </li>
             </ul>
         </div>

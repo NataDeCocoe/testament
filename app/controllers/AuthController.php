@@ -125,8 +125,15 @@ class AuthController extends BaseController{
 
 
     public function logout() {
+
+        session_unset();
         session_destroy();
+
+        if(ini_get('session.use_cookies')) {
+            setcookie(session_name(), '', time() - 42000, '/');
+        }
         $this->redirect('/login');
+        exit;
     }
 
     private function jsonResponse(array $response, int $statusCode = 200) {

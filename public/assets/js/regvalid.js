@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function isValidPhone(phone) {
-        const re = /^[\d\s\-+()]{8,}$/;
+        const re = /^[\d\s\-+()]{11,}$/;
         return re.test(phone);
     }
 

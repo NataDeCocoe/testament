@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="">
 
@@ -19,6 +20,7 @@
 </head>
 
 <body class="h-100">
+
 <!--Navbar-->
 <?php include __DIR__ . '/../layouts/navbar.php' ?>
 <!--Section-->
@@ -53,19 +55,23 @@
             account</a></div>
 </section>
 
-<div id="admin" class="adminLoginCard hidden">
-    <div>
-        <input class="form-control" placeholder="Name" type="text">
-    </div>
-    <div>
-        <input class="form-control" placeholder="Password" type="password">
-    </div>
-    <div>
-        <button onclick="adminDashboard()" class="btn btn-primary bg-custom" type="submit" id="adLogin">Login</button>
+<div id="overlay">
+    <div id="admin" class="adminLoginCard hidden">
+        <div>
+            <input class="form-control" placeholder="Name" type="text">
+        </div>
+        <div>
+            <input class="form-control" placeholder="Password" type="password">
+        </div>
+        <div>
+            <button onclick="adminDashboard()" class="btn btn-primary bg-custom" type="submit" id="adLogin">Login</button>
 
+        </div>
+        <small>© 2025 Testament. All rights reserved</small>
     </div>
-    <small>© 2025 Testament. All rights reserved</small>
 </div>
+
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
