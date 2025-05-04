@@ -76,10 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
             phoneError.textContent = "Phone number is required";
             phoneError.style.display = "block";
             isValid = false;
-        } else if (!isValidPhone(phone.value.trim())) {
+        }else if(phone.value.trim().length !== 11){
             phone.classList.add("is-invalid");
             phoneError.textContent = "Please enter a valid phone number";
-            phoneError.style.display = "block";
+            phoneError.style.display = "block"
             isValid = false;
         } else {
             phone.classList.add("is-valid");
