@@ -10,6 +10,17 @@
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script>
+        try {
+            if (localStorage.getItem("sidebar-collapsed") === "true") {
+                document.write('<body class="sb-collapse">');
+            } else {
+                document.write('<body>');
+            }
+        } catch (e) {
+            document.write('<body>');
+        }
+    </script>
 </head>
 <body>
 

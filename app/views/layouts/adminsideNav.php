@@ -37,7 +37,7 @@
         </li>
         <div class="invBlock2"></div>
         <li>
-            <a href="">
+            <a href="/logout">
                 <span class="nav-icon material-symbols-rounded">logout</span>
                 <span>Logout</span>
             </a>

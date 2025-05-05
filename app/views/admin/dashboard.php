@@ -11,6 +11,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="assets/js/sidebar.js" defer></script>
+    <script>
+        try {
+            if (localStorage.getItem("sidebar-collapsed") === "true") {
+                document.write('<body class="sb-collapse">');
+            } else {
+                document.write('<body>');
+            }
+        } catch (e) {
+            document.write('<body>');
+        }
+    </script>
 </head>
 <body>
 

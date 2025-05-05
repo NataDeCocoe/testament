@@ -32,6 +32,13 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function findAdminByEmail($email)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email AND role = 'admin' LIMIT 1");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function findByPhone($phone){
         $query = "SELECT * FROM users WHERE phone_num = :phone";
         $stmt = $this->db->prepare($query);

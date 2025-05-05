@@ -56,13 +56,13 @@
 </section>
 
 <div id="overlay">
-    <form method="POST" id="adminLoginForm">
+    <form method="POST">
         <div id="admin" class="adminLoginCard hidden">
             <div>
-                <input name="adlogName" class="form-control" placeholder="Name" type="text">
+                <input name="adminEmail" class="form-control" placeholder="Email" type="email">
             </div>
             <div>
-                <input name="adlogPass" class="form-control" placeholder="Password" type="password">
+                <input name="adminPass" class="form-control" placeholder="Password" type="password">
             </div>
             <div>
                 <button  class="btn btn-primary bg-custom" type="submit" id="adLogin">Login</button>

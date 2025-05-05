@@ -88,7 +88,7 @@ class AuthController extends BaseController{
         }
     }
 
-    public function login() {
+    public function userLogin() {
         $email = $_POST['floatingInput'] ?? '';
         $password = $_POST['lpassword'] ?? '';
 
