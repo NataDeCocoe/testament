@@ -24,6 +24,9 @@ class HomeController extends BaseController{
     public function showNotification(){
         $this->views('pages/notification');
     }
+    public function showProfile(){
+        $this->views('pages/profile');
+    }
 }
 
 ?>

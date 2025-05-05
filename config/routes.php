@@ -13,6 +13,7 @@ $routes = [
     'GET:/categories' => 'HomeController@showCategory',
     'GET:/saved' => 'HomeController@showSaved',
     'GET:/notification' => 'HomeController@showNotification',
+    'GET:/profile' => 'HomeController@showProfile',
     'GET:/logout' => 'AuthController@logout',
 ];
 ?>

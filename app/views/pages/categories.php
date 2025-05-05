@@ -1,3 +1,9 @@
+<?php
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +13,7 @@
     <link rel="stylesheet" href="assets/css/homePages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
-    <script type="text/javascript" src="/resources/js/sidebar.js" defer></script>
+    <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
 
 </head>
 <body>

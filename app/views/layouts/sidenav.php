@@ -38,7 +38,7 @@
         </li>
         <div class="invBlock2"></div>
         <li>
-            <a href="#">
+            <a href="/profile">
                 <span class="navIcon material-symbols-rounded">account_circle</span>
                 <span>Profile</span>
             </a>
