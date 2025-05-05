@@ -10,7 +10,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <title>TESTAMENT</title>
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
-    <link rel="stylesheet" href="/assets/css/homePages.css">
+    <link rel="stylesheet" href="assets/css/homePages.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="/public/assets/js/homePage.js" defer></script>
     <script type="text/javascript" src="/public/assets/js/sidebar.js" defer></script>

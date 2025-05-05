@@ -15,6 +15,15 @@ class HomeController extends BaseController{
     public function showHomePage(){
         $this->views('pages/home');
     }
+    public function showCategory(){
+        $this->views('pages/categories');
+    }
+    public function showSaved(){
+        $this->views('pages/saved');
+    }
+    public function showNotification(){
+        $this->views('pages/notification');
+    }
 }
 
 ?>

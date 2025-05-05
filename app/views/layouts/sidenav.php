@@ -13,25 +13,25 @@
 <aside class="side">
     <ul class="navCon">
         <li>
-            <a href="#">
+            <a href="/home">
                 <span class="navIcon material-symbols-rounded">home</span>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/categories">
                 <span class="navIcon material-symbols-rounded">category</span>
                 <span>Categories</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/saved">
                 <span class="navIcon material-symbols-rounded">bookmark</span>
                 <span>Saved</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="/notification">
                 <span class="navIcon material-symbols-rounded">notifications</span>
                 <span>Notification</span>
             </a>
