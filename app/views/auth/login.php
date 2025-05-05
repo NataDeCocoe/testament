@@ -56,19 +56,20 @@
 </section>
 
 <div id="overlay">
-    <div id="admin" class="adminLoginCard hidden">
-        <div>
-            <input class="form-control" placeholder="Name" type="text">
+    <form method="POST" id="adminLoginForm">
+        <div id="admin" class="adminLoginCard hidden">
+            <div>
+                <input name="adlogName" class="form-control" placeholder="Name" type="text">
+            </div>
+            <div>
+                <input name="adlogPass" class="form-control" placeholder="Password" type="password">
+            </div>
+            <div>
+                <button  class="btn btn-primary bg-custom" type="submit" id="adLogin">Login</button>
+            </div>
+            <small>© 2025 Testament. All rights reserved</small>
         </div>
-        <div>
-            <input class="form-control" placeholder="Password" type="password">
-        </div>
-        <div>
-            <button onclick="adminDashboard()" class="btn btn-primary bg-custom" type="submit" id="adLogin">Login</button>
-
-        </div>
-        <small>© 2025 Testament. All rights reserved</small>
-    </div>
+    </form>
 </div>
 
 

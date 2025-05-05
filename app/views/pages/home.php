@@ -14,7 +14,17 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="/assets/js/homepage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
-
+    <script>
+        try {
+            if (localStorage.getItem("sidebar-collapsed") === "true") {
+                document.write('<body class="sb-collapse">');
+            } else {
+                document.write('<body>');
+            }
+        } catch (e) {
+            document.write('<body>');
+        }
+    </script>
 </head>
 <body>
 
@@ -41,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
             <a class="pLink">View Categories</a>
         </div>
         <div class="collections">
-            <div class="card"><img src="/public/assets/images/newBook.jpg" alt="Kid's Collection"/>
+            <div class="card"><img src="assets/images/newBook.jpg" alt="Kid's Collection"/>
                 <p>Kid's Collection</p>
             </div>
             <div class="card"><img src="https://images.unsplash.com/photo-1606112219348-204d7d8b94ee" alt="Adult's Collection"/>

@@ -12,5 +12,13 @@ CREATE TABLE users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE admintble (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    firstname VARCHAR(65) NOT null,
+    lastname VARCHAR(65) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('admin') DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
 
