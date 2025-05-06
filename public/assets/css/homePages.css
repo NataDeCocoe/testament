@@ -17,7 +17,7 @@ body{
     "sidebar main"
     "sidebar main"
     "sidebar footer";
-    transition: grid-template-columns 1s ease-in;
+    transition: grid-template-columns 0.5s ease;
 }
 body.sb-collapse{
     grid-template-columns: 13.5rem 1fr;

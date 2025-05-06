@@ -88,7 +88,7 @@ class AuthController extends BaseController{
         }
     }
 
-    public function userLogin() {
+    public function login() {
         $email = $_POST['floatingInput'] ?? '';
         $password = $_POST['lpassword'] ?? '';
 
@@ -98,30 +98,45 @@ class AuthController extends BaseController{
         $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
+        // Validate user existence
         if (!$user) {
             if ($isAjax) {
                 echo json_encode(['success' => false, 'error' => 'invalid_email']);
-                return;
             }
+            return;
         }
 
+        // Validate password
         if (!password_verify($password, $user['password'])) {
             if ($isAjax) {
                 echo json_encode(['success' => false, 'error' => 'wrong_password']);
-                return;
             }
+            return;
         }
 
+        // Set session
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_role'] = $user['role'];
 
+        // Handle response based on role
         if ($isAjax) {
-            echo json_encode(['success' => true]);
-
+            echo json_encode([
+                'success' => true,
+                'role' => $user['role']
+            ]);
         } else {
-            $this->redirect('/home');
+            // Redirect based on role
+            if ($user['role'] === 'admin') {
+                $this->redirect('/dashboard');
+            } elseif ($user['role'] === 'customer') {
+                $this->redirect('/home');
+            } else {
+                // fallback (optional)
+                $this->redirect('/home');
+            }
         }
     }
+
 
     public function logout() {
 

@@ -51,7 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = "/home";
+                    if(data.role === "admin"){
+                        window.location.href = "/dashboard";
+                    }else if(data.role === "customer"){
+                        window.location.href = "/home";
+                    }
                 } else {
                     if (data.error === "invalid_email") {
                         emailInput.classList.add("is-invalid");

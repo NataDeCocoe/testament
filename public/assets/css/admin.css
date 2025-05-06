@@ -16,7 +16,7 @@ body{
     "navbar navbar"
     "sidebar main"
     "sidebar main";
-    /*transition: grid-template-columns 0.5s ease;*/
+    transition: grid-template-columns 0.5s ease;
 
 }
 body.sb-collapse{
