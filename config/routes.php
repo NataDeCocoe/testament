@@ -3,7 +3,7 @@
 
 $routes = [
     'GET:/' => 'HomeController@index',
-    'GET:/dashboard' => 'HomeController@showDashboard',
+    'GET:/dashboard' => 'AdminController@showDashboard',
     'GET:/orders' => 'AdminController@showOrders',
     'GET:/about' => 'HomeController@showAboutUs',
     'GET:/contact' => 'HomeController@showContactUs',

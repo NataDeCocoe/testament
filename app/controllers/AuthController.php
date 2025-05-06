@@ -114,21 +114,22 @@ class AuthController extends BaseController{
             return;
         }
 
+        $role = $userModel->checkRole($email);
         // Set session
         $_SESSION['user_id'] = $user['id'];
-        $_SESSION['user_role'] = $user['role'];
+        $_SESSION['user_role'] = $role;
 
         // Handle response based on role
         if ($isAjax) {
             echo json_encode([
                 'success' => true,
-                'role' => $user['role']
+                'role' => $role,
             ]);
         } else {
             // Redirect based on role
-            if ($user['role'] === 'admin') {
+            if ($role === 'admin') {
                 $this->redirect('/dashboard');
-            } elseif ($user['role'] === 'customer') {
+            } elseif ($role === 'customer') {
                 $this->redirect('/home');
             } else {
                 // fallback (optional)

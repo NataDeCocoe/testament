@@ -27,9 +27,7 @@ class HomeController extends BaseController{
     public function showProfile(){
         $this->views('pages/profile');
     }
-    public function showDashboard(){
-        $this->views('admin/dashboard');
-    }
+
 }
 
 ?>

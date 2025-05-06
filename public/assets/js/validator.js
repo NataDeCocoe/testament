@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!isValid) return;
 
 
-        const formData = new FormData(form);
+        const formData = new FormData(this);
 
         fetch("/login", {
             method: "POST",
@@ -51,9 +51,9 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    if(data.role === "admin"){
+                    if(data.role === 'admin'){
                         window.location.href = "/dashboard";
-                    }else if(data.role === "customer"){
+                    }else if(data.role === 'customer'){
                         window.location.href = "/home";
                     }
                 } else {
