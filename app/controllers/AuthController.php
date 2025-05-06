@@ -98,7 +98,6 @@ class AuthController extends BaseController{
         $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
-        // Validate user existence
         if (!$user) {
             if ($isAjax) {
                 echo json_encode(['success' => false, 'error' => 'invalid_email']);
@@ -106,7 +105,7 @@ class AuthController extends BaseController{
             return;
         }
 
-        // Validate password
+
         if (!password_verify($password, $user['password'])) {
             if ($isAjax) {
                 echo json_encode(['success' => false, 'error' => 'wrong_password']);
@@ -115,24 +114,23 @@ class AuthController extends BaseController{
         }
 
         $role = $userModel->checkRole($email);
-        // Set session
+
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_role'] = $role;
 
-        // Handle response based on role
+
         if ($isAjax) {
             echo json_encode([
                 'success' => true,
                 'role' => $role,
             ]);
         } else {
-            // Redirect based on role
+
             if ($role === 'admin') {
                 $this->redirect('/dashboard');
-            } elseif ($role === 'customer') {
+            } elseif ($role === 'customer') {   
                 $this->redirect('/home');
             } else {
-                // fallback (optional)
                 $this->redirect('/home');
             }
         }

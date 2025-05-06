@@ -606,7 +606,7 @@ main {
 
 
 
-@media (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     body {
         grid-template-columns: 1fr;
         grid-template-areas:
