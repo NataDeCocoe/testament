@@ -9,6 +9,3 @@ define('DB_NAME', 'testamentdb');
 define('APP_ROOT', dirname(dirname(__FILE__)));
 define('URL_ROOT', 'http://localhost/testament');
 define('SITE_NAME', 'testament');
-
-
-session_start();

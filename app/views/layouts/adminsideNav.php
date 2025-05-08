@@ -30,7 +30,7 @@
             </a>
         </li>
         <li>
-            <a href="">
+            <a href="/inventory">
                 <span class="nav-icon material-symbols-rounded">list_alt</span>
                 <span>Inventory</span>
             </a>

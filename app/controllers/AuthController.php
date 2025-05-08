@@ -2,6 +2,7 @@
 require_once 'BaseController.php';
 require_once __DIR__ . '/../models/User.php';
 require_once __DIR__ . '/../../config/database.php';
+//require_once 'ProfileController.php';
 class AuthController extends BaseController{
 
     public function showLoginForm(){
@@ -51,13 +52,13 @@ class AuthController extends BaseController{
             }
 
 
-            $secretkey = 'PFaEXcN4KvQgrLD6lA4abvdu0gBCkzQyA/49tyq+hXI=';
+//            $secretkey = 'PFaEXcN4KvQgrLD6lA4abvdu0gBCkzQyA/49tyq+hXI=';
             $passHashed = password_hash($password, PASSWORD_DEFAULT);
-            $phoneHashed = hash_hmac('sha256', $phone, $secretkey);
+//            $phoneHashed = hash_hmac('sha256', $phone, $secretkey);
 
 
 
-            if ($userModel->create($firstname, $lastname, $email, $phoneHashed, $address, $passHashed)) {
+            if ($userModel->create($firstname, $lastname, $email, $phone, $address, $passHashed)) {
                 $response['success'] = true;
                 $response['message'] = 'Registration successful!';
                 $this->jsonResponse($response);
@@ -95,6 +96,7 @@ class AuthController extends BaseController{
         $userModel = new User();
         $user = $userModel->findByEmail($email);
 
+
         $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
@@ -113,6 +115,8 @@ class AuthController extends BaseController{
             return;
         }
 
+
+        setcookie('user_id', $user['id'], time() + 3600, '/');
         $role = $userModel->checkRole($email);
 
         $_SESSION['user_id'] = $user['id'];
@@ -135,6 +139,8 @@ class AuthController extends BaseController{
             }
         }
     }
+
+
 
 
     public function logout() {

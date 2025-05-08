@@ -9,4 +9,8 @@ class AdminController extends BaseController{
         $this->views('admin/orders');
     }
 
+    public function showInventory(){
+        $this->views('admin/inventory');
+    }
+
 }?>

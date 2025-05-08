@@ -5,9 +5,18 @@ class BaseController{
 
     }
 
-    protected function views($view, $data = []){
-        extract($data);
-        require_once __DIR__."/../views/{$view}.php";
+    public function views($view, $data = []) {
+        extract($data); // Makes $user, etc. available in the view
+
+        // Remove leading slashes and build full path
+        $view = ltrim($view, '/');
+        $viewPath = __DIR__ . '/../views/' . $view . '.php';
+
+        if (file_exists($viewPath)) {
+            require_once $viewPath;
+        } else {
+            die("View not found: $viewPath");
+        }
     }
 
     protected function redirect($url){
