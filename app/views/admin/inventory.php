@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="assets/js/sidebar.js" defer></script>
+    <script type="text/javascript" src="assets/js/admin.js" defer></script>
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,41 +36,12 @@ if (!isset($_SESSION['user_id'])) {
 <main class="ordersMain">
     <div class="headerLabel">
         <h2>Product List</h2>
-        <button class="ordersMain-btns">Add Product</button>
-    </div>
-    <div class="ordersMain-btns">
-
+        <button class="ordersMain-btns adminAddProdBTN">Add Product</button>
     </div>
 
-    <div class="orders-container">
-        <div class="orders-header">
-            <div class="col">Product Code</div>
-            <div class="col">Product Name</div>
-            <div class="col">Description</div>
-            <div class="col">Quantity</div>
-            <div class="col">Price</div>
-            <div class="col">Data Created</div>
-            <div class="col">Action</div>
-        </div>
-
-        <div class="orders-row">
-            <div class="col">25184</div>
-            <div class="col">Shampoo</div>
-            <div class="col">Long Lasting Shampoo</div>
-            <div class="col">20</div>
-            <div class="col"><span>₱</span>15</div>
-            <div class="col">4-29-30</div>
-            <div class="col actions">
-                <button class="edit-btn">
-                    <i class="fa-solid fa-edit"></i> Edit
-                </button>
-                <button class="delete-btn">
-                    <i class="fa-solid fa-trash"></i> Delete
-                </button>
-            </div>
-        </div>
+    <div id="product_list">
+        <?php include __DIR__ . '/../layouts/productlist.php'; ?>
     </div>
-
 </main>
 </body>
 </html>

@@ -115,8 +115,6 @@ class AuthController extends BaseController{
             return;
         }
 
-
-        setcookie('user_id', $user['id'], time() + 3600, '/');
         $role = $userModel->checkRole($email);
 
         $_SESSION['user_id'] = $user['id'];
