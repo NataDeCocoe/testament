@@ -301,6 +301,14 @@ aside button{
 .delete-btn:hover {
     background-color: #c0392b;
 }
+.ordersMain-btns{
+    color: red;
+    position: absolute;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    right: 1rem;
+    top: 1.2rem;
+}
 
 
 

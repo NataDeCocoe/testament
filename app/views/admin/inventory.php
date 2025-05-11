@@ -35,8 +35,40 @@ if (!isset($_SESSION['user_id'])) {
 <main class="ordersMain">
     <div class="headerLabel">
         <h2>Product List</h2>
+        <button class="ordersMain-btns">Add Product</button>
+    </div>
+    <div class="ordersMain-btns">
+
     </div>
 
+    <div class="orders-container">
+        <div class="orders-header">
+            <div class="col">Product Code</div>
+            <div class="col">Product Name</div>
+            <div class="col">Description</div>
+            <div class="col">Quantity</div>
+            <div class="col">Price</div>
+            <div class="col">Data Created</div>
+            <div class="col">Action</div>
+        </div>
+
+        <div class="orders-row">
+            <div class="col">25184</div>
+            <div class="col">Shampoo</div>
+            <div class="col">Long Lasting Shampoo</div>
+            <div class="col">20</div>
+            <div class="col"><span>₱</span>15</div>
+            <div class="col">4-29-30</div>
+            <div class="col actions">
+                <button class="edit-btn">
+                    <i class="fa-solid fa-edit"></i> Edit
+                </button>
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
 
 </main>
 </body>
