@@ -23,11 +23,12 @@ CREATE TABLE admintble (
 );
 
 CREATE TABLE products (
-    prod_code int PRIMARY KEY,
+    prod_code INT PRIMARY KEY,
     prod_name VARCHAR(65) NOT NULL,
     prod_desc VARCHAR(300) NOT NULL,
-    prod_quan int NOT NULL,
-    prod_price int NOT NULL,
+    prod_quan INT NOT NULL,
+    prod_price INT NOT NULL,
+    prod_img LONGBLOB NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
