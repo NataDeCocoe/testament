@@ -1,12 +1,12 @@
 
 <?php
-$productImage = '/public/assets/images/newBook.jpg';
+$productImage = 'assets/images/newBook.jpg';
 $targetClass = 'innerProdItems';
 ?>
 
 
 <script type="module">
-    import ImageInserter from '/public/assets/js/prodImage.js';
+    import ImageInserter from '/assets/js/prodImage.js';
 
     const imageInserter = new ImageInserter("<?= $productImage ?>", "<?= $targetClass ?>");
     imageInserter.insert();

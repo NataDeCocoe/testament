@@ -11,7 +11,7 @@ $routes = [
     //Admin
     'GET:/dashboard' => 'AdminController@showDashboard',
     'GET:/orders' => 'AdminController@showOrders',
-    'GET:/inventory' => 'AdminController@showInventory',
+    'GET:/inventory/view' => 'AdminController@showInventory',
     'GET:/inventory' => 'ProductController@getProducts',
     'POST:/admin/inventory' => 'ProductController@addProduct',
 

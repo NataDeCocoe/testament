@@ -75,7 +75,6 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="price">Price</label>
                 <input name="prod_price" type="number" id="price" min="0" step="0.01" required>
             </div>
-
             <div class="modal-footer" id="addBtn">
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                 <button type="submit" class="btn btn-primary">Add Product</button>
@@ -83,7 +82,6 @@ if (!isset($_SESSION['user_id'])) {
         </form>
 
     </div>
-
 </div>
 
 

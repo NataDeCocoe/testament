@@ -20,7 +20,7 @@ class Product {
         $stmt->bindParam(':prod_desc', $prod_desc);
         $stmt->bindParam(':prod_quan', $prod_quan);
         $stmt->bindParam(':prod_price', $prod_price);
-        $stmt->bindParam(':prod_img', $prod_img); // Removed PDO::PARAM_LOB
+        $stmt->bindParam(':prod_img', $prod_img);
         $stmt->bindParam(':created_at', $created_at);
 
         return $stmt->execute();

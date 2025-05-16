@@ -83,9 +83,5 @@ class ProductController extends BaseController{
             ]);
         }
     }
-
-
-
 }
-
 ?>

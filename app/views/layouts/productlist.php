@@ -22,7 +22,7 @@
                 <div class="col"><?= htmlspecialchars(date('F j, Y', strtotime($product['created_at']))) ?></div>
                 <div class="col actions">
                     <button class="edit-btn">
-                        <i class="fa-solid fa-edit"></i> Edit
+                        <i  class="fa-solid fa-edit"></i> Edit
                     </button>
                     <button class="delete-btn">
                         <i class="fa-solid fa-trash"></i> Delete
