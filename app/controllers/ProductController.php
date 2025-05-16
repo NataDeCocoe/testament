@@ -22,7 +22,7 @@ class ProductController extends BaseController{
             $prod_price = $_POST['prod_price'] ?? 0.0;
             $prod_img_path = null;
 
-            // Handle image upload
+
             if (!empty($_FILES['prod_img']['tmp_name'])) {
                 if ($_FILES['prod_img']['error'] !== UPLOAD_ERR_OK) {
                     $uploadErrors = [
@@ -39,7 +39,7 @@ class ProductController extends BaseController{
 
                 $uploadsDir = __DIR__ . '/../../public/uploads/';
                 if (!is_dir($uploadsDir)) {
-                    mkdir($uploadsDir, 0755, true); // Create directory if not exists
+                    mkdir($uploadsDir, 0755, true);
                 }
 
                 $originalName = basename($_FILES['prod_img']['name']);
@@ -51,10 +51,10 @@ class ProductController extends BaseController{
                     throw new Exception('Failed to move uploaded file.');
                 }
 
-                $prod_img_path = 'uploads/' . $uniqueName; // Store relative path
+                $prod_img_path = 'uploads/' . $uniqueName;
             }
 
-            // Basic validation
+
             if (empty($prod_name) || empty($prod_desc) || $prod_quan <= 0 || $prod_price <= 0 || !$prod_img_path) {
                 throw new Exception("All fields are required and image must be uploaded.");
             }
@@ -83,5 +83,31 @@ class ProductController extends BaseController{
             ]);
         }
     }
+
+    public function show(){
+        header('Content-Type: application/json');
+        $response = ['status' => false, 'message' => '', 'data' => null];
+
+        if (!isset($_GET['id'])) {
+            $response['message'] = 'No product ID provided.';
+            echo json_encode($response);
+            return;
+        }
+
+        $id = $_GET['id'];
+        $productModel = new Product();
+        $product = $productModel->find($id);
+
+        if ($product) {
+            $response['status'] = true;
+            $response['message'] = 'Product retrieved successfully.';
+            $response['data'] = $product;
+        } else {
+            $response['message'] = 'Product not found.';
+        }
+
+        echo json_encode($response);
+    }
+
 }
 ?>
