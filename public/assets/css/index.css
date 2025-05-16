@@ -309,6 +309,42 @@ form {
 
 }
 
+/*inputs*/
+.form-floating2 input {
+
+    height: 2.5rem;
+    padding: 1rem;
+    font-family: 'Poppins', sans-serif;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.form-floating2 input:focus {
+    border-color: #61120C;
+    outline: none;
+}
+
+.form-floating2 label {
+    position: absolute;
+    top: 9px;
+    left: 15px;
+    color: #6c757d;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    font-family: 'Poppins', sans-serif;
+    background-color: white;
+    padding: 0 5px;
+}
+
+.form-floating2 input:focus + label,
+.form-floating2 input:not(:placeholder-shown) + label {
+    top: -10px;
+    left: 10px;
+    font-size: 12px;
+    color: #61120C;
+    background-color: white;
+}
 
 
 
