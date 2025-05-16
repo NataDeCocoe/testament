@@ -1,14 +1,15 @@
+// Open modal function
 function openModal() {
     document.getElementById('addProductModal').style.display = 'flex';
-    document.getElementById('productForm').reset();
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('responseMessage').textContent = '';
+    document.getElementById('productForm').reset();  // Reset the form
+    document.getElementById('imagePreview').style.display = 'none'; // Hide image preview on modal open
+    document.getElementById('responseMessage').textContent = ''; // Clear previous response message
 }
 
-
+// Close modal function
 function closeModal() {
     document.getElementById('addProductModal').style.display = 'none';
-    document.getElementById('responseMessage').textContent = '';
+    document.getElementById('responseMessage').textContent = ''; // Clear response message on close
 }
 
 function showToast(message, type = 'success') {
@@ -17,12 +18,12 @@ function showToast(message, type = 'success') {
     toast.textContent = message;
 
     setTimeout(() => {
-        toast.className = 'toast';
+        toast.className = 'toast'; // Reset
     }, 3000);
 }
 
 
-
+// Form submission with fetch API
 document.getElementById('productForm').addEventListener('submit', function (e) {
     e.preventDefault();
     console.log("Form submitted!");
@@ -54,35 +55,3 @@ document.getElementById('productForm').addEventListener('submit', function (e) {
             showToast('Error: ' + error.message, 'error');
         });
 });
-
-
-document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', () => {
-        const prod_id = button.getAttribute('data-id');
-        const baseUrl = window.location.origin;
-
-        fetch(`${baseUrl}/admin/inventory/show?id=${prod_id}`)
-            .then(response => response.json())
-            .then(data => {
-                if (data.status) {
-                    const p = data.data;
-                    document.getElementById('prod_id').value = p.prod_id;
-                    document.getElementById('productName').value = p.prod_name;
-                    document.getElementById('productDescription').value = p.prod_desc;
-                    document.getElementById('quantity').value = p.prod_quan;
-                    document.getElementById('price').value = p.prod_price;
-
-                    document.getElementById('editProductModal').style.display = 'block';
-                    console.log(p);
-                } else {
-                    alert(data.message);
-                }
-            })
-            .catch(() => alert('Error loading product data.'));
-    });
-});
-
-function closeEditModal() {
-    document.getElementById('editProductModal').style.display = 'none';
-    document.getElementById('responseMessage').textContent = '';
-}

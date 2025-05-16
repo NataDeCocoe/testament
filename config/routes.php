@@ -14,7 +14,6 @@ $routes = [
     'GET:/inventory/view' => 'AdminController@showInventory',
     'GET:/inventory' => 'ProductController@getProducts',
     'POST:/admin/inventory' => 'ProductController@addProduct',
-    'GET:/admin/inventory/show' => 'ProductController@show',
 
     // Auth
     'GET:/login' => 'AuthController@showLoginForm',

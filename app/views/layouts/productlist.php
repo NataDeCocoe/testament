@@ -21,7 +21,7 @@
                 <div class="col"><span>₱</span><?= htmlspecialchars($product['prod_price']) ?></div>
                 <div class="col"><?= htmlspecialchars(date('F j, Y', strtotime($product['created_at']))) ?></div>
                 <div class="col actions">
-                    <button class="edit-btn" data-id="<?= $product['prod_id'] ?>">
+                    <button class="edit-btn">
                         <i  class="fa-solid fa-edit"></i> Edit
                     </button>
                     <button class="delete-btn">

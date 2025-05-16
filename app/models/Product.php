@@ -33,11 +33,6 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function find($id)
-    {
-        $stmt = $this->db->prepare("SELECT * FROM products WHERE prod_id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
 }
+
 ?>
