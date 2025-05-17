@@ -71,6 +71,16 @@ class Product {
         return $row['total'] ?? 0;
     }
 
+    public function getLimited($limit)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM products ORDER BY created_at DESC LIMIT :limit");
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+
 
 
 }

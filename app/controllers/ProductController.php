@@ -196,6 +196,30 @@ class ProductController extends BaseController{
         }
     }
 
+    public function getAllForDashboard()
+    {
+        header('Content-Type: application/json');
+        $response = ['status' => false, 'data' => [], 'message' => ''];
+
+        try {
+            $productModel = new Product();
+            $products = $productModel->getLimited(4);
+
+            if (!empty($products)) {
+                $response['status'] = true;
+                $response['data'] = $products;
+            } else {
+                $response['message'] = 'No products found.';
+            }
+        } catch (Exception $e) {
+            $response['message'] = 'Error: ' . $e->getMessage();
+        }
+
+        echo json_encode($response);
+    }
+
+
+
 
 
 }

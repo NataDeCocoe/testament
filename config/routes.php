@@ -35,6 +35,9 @@ $routes = [
     'GET:/profile' => 'HomeController@showProfile',
     'GET:/profile' => 'ProfileController@showProfile',
 
+    // Pages
+    'GET:/home/products' => 'ProductController@getAllForDashboard',
+
 
     'GET:/logout' => 'AuthController@logout',
 ];

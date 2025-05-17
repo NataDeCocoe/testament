@@ -22,6 +22,8 @@ $targetClass = 'innerProdItems';
         <span class="nTag">Name</span>
         <span class="pTag">Price</span>
     </div>
+
+
     <div class="innerProdCon">
         <div class="innerProdItems">
             <a class="innerA">Quick view</a>
@@ -29,6 +31,7 @@ $targetClass = 'innerProdItems';
         <span class="nTag">Name</span>
         <span class="pTag">Price</span>
     </div>
+
     <div class="innerProdCon">
         <div class="innerProdItems">
             <a class="innerA">Quick view</a>
@@ -36,6 +39,7 @@ $targetClass = 'innerProdItems';
         <span class="nTag">Name</span>
         <span class="pTag">Price</span>
     </div>
+
     <div class="innerProdCon">
         <div class="innerProdItems">
             <a class="innerA">Quick view</a>
@@ -43,6 +47,7 @@ $targetClass = 'innerProdItems';
         <span class="nTag">Name</span>
         <span class="pTag">Price</span>
     </div>
+
 </div>
 
 <div class="invBlock"></div>
