@@ -36,45 +36,45 @@
     <form id="r-form">
         <div class="d-flex justify-content-center pt-4 i-gap w-1 r-input">
             <div class="form-floating2">
-                <input type="text" class="form-control" id="fname" placeholder="" >
+                <input type="text" name="firstname" class="form-control" id="fname" placeholder="" >
                 <label for="fname">First name</label>
                 <div class="invalid-feedback" id="fnameError"></div>
             </div>
             <div class="form-floating2">
-                <input type="text" class="form-control" id="lname" placeholder="" >
+                <input type="text" name="lastname" class="form-control" id="lname" placeholder="" >
                 <label for="lname">Last name</label>
                 <div class="invalid-feedback" id="lnameError"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center pt-5 i-gap w-1 r-input c-height">
             <div class="form-floating2">
-                <input type="email" class="form-control" id="email" placeholder="" >
+                <input type="email" name="email" class="form-control" id="email" placeholder="" >
                 <label for="email">Email address</label>
                 <div class="invalid-feedback" id="remailError"></div>
             </div>
             <div class="form-floating2">
-                <input type="tel" class="form-control" id="phone" placeholder="" >
-                <label for="phone">Phone number</label>
+                <input type="tel" name="phone" class="form-control" id="phone" placeholder="" >
+                <label for="phone">Phone</label>
                 <div class="invalid-feedback" id="pError"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center mb-2 pt-5 i-gap w-1 r-input c-height fixed-w">
             <div class="form-floating2 mb-1">
-                <input type="text" class="form-control c-width" id="address" placeholder="">
+                <input type="text" name="address" class="form-control c-width" id="address" placeholder="">
                 <label for="address">Address</label>
                 <div class="invalid-feedback" id="addError"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center mb-2 pt-5 i-gap w-1 r-input c-height fixed-w">
             <div class="form-floating2 mb-1">
-                <input type="password" class="form-control c-width" id="password" placeholder="" >
+                <input type="password" name="password" class="form-control c-width" id="password" placeholder="" >
                 <label for="password">Enter your password</label>
                 <div class="invalid-feedback" id="rPass"></div>
             </div>
         </div>
         <div class="d-flex justify-content-center pt-5 i-gap w-1 r-input c-height ">
             <div class="form-floating2">
-                <input type="password" class="form-control c-width" id="confirmPass" placeholder="" >
+                <input type="password" name="confirm_password" class="form-control c-width" id="confirmPass" placeholder="" >
                 <label for="confirmPass">Confirm your password</label>
                 <div class="invalid-feedback" id="conPass"><small><?php echo htmlspecialchars($error ?? '') ?></small></div>
             </div>

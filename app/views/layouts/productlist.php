@@ -24,7 +24,7 @@
                     <button class="edit-btn" data-id="<?= $product['prod_id'] ?>">
                         <i  class="fa-solid fa-edit"></i> Edit
                     </button>
-                    <button class="delete-btn">
+                    <button class="delete-btn" data-id="<?= $product['prod_id'] ?>">
                         <i class="fa-solid fa-trash"></i> Delete
                     </button>
                 </div>

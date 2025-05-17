@@ -55,5 +55,13 @@ class User {
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function countAll()
+    {
+        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM users");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total'] ?? 0;
+    }
 }
 ?>

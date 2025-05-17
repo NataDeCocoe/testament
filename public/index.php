@@ -1,12 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 global $routes;
 
 session_start();
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 require_once __DIR__.'/../config/routes.php';
 require_once __DIR__.'/../app/controllers/BaseController.php';

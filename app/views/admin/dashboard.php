@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script type="text/javascript" src="assets/js/sidebar.js" defer></script>
+    <script type="text/javascript" src="assets/js/prodCounter.js" defer></script>
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {
@@ -30,11 +31,11 @@
 <main class="dashboard">
     <div class="card totalItems">
         <p>Total Product</p>
-        <p id="productCounts">30</p>
+        <p id="productCounts">Loading...</p>
     </div>
     <div class="card registerdUser">
         <p>Registered Users</p>
-        <p id="rUsersCounts">21,450</p>
+        <p id="rUsersCounts">Loading...</p>
     </div>
     <div class="card orders">
         <p><a href="#">Total Orders</a></p>
@@ -171,5 +172,6 @@
     </div>
 
 </main>
+
 </body>
 </html>

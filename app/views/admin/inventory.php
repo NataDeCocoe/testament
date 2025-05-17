@@ -90,8 +90,8 @@ if (!isset($_SESSION['user_id'])) {
         <form id="editProductForm" method="post" enctype="multipart/form-data">
             <input type="hidden" name="prod_id" id="prod_id">
             <div class="form-group">
-                <label for="productImage">Product Image</label>
-                <input name="prod_img" type="file" id="productImage" accept="image/*" onchange="previewImage(event)" required>
+<!--                <label for="productImage">Product Image</label>-->
+                <input name="prod_img" type="hidden" id="productImage" accept="image/*" onchange="previewImage(event)" required>
             </div>
 
             <div class="form-group">
@@ -122,5 +122,17 @@ if (!isset($_SESSION['user_id'])) {
     </div>
 </div>
 
+
+
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content">
+<!--        <h4>Delete Product</h4>-->
+        <p id="deleteProductDetails"></p>
+        <div class="modal-footer">
+            <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -154,8 +154,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     if (data.message.includes('Email')) {
                         email.classList.add("is-invalid");
-                        remailError.textContent = data.message;
+
                     }
+                    if (data.message.includes('phone')) {
+                        phone.classList.add("is-invalid");
+                        phoneError.textContent = data.message;
+                    }
+
 
                 }
             } catch (error) {

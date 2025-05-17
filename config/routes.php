@@ -15,6 +15,11 @@ $routes = [
     'GET:/inventory' => 'ProductController@getProducts',
     'POST:/admin/inventory' => 'ProductController@addProduct',
     'GET:/admin/inventory/show' => 'ProductController@show',
+    'POST:/admin/inventory/update' => 'ProductController@updateProduct',
+    'POST:/admin/inventory/delete' => 'ProductController@deleteProduct',
+    'GET:/admin/inventory/count' => 'ProductController@countProducts',
+    'GET:/admin/users/count' => 'UserController@countUsers',
+
 
     // Auth
     'GET:/login' => 'AuthController@showLoginForm',

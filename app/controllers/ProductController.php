@@ -109,5 +109,94 @@ class ProductController extends BaseController{
         echo json_encode($response);
     }
 
+    public function updateProduct()
+    {
+        header('Content-Type: application/json');
+        ini_set('display_errors', 1); error_reporting(E_ALL);
+
+        $response = ['status' => false, 'message' => ''];
+
+        try {
+            if (!isset($_POST['prod_id'])) {
+                throw new Exception('Missing product ID');
+            }
+
+            $id = $_POST['prod_id'];
+            $data = [
+                'prod_name' => $_POST['prod_name'],
+                'prod_desc' => $_POST['prod_desc'],
+                'prod_quan' => $_POST['prod_quan'],
+                'prod_price' => $_POST['prod_price'],
+            ];
+
+
+            $product = new Product();
+            $success = $product->update($id, $data);
+
+            if ($success) {
+                $response['status'] = 'success';
+                $response['message'] = 'Product updated successfully';
+            } else {
+                $response['message'] = 'Failed to update product';
+            }
+        } catch (Exception $e) {
+            $response['message'] = 'Error: ' . $e->getMessage();
+        }
+
+        echo json_encode($response);
+    }
+
+
+    public function deleteProduct()
+    {
+        header('Content-Type: application/json');
+        ini_set('display_errors', 1); error_reporting(E_ALL);
+
+        $response = ['status' => false, 'message' => ''];
+
+        try {
+            if (!isset($_POST['prod_id'])) {
+                throw new Exception('Product ID is required.');
+            }
+
+            $id = $_POST['prod_id'];
+            $productModel = new Product();
+
+            if ($productModel->delete($id)) {
+                $response['status'] = true;
+                $response['message'] = 'Product deleted';
+            } else {
+                $response['message'] = 'Failed to delete product';
+            }
+
+        } catch (Exception $e) {
+            $response['message'] = 'Exception: ' . $e->getMessage();
+        }
+
+        echo json_encode($response);
+    }
+
+    public function countProducts()
+    {
+        header('Content-Type: application/json');
+
+        try {
+            $productModel = new Product();
+            $total = $productModel->countAllProducts();
+
+            echo json_encode([
+                'status' => true,
+                'count' => $total
+            ]);
+        } catch (Exception $e) {
+            echo json_encode([
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+
+
 }
 ?>
