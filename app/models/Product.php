@@ -79,9 +79,12 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
-
-
+    public function getAll()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM products ORDER BY created_at ASC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
 }
 ?>

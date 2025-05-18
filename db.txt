@@ -1,5 +1,5 @@
 CREATE DATABASE testamentdb;
-
+USE testamentdb;
 
 CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,15 +10,6 @@ CREATE TABLE users (
     home_address VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'customer') DEFAULT 'customer',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE admintble (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    firstname VARCHAR(65) NOT null,
-    lastname VARCHAR(65) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('admin') DEFAULT 'admin',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

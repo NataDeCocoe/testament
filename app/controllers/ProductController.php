@@ -218,6 +218,14 @@ class ProductController extends BaseController{
         echo json_encode($response);
     }
 
+    public function getAllProducts()
+    {
+        $product = new Product();
+        $products = $product->getAll();
+
+        header('Content-Type: application/json');
+        echo json_encode($products);
+    }
 
 
 

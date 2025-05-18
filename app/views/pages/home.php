@@ -40,12 +40,15 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 
+    <h1>New Arrivals</h1>
     <?php include __DIR__ . '/../layouts/productCard.php'; ?>
 
 
     <div class="invBlock"></div>
 
 
+    <h1 id="mostPopular">Most Popular</h1>
+    <?php include __DIR__ . '/../layouts/allProductCard.php'; ?>
 
     <div class="container">
         <div class="hero">
