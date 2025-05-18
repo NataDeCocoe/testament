@@ -36,7 +36,7 @@ $routes = [
     'GET:/profile' => 'ProfileController@showProfile',
 
     // Pages
-    'GET:/home/products' => 'ProductController@getAllForDashboard',
+    'GET:/home/products' => 'ProductController@getAllForNewRealease',
 
 
     'GET:/logout' => 'AuthController@logout',

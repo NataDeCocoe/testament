@@ -363,6 +363,41 @@ aside button{
     background-color: #dc3545;
 }
 
+/*skeleton loading*/
+.skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: #e0e0e0;
+    animation: blinkShimmer 1.1s infinite ease-in-out;
+    border-radius: 8px;
+}
+
+.skeleton-text {
+    display: inline-block;
+    width: 100px;
+    height: 16px;
+    margin-top: 8px;
+    border-radius: 4px;
+    background-color: #e0e0e0;
+    animation: blinkShimmer 1.5s infinite ease-in-out;
+}
+
+
+@keyframes blinkShimmer {
+    0% {
+        background-color: #e0e0e0;
+        filter: brightness(100%);
+    }
+    50% {
+        background-color: #f0f0f0;
+        filter: brightness(120%);
+    }
+    100% {
+        background-color: #e0e0e0;
+        filter: brightness(100%);
+    }
+}
+
 
 
 

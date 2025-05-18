@@ -53,7 +53,7 @@ if (!isset($_SESSION['user_id'])) {
         <form id="productForm" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="productImage">Product Image</label>
-                <input name="prod_img" type="file" id="productImage" accept="image/*" onchange="previewImage(event)" required>
+                <input name="prod_img" type="file" id="productImage" accept="image/*" onchange="preview Image(event)" required>
             </div>
 
             <div class="form-group">

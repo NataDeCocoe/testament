@@ -196,7 +196,7 @@ class ProductController extends BaseController{
         }
     }
 
-    public function getAllForDashboard()
+    public function getAllForNewRealease()
     {
         header('Content-Type: application/json');
         $response = ['status' => false, 'data' => [], 'message' => ''];
