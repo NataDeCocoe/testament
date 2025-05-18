@@ -36,7 +36,7 @@ if (!isset($_SESSION['user_id'])) {
 <main class="main">
     <div class="carousel" id="caro">
         <div  class="link">
-            <a href="">Explore Now</a>
+            <a href="/categories">Explore Now</a>
         </div>
     </div>
 

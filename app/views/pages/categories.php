@@ -16,6 +16,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
+    <script type="text/javascript" src="/assets/js/categoriesProd.js" defer></script>
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {
@@ -100,8 +101,8 @@ if (!isset($_SESSION['user_id'])) {
         </div>
 
     </div>
-
-    <?php include __DIR__ . '/../layouts/productCard.php'; ?>
+    <h1 id="allProd">All Products</h1>
+    <?php include __DIR__ . '/../layouts/categoriesAllProd.php'; ?>
 
 </main>
 <footer>

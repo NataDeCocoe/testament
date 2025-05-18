@@ -23,40 +23,56 @@ function showToast(message, type = 'success') {
 
 
 //ADD PRODUCT FORM SUBMIT EVENT HANDLER
-document.getElementById('productForm').addEventListener('submit', function (e) {
+document.getElementById('productForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    console.log("Form submitted!");
 
-    const formData = new FormData(this);
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
+    const form = this;
+    const fileInput = form.querySelector('input[name="prod_img"]');
+
+
+    if (fileInput.files.length === 0) {
+        showToast('Please select an image file', 'error');
+        return;
     }
 
-    fetch('/admin/inventory', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'X-Requested-With': 'XMLHttpRequest',
-            'Accept': 'application/json'
-        }
-    })
-        .then(response => response.json())
-        .then(data => {
-            showToast(data.message, data.status);
+    console.log('Uploading file:', fileInput.files[0].name, fileInput.files[0].size);
 
-            if (data.status === 'success') {
+    const submitButton = form.querySelector('button[type="submit"]');
+    const originalText = submitButton.innerHTML;
 
-                setTimeout(() => {
-                    location.reload();
-                    closeModal();
+    try {
+        submitButton.disabled = true;
+        submitButton.innerHTML = 'Uploading...';
 
-                }, 1000);
-
-            }
-        })
-        .catch(error => {
-            showToast('Error: ' + error.message, 'error');
+        const formData = new FormData(form);
+        const response = await fetch('/admin/inventory', {
+            method: 'POST',
+            body: formData
         });
+
+        if (response.status === 413) {
+            throw new Error('File too large (max 5MB)');
+        }
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message || 'Upload failed');
+        }
+
+        showToast(data.message, data.status);
+
+        if (data.status === 'success') {
+            setTimeout(() => location.reload(), 1500);
+        }
+
+    } catch (error) {
+        console.error('Upload error:', error);
+        showToast(error.message, 'error');
+    } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalText;
+    }
 });
 
 //GET THE PRODUCT ID FROM THE BUTTON AND FETCH THE PRODUCT DATA

@@ -48,9 +48,23 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('/home/all-products')
         .then(res => res.json())
         .then(products => {
+            const mainContainer = document.querySelector('.prodBackCon2');
             const productContainers = document.querySelectorAll('.prodBackCon2 .innerProdCon');
 
+            // Hide main container if no products
+            if (products.length === 0) {
+                mainContainer.style.display = 'none';
 
+                // Optional: Add empty state message
+                mainContainer.insertAdjacentHTML('afterend', `
+                    <div class="empty-products-message">
+                        No products available. <a href="/">About us</a>
+                    </div>
+                `);
+                return;
+            }
+
+            // Your existing product rendering logic
             productContainers.forEach((container, index) => {
                 if (products[index]) {
                     const product = products[index];
@@ -63,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     nameSpan.classList.remove('skeleton-text');
                     priceSpan.classList.remove('skeleton-text');
 
-
                     const img = new Image();
                     img.src = `/${product.prod_img}`;
                     img.onload = () => {
@@ -72,12 +85,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         imageBox.style.backgroundPosition = 'center';
                     };
 
-
                     nameSpan.textContent = product.prod_name;
                     priceSpan.textContent = `₱${product.prod_price}`;
                     quickView.setAttribute('data-id', product.prod_id);
                 } else {
-
                     container.style.display = 'none';
                 }
             });
@@ -86,3 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error loading all products:', err);
         });
 });
+
