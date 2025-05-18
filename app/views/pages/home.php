@@ -54,7 +54,7 @@ if (!isset($_SESSION['user_id'])) {
         <div class="hero">
             <h1>Season Sale</h1>
             <p>Buy one get one free</p>
-            <a class="pLink">View Categories</a>
+            <a class="pLink" href="/categories">View Categories</a>
         </div>
         <div class="collections">
             <div class="card"><img src="assets/images/newBook.jpg" alt="Kid's Collection"/>
