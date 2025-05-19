@@ -306,6 +306,22 @@ class ProductController extends BaseController{
         echo json_encode(['status' => true, 'products' => $products]);
     }
 
+    public function getProduct($id) {
+        $productModel = new Product();
+        $product = $productModel->find($id);
+
+        if ($product) {
+            echo json_encode([
+                'status' => true,
+                'data' => $product
+            ]);
+        } else {
+            echo json_encode([
+                'status' => false,
+                'message' => 'Product not found.'
+            ]);
+        }
+    }
 
 
 }

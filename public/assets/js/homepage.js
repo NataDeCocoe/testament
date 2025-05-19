@@ -32,7 +32,7 @@ updateImage();
 // });
 // window.dispatchEvent(new Event('resize'));
 
-//profile
+//PROFILE
 const fileInput = document.getElementById('fileInput');
 const profilePic = document.getElementById('profilePic');
 

@@ -1,8 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     const container = document.querySelector(".prodBackCon2");
 
-    // Create skeleton loaders (unchanged)
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 3; i++) {
         container.innerHTML += `
             <div class="innerProdCon">
                 <div class="innerProdItems skeleton">
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     card.innerHTML = `
                         <div class="innerProdItems">
-                            <a class="innerA">Quick view</a>
+                            <a class="innerA" data-id="${product.prod_id}">Quick view</a>
                         </div>
                         <span class="nTag">${product.prod_name}</span>
                         <span class="pTag">₱${product.prod_price}</span>
@@ -53,6 +52,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     container.appendChild(card);
                 });
+
+
+                document.querySelectorAll('.innerA').forEach(qv => {
+                    qv.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const prodId = this.getAttribute('data-id');
+                        if (prodId) {
+                            console.log("Clicked")
+                            openQuickView2(prodId);
+                        }
+                    });
+                });
             }
         })
         .catch(err => {
@@ -60,3 +71,53 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error("Fetch error:", err);
         });
 });
+
+//Quickview
+function openQuickView2(prodId) {
+    fetch(`/home/product/${prodId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (data.status) {
+                const product = data.data;
+
+                const modal = document.getElementById('quickViewModal');
+                const price = parseFloat(product.prod_price);
+
+                modal.querySelector('.product-img').src = `/${product.prod_img}`;
+                modal.querySelector('.product-title').textContent = product.prod_name;
+                modal.querySelector('.price').textContent = `₱${price.toFixed(2)}`;
+                modal.querySelector('.description').textContent = product.prod_desc;
+
+                const quantityInput = modal.querySelector(".quantity-wrap input");
+                const totalPriceElem = modal.querySelector(".total-price");
+
+                quantityInput.value = 1;
+                totalPriceElem.textContent = `₱${price.toFixed(2)}`;
+
+
+                quantityInput.replaceWith(quantityInput.cloneNode(true));
+                const newQuantityInput = modal.querySelector(".quantity-wrap input");
+
+
+                newQuantityInput.addEventListener("input", () => {
+                    let qty = parseInt(newQuantityInput.value) || 1;
+                    if (qty < 1) qty = 1;
+                    newQuantityInput.value = qty;
+                    const total = qty * price;
+                    totalPriceElem.textContent = `₱${total.toFixed(2)}`;
+                });
+
+                modal.classList.add('show');
+            } else {
+                alert('Product not found.');
+            }
+        })
+        .catch(err => {
+            console.error('Fetch error:', err);
+        });
+}
+
+
+function closeModalC() {
+    document.getElementById('quickViewModal').classList.remove('show');
+}

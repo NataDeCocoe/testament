@@ -39,6 +39,7 @@ $routes = [
     'GET:/home/products' => 'ProductController@getAllForNewRealease',
     'GET:/home/all-products' => 'ProductController@getAllProducts',
     'GET:/categories/products' => 'ProductController@getAllProductsForCategories',
+    'GET:/home/product/{id}' => 'ProductController@getProduct',
 
 
     'GET:/logout' => 'AuthController@logout',
