@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+footer {
+    padding-top: 4.5rem;
+    border-top: 1px solid #e1e1e1;
+    text-align: center;
+    margin-top: 10rem;
+    margin-bottom: 2rem;
+    color: #333;
+    width: 100%;
+}
+
+.footer-table {
+
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+.footer-table thead td {
+
+    /*padding-bottom: 15px;*/
+    font-size: 18px;
+}
+
+.footer-table tbody td {
+    padding: 8px 0;
+    vertical-align: top;
+}
+
+.footer-table a {
+    color: #666;
+    text-decoration: none;
+    display: block;
+}
+
+.footer-table a:hover {
+    color: #000;
+}
+
+
+.contact-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+
+.social-icons {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.social-icons a {
+    color: #555;
+    font-size: 20px;
+    margin: 0 10px;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    /*border-top: 1px solid #e1e1e1;*/
+    color: #888;
+    font-size: 14px;
+}

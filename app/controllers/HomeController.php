@@ -28,6 +28,14 @@ class HomeController extends BaseController{
         $this->views('pages/profile');
     }
 
+    public function showCart(){
+        $this->views('pages/cart');
+    }
+
+    public function showCheckout(){
+        $this->views('checkout/checkout');
+    }
+
 }
 
 ?>

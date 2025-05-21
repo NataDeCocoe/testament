@@ -8,6 +8,19 @@
     </div>
     <div class="shoppingCartWrapper">
         <span class="material-symbols-rounded" id="sCart">shopping_cart</span>
+        <span id="cartBadge" class="cart-badge">0</span>
+
+        <div id="cartDropdown" class="cart-dropdown" style="display: none;">
+            <div class="cart-items" id="cartItems"></div>
+            <div class="cart-subtotal">
+                <span id="subTotalLabel">SUB TOTAL</span>
+                <strong id="cartSubtotal">₱0.00</strong>
+            </div>
+            <div class="cart-actions">
+                <button id="checkOutBTN" onclick="location.href='/checkout'">PROCEED TO CHECKOUT</button>
+                <button id="viewCartBTN" onclick="location.href='/cart'">VIEW CART</button>
+            </div>
+        </div>
     </div>
 </nav>
 <aside class="side">

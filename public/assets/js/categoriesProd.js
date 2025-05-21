@@ -54,16 +54,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
 
 
-                document.querySelectorAll('.innerA').forEach(qv => {
-                    qv.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const prodId = this.getAttribute('data-id');
-                        if (prodId) {
-                            console.log("Clicked")
-                            openQuickView2(prodId);
-                        }
+                setTimeout(() => {
+                    document.querySelectorAll('.innerA').forEach(qv => {
+                        qv.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            const prodId = this.getAttribute('data-id');
+                            if (prodId) {
+                                console.log("CLICKED");
+                                openQuickView2(prodId);
+                            }
+                        });
                     });
-                });
+                }, 100);
             }
         })
         .catch(err => {
@@ -108,6 +110,17 @@ function openQuickView2(prodId) {
                 });
 
                 modal.classList.add('show');
+
+                const addToCartBtn = document.querySelector(".add-to-cart-btn");
+                addToCartBtn.setAttribute("data-id", product.prod_id);
+
+
+                addToCartBtn.onclick = () => {
+
+                    addToCart(product.prod_id);
+                    updateCartBadge(data.cartCount);
+                    modal.classList.remove('show');
+                };
             } else {
                 alert('Product not found.');
             }
@@ -116,7 +129,15 @@ function openQuickView2(prodId) {
             console.error('Fetch error:', err);
         });
 }
-
+function updateCartBadge(count) {
+    const badge = document.getElementById("cartBadge");
+    if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = "inline-block";
+    } else {
+        badge.style.display = "none";
+    }
+}
 
 function closeModalC() {
     document.getElementById('quickViewModal').classList.remove('show');

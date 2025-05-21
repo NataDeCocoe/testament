@@ -76,11 +76,11 @@ function openQuickView(prodId) {
                 quantityInput.value = 1;
                 totalPriceElem.textContent = `₱${price.toFixed(2)}`;
 
-                // Reset existing event listeners to avoid stacking
+
                 quantityInput.replaceWith(quantityInput.cloneNode(true));
                 const newQuantityInput = modal.querySelector(".quantity-wrap input");
 
-                // Add quantity change event
+
                 newQuantityInput.addEventListener("input", () => {
                     let qty = parseInt(newQuantityInput.value) || 1;
                     if (qty < 1) qty = 1;
@@ -90,6 +90,16 @@ function openQuickView(prodId) {
                 });
 
                 modal.classList.add('show');
+
+                const addToCartBtn = document.querySelector(".add-to-cart-btn");
+                addToCartBtn.setAttribute("data-id", product.prod_id);
+
+
+                addToCartBtn.onclick = () => {
+
+                    addToCart(product.prod_id);
+                };
+
             } else {
                 alert('Product not found.');
             }
@@ -98,10 +108,12 @@ function openQuickView(prodId) {
             console.error('Fetch error:', err);
         });
 }
-
 function closeModal() {
     document.getElementById('quickViewModal').classList.remove('show');
 }
+
+
+
 
 
 // GET PRODUCTS
@@ -116,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (products.length === 0) {
                 mainContainer.style.display = 'none';
 
-                // Optional: Add empty state message
+
                 mainContainer.insertAdjacentHTML('afterend', `
                     <div class="empty-products-message">
                         No products available. <a href="/">About us</a>
