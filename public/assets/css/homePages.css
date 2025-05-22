@@ -139,6 +139,9 @@ footer {
     color: #888;
     font-size: 14px;
 }
+.active{
+    color: white;
+}
 .cartDisplay{
     display: flex;
 }
@@ -862,7 +865,7 @@ footer {
 .cart-dropdown {
     position: absolute;
     right: 0;
-    top: 30px;
+    top: 45px;
     width: 300px;
     background: #fff;
     /*border: 1px solid #ccc;*/

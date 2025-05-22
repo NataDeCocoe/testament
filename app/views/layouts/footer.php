@@ -15,7 +15,7 @@
         <td>
             <div class="contact-item">
                 <i class="fas fa-envelope"></i>
-                <span>testament@gmail.com</span>
+                <span>testamentprintingservices@gmail.com</span>
             </div>
         </td>
         <td><a href="#">About</a></td>

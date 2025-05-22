@@ -27,33 +27,33 @@
     <ul class="navCon">
         <li>
             <a href="/home">
-                <span class="navIcon material-symbols-rounded">home</span>
-                <span>Home</span>
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/home' ? 'active' : '' ?>">home</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/home' ? 'active' : '' ?>">Home</span>
             </a>
         </li>
         <li>
             <a href="/categories">
-                <span class="navIcon material-symbols-rounded">category</span>
-                <span>Categories</span>
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/categories' ? 'active' : '' ?>">category</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/categories' ? 'active' : '' ?>">Categories</span>
             </a>
         </li>
         <li>
             <a href="/saved">
-                <span class="navIcon material-symbols-rounded">bookmark</span>
-                <span>Saved</span>
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/saved' ? 'active' : '' ?>">bookmark</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/saved' ? 'active' : '' ?>">Saved</span>
             </a>
         </li>
         <li>
             <a href="/notification">
-                <span class="navIcon material-symbols-rounded">notifications</span>
-                <span>Notification</span>
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">notifications</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">Notification</span>
             </a>
         </li>
         <div class="invBlock2"></div>
         <li>
             <a href="/profile">
-                <span class="navIcon material-symbols-rounded">account_circle</span>
-                <span>Profile</span>
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/profile' ? 'active' : '' ?>">account_circle</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/profile' ? 'active' : '' ?>">Profile</span>
             </a>
         </li>
         <li>
