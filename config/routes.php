@@ -10,6 +10,8 @@ $routes = [
 
     //Admin
     'GET:/dashboard' => 'AdminController@showDashboard',
+    'GET:/pending-orders' => 'Ordercontroller@getOrders',
+    'GET:/pending-orders/view' => 'AdminController@showPendingOrders',
     'GET:/orders' => 'AdminController@showOrders',
     'GET:/inventory/view' => 'AdminController@showInventory',
     'GET:/inventory' => 'ProductController@getProducts',
@@ -19,6 +21,8 @@ $routes = [
     'POST:/admin/inventory/delete' => 'ProductController@deleteProduct',
     'GET:/admin/inventory/count' => 'ProductController@countProducts',
     'GET:/admin/users/count' => 'UserController@countUsers',
+    'GET:/admin/orders/count' => 'OrderController@countOrders',
+
 
 
     // Auth
@@ -51,7 +55,12 @@ $routes = [
     'GET:/cart/items' => 'CartController@getItems',
     'POST:/cart/update/{id}' => 'CartController@updateCartQuantity',
 
-
+    //CHECKOUT
+    'GET:/checkout/getItems' => 'CartController@getItems',
+    'GET:/delivery-options' => 'DeliveryController@getOptions',
+    'GET:/payment-options' => 'PaymentController@getOptions',
+    'POST:/orders/place' => 'OrderController@place',
+    'GET:/success' => 'HomeController@showSuccess',
 
     'GET:/logout' => 'AuthController@logout',
 ];

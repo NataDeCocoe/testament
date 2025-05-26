@@ -73,12 +73,11 @@ document.getElementById("sCart").addEventListener("click", () => {
 
             if (data.status && data.items.length > 0) {
                 let subtotal = 0;
-
                 data.items.forEach(item => {
                     subtotal += item.quantity * item.price;
                     cartItemsContainer.innerHTML += `
                         <div class="cart-item">
-                            <img src="/${item.image}" alt="${item.name}">
+                            <img src="/${item.image}" alt="${item.name}" class="innerIMG">
                             <div>
                                 <div>${item.name}</div>
                                 <div>${item.quantity} × ₱${item.price.toFixed(2)}</div>
@@ -94,6 +93,7 @@ document.getElementById("sCart").addEventListener("click", () => {
                 cartItemsContainer.innerHTML = "<p style='text-align: center'>Your cart is empty.</p>";
                 cartSubtotal.style.display = "none";
                 subTotalLabel.style.display = "none";
+                // document.getElementById('checkOutBTN').disabled = 'true';
 
             }
         });

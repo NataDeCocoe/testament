@@ -21,10 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return re.test(String(email).toLowerCase());
     }
 
-    function isValidPhone(phone) {
-        const re = /^[\d\s\-+()]{11,}$/;
-        return re.test(phone);
-    }
 
     rform.addEventListener("submit", async function (event) {
         event.preventDefault();

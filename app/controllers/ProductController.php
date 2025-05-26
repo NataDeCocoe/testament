@@ -245,8 +245,7 @@ class ProductController extends BaseController{
         echo json_encode($response);
     }
 
-    public function countProducts()
-    {
+    public function countProducts(){
         header('Content-Type: application/json');
 
         try {

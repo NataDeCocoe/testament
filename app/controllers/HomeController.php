@@ -36,6 +36,10 @@ class HomeController extends BaseController{
         $this->views('checkout/checkout');
     }
 
+    public function showSuccess(){
+        $this->views('checkout/success');
+    }
+
 }
 
 ?>

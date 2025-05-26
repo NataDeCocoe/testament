@@ -14,6 +14,7 @@ function loadCartPageItems() {
                 subtotalElem.textContent = '₱0.00';
                 itemCountElem.textContent = '0';
                 totalElem.textContent = '₱0.00';
+                document.getElementById('pCheckout').disabled = 'true';
                 return;
             }
 
@@ -28,7 +29,7 @@ function loadCartPageItems() {
                 itemDiv.className = 'cart-item';
                 itemDiv.innerHTML = `
                     <div class="item-image">
-                        <img src="/${item.prod_img}" alt="${item.prod_name}">
+                        <img src="/${item.prod_img}" alt="${item.prod_name}" class="innerIMG">
                     </div>
                     <div class="item-details">
                         <div class="item-name">${item.prod_name}</div>
@@ -48,7 +49,7 @@ function loadCartPageItems() {
 
             subtotalElem.textContent = `₱${subtotal.toFixed(2)}`;
             itemCountElem.textContent = totalItems;
-            totalElem.textContent = `₱${(subtotal + 50).toFixed(2)}`; // assuming ₱50 shipping
+            totalElem.textContent = `₱${(subtotal).toFixed(2)}`; // assuming ₱50 shipping
         })
         .catch(err => console.error('Error loading cart:', err));
 }

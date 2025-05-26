@@ -28,39 +28,14 @@
 
 <main class="ordersMain">
     <div class="headerLabel">
-        <h2>Orders List</h2>
+        <h2>Pending Orders List</h2>
     </div>
 
 
-    <div class="orders-container">
-        <div class="orders-header">
-
-            <div class="col">Name</div>
-            <div class="col">Product Code</div>
-            <div class="col">Courier</div>
-            <div class="col">Date</div>
-            <div class="col">Total Amount</div>
-            <div class="col">Method of Payment</div>
-            <div class="col">Status</div>
-
-
-        </div>
-
-        <div class="orders-row">
-
-            <div class="col"><small>Nathaniel Bartolome</small></div>
-            <div class="col"><small>548235</small></div>
-            <div class="col"><small>J&T Express</small></div>
-            <div class="col"><small>April 19, 2025</small></div>
-            <div class="col"><span><small>₱</small></span> <small>800</small></div>
-            <div class="col"><small>Gcash</small></div>
-            <select class="col status" name="status" id="status" required>
-                <option value=""><small>Processing</small></option>
-                <option value=""><small>Shipped</small></option>
-                <option value=""><small>Completed</small></option>
-            </select>
-        </div>
+    <div id="product_list">
+        <?php include __DIR__ . '/../layouts/pendingOrders.php'; ?>
     </div>
+
 </main>
 </body>
 </html>

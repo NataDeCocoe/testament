@@ -69,7 +69,7 @@ aside{
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    margin-top: 8rem;
+    margin-top: 5rem;
 }
 .nav-con a{
     margin-top: 2em;
@@ -120,6 +120,14 @@ aside button{
     grid-row: 2 / -1;
     font-size: 2rem;
     font-weight: bold;
+}
+.status{
+    border: none;
+    font-family: "Poppins", sans-serif;
+    background-color: transparent;
+}
+.shipped{
+    color: #F6AB0F;
 }
 .ml{
     margin-left: 2vw;
@@ -242,6 +250,7 @@ aside button{
     align-items: center;
     padding: 1rem;
     gap: 0.5rem;
+    cursor: pointer;
 }
 
 .orders-header {

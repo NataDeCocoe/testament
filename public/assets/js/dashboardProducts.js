@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         nameTag.classList.remove('skeleton-text');
                         priceTag.classList.remove('skeleton-text');
 
-                        nameTag.textContent = product.prod_name;
+                        nameTag.textContent = decodeHtml(product.prod_name);
                         priceTag.textContent = `₱${product.prod_price}`;
                         quickView.setAttribute('data-id', product.prod_id);
                     };
@@ -66,9 +66,9 @@ function openQuickView(prodId) {
                 const price = parseFloat(product.prod_price);
 
                 modal.querySelector('.product-img').src = `/${product.prod_img}`;
-                modal.querySelector('.product-title').textContent = product.prod_name;
+                modal.querySelector('.product-title').textContent = decodeHtml(product.prod_name);
                 modal.querySelector('.price').textContent = `₱${price.toFixed(2)}`;
-                modal.querySelector('.description').textContent = product.prod_desc;
+                modal.querySelector('.description').textContent = decodeHtml(product.prod_desc);
 
                 const quantityInput = modal.querySelector(".quantity-wrap input");
                 const totalPriceElem = modal.querySelector(".total-price");
@@ -107,6 +107,11 @@ function openQuickView(prodId) {
         .catch(err => {
             console.error('Fetch error:', err);
         });
+}
+function decodeHtml(html) {
+    const txt = document.createElement('textarea');
+    txt.innerHTML = html;
+    return txt.value;
 }
 function closeModal() {
     document.getElementById('quickViewModal').classList.remove('show');

@@ -87,13 +87,36 @@ class CartController extends BaseController{
     public function getItems() {
         header('Content-Type: application/json');
 
-        $cartModel = new Cart();
-        $items = $cartModel->getCartItems();
+        try {
+            $cartModel = new Cart();
+            $items = $cartModel->getCartItems();
 
-        echo json_encode([
-            'status' => true,
-            'items' => $items
-        ]);
+            // Transform items to ensure consistent structure
+            $processedItems = array_map(function($item) {
+                return [
+                    'id' => $item['id'],
+                    'product_id' => $item['prod_id'],  // Critical for orders
+                    'prod_id' => $item['prod_id'],    // For backward compatibility
+                    'prod_name' => $item['prod_name'],
+                    'prod_price' => (float)$item['prod_price'],
+                    'quantity' => (int)$item['quantity'],
+                    'prod_img' => $item['prod_img']
+                ];
+            }, $items);
+
+            echo json_encode([
+                'status' => true,
+                'items' => $processedItems
+            ]);
+
+        } catch (Exception $e) {
+            error_log("Error in getItems: " . $e->getMessage());
+            echo json_encode([
+                'status' => false,
+                'message' => 'Failed to load cart items',
+                'error' => $e->getMessage()
+            ]);
+        }
     }
 
     public function updateCartQuantity($id)
@@ -114,5 +137,7 @@ class CartController extends BaseController{
             echo json_encode(['status' => false, 'message' => 'Update failed']);
         }
     }
+
+
 }
 ?>

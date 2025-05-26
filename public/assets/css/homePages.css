@@ -875,6 +875,9 @@ footer {
     border-radius: 6px;
 
 }
+.innerIMG{
+    border-radius: .4rem;
+}
 
 .cart-items {
     max-height: 200px;

@@ -37,7 +37,6 @@ if (!isset($_SESSION['user_id'])) {
 <main class="ordersMain">
     <div class="headerLabel">
         <h2>Product List</h2>
-
     </div>
 
     <div id="product_list">

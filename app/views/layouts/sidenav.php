@@ -17,7 +17,7 @@
                 <strong id="cartSubtotal">₱0.00</strong>
             </div>
             <div class="cart-actions">
-                <button id="checkOutBTN" onclick="location.href='/checkout'">PROCEED TO CHECKOUT</button>
+<!--                <button id="checkOutBTN" onclick="location.href='/checkout'">PROCEED TO CHECKOUT</button>-->
                 <button id="viewCartBTN" onclick="location.href='/cart'">VIEW CART</button>
             </div>
         </div>

@@ -7,6 +7,9 @@ class AdminController extends BaseController{
     public function showDashboard(){
         $this->views('admin/dashboard');
     }
+    public function showPendingOrders(){
+        $this->views('admin/pending');
+    }
     public function showOrders(){
         $this->views('admin/orders');
     }

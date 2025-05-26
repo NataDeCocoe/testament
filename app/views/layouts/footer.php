@@ -18,7 +18,7 @@
                 <span>testamentprintingservices@gmail.com</span>
             </div>
         </td>
-        <td><a href="#">About</a></td>
+        <td><a href="/about">About</a></td>
         <td><a href="#">Order tracking</a></td>
         <td><a href="#">Coloring Books</a></td>
 
@@ -79,5 +79,5 @@
 </div>
 
 <div class="copyright">
-    © 2025 Testament. All rights reserved
+    <small>© 2025 Testament. All rights reserved</small>
 </div>

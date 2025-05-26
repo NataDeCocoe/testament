@@ -31,3 +31,20 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Fetch error:", error);
         });
 });
+
+//ORDERS COUNT
+function loadOrderCount() {
+    fetch('/admin/orders/count')
+        .then(response => response.json())
+        .then(data => {
+            if (data.status) {
+                document.getElementById('orderCounts').textContent = data.count;
+            } else {
+                console.error('Failed to fetch count:', data.message);
+            }
+        })
+        .catch(err => console.error('Fetch error:', err));
+}
+
+
+window.addEventListener('DOMContentLoaded', loadOrderCount);

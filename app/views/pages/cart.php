@@ -38,17 +38,13 @@ if (!isset($_SESSION['user_id'])) {
                 <span>Subtotal (<span id="itemCount">0</span> items):</span>
                 <span id="subtotal">₱0.00</span>
             </div>
-            <div class="summary-row">
-                <span>Shipping:</span>
-                <span id="shipping">₱50.00</span>
-            </div>
             <div class="summary-row summary-total">
                 <span>Total:</span>
                 <span id="total">₱0.00</span>
             </div>
         </div>
 
-        <button class="checkout-btn">Proceed to Checkout</button>
+        <button id="pCheckout" class="checkout-btn" onclick="window.location.href='/checkout'">Proceed to Checkout</button>
 
         <div style="text-align: center;">
             <a href="/home" class="back-link">Back to shop</a>

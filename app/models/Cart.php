@@ -12,14 +12,32 @@ class Cart{
     }
 
     public function getCartItems() {
+        $userId = $_SESSION['user_id'] ?? null;
+
+        if (!$userId) {
+            error_log("No user_id in session. Session data: " . print_r($_SESSION, true));
+            return [];
+        }
+
         $stmt = $this->db->prepare("
-        SELECT c.id, c.quantity, p.prod_name, p.prod_price, p.prod_img
+        SELECT 
+            c.id, 
+            c.quantity, 
+            p.prod_id,
+            p.prod_name, 
+            p.prod_price, 
+            p.prod_img
         FROM cart c
         JOIN products p ON c.product_id = p.prod_id
         WHERE c.user_id = ?
     ");
-        $stmt->execute([$_SESSION['user_id']]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $stmt->execute([$userId]);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        error_log("Cart items query results for user $userId: " . print_r($results, true));
+
+        return $results;
     }
 
 

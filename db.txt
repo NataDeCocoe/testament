@@ -19,7 +19,7 @@ CREATE TABLE products (
     prod_name VARCHAR(65) NOT NULL,
     prod_desc VARCHAR(300) NOT NULL,
     prod_quan INT NOT NULL,
-    prod_price INT NOT NULL,
+    prod_price DECIMAL(10,2) NOT NULL,
     prod_img VARCHAR(450) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -33,5 +33,35 @@ CREATE TABLE cart (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(product_id) ON DELETE CASCADE
 );
+
+CREATE TABLE orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    ord_fname VARCHAR(65) NOT NULL,
+    ord_lname VARCHAR(65) NOT NULL,
+    contact_number VARCHAR(20) NOT NULL UNIQUE,
+    delivery_address TEXT NOT NULL,
+    building_address VARCHAR(100) NOT NULL,
+    zip_code VARCHAR(20) NOT NULL,
+    courier VARCHAR(50) NOT NULL,
+    shipping_fee DECIMAL(10,2) NOT NULL,
+    payment_method VARCHAR(50) NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    total_amount DECIMAL(10,2) NOT NULL,
+    status VARCHAR(50) DEFAULT 'Pending',
+    ordered_at DATE,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE ordered_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10,2),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(prod_id)
+);
+
 
 

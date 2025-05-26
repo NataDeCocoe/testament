@@ -63,8 +63,7 @@ class Product {
         return $stmt->execute([$id]);
     }
 
-    public function countAllProducts()
-    {
+    public function countAllProducts(){
         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM products");
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);

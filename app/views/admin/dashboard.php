@@ -45,7 +45,7 @@ if (!isset($_SESSION['user_id'])) {
     </div>
     <div class="card orders">
         <p><a href="#">Total Orders</a></p>
-        <p id="orderCounts">5,050</p>
+        <p id="orderCounts">Loading...</p>
     </div>
 
     <!--WEEKLY SALES-->
