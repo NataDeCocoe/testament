@@ -61,8 +61,9 @@ class OrderController extends BaseController{
                 'payment_method' => $data['payment_method'],
                 'subtotal' => floatval($data['subtotal']),
                 'total_amount' => floatval($data['total']),
-                'status' => 'Pending',
-                'ordered_at' => date('Y-m-d')
+                'shipping_status' => 'Processing',
+                'payment_status' => 'Unpaid',
+                'ordered_at' => date('m-d-Y h:i A')
             ];
 
             $items = $data['items'] ?? [];

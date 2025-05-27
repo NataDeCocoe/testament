@@ -190,7 +190,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 }
 
                 return {
-                    product_id: item.prod_id || item.product_id, // Use whichever field exists
+                    product_id: item.prod_id || item.product_id,
                     quantity: item.quantity,
                     price: item.prod_price || item.price
                 };
@@ -210,8 +210,9 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 total: grandTotal,
                 items: items,
             };
+
             console.log("Sending order data:", data);
-            // Send final payload to place order
+
             fetch('/orders/place', {
                 method: 'POST',
                 headers: {
@@ -229,8 +230,18 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 })
                 .then(response => {
                     if (response.status === 'success') {
-                        alert("Order placed successfully!");
-                        window.location.href = "/success";
+                        fetch('/cart/clear', {
+                            method: 'POST'
+                        })
+                            .then(res => res.json())
+                            .then(clearRes => {
+                                if (clearRes.status === 'success') {
+                                    alert("Order placed and cart cleared!");
+                                    window.location.href = "/success";
+                                } else {
+                                    alert("Order placed, but failed to clear cart.");
+                                }
+                            });
                     } else {
                         alert("Order failed: " + response.message);
                     }
@@ -252,6 +263,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 });
         });
 });
+
 
 
 

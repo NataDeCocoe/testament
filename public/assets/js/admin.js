@@ -181,12 +181,12 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.json())
             .then(data => {
                 if (data.status) {
-                    showToast(data.message, data.status);
+                    showToast(data.message, 'success');
                     setTimeout(() => {
                         location.reload();
                     }, 1000)
                 } else {
-                    alert("Delete failed: " + data.message);
+                    showToast("Product currently in some orders. Please remove the product from orders before deleting it.", 'error');
                 }
             })
             .catch(() => alert("Server error."));

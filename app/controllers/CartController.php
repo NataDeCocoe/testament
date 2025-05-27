@@ -12,15 +12,14 @@ class CartController extends BaseController{
         $this->cartModel = new Cart();
     }
 
-    public function add()
-    {
-        // Get raw JSON input
+    public function add(){
+
         $input = json_decode(file_get_contents('php://input'), true);
 
         $product_id = $input['product_id'] ?? null;
         $quantity = $input['quantity'] ?? 1;
 
-        // Basic validation
+
         if (!$product_id) {
             echo json_encode([
                 'status' => false,
@@ -91,12 +90,12 @@ class CartController extends BaseController{
             $cartModel = new Cart();
             $items = $cartModel->getCartItems();
 
-            // Transform items to ensure consistent structure
+
             $processedItems = array_map(function($item) {
                 return [
                     'id' => $item['id'],
-                    'product_id' => $item['prod_id'],  // Critical for orders
-                    'prod_id' => $item['prod_id'],    // For backward compatibility
+                    'product_id' => $item['prod_id'],
+                    'prod_id' => $item['prod_id'],
                     'prod_name' => $item['prod_name'],
                     'prod_price' => (float)$item['prod_price'],
                     'quantity' => (int)$item['quantity'],
@@ -124,10 +123,10 @@ class CartController extends BaseController{
         $input = json_decode(file_get_contents('php://input'), true);
         $newQty = $input['quantity'] ?? 1;
 
-        // Assuming you have user ID from session
+
         $userId = $_SESSION['user_id'];
 
-        // Update quantity
+
         $cartModel = new Cart();
         $updated = $cartModel->updateQuantity($userId, $id, $newQty);
 
@@ -138,6 +137,21 @@ class CartController extends BaseController{
         }
     }
 
+    public function clearAfterCheckout(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $userId = $_SESSION['user_id'] ?? 1;
+
+            $cartModel = new Cart();
+            $result = $cartModel->clearCartByUserId($userId);
+
+            if ($result) {
+                echo json_encode(['status' => 'success']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['status' => 'error', 'message' => 'Failed to clear cart']);
+            }
+        }
+    }
 
 }
 ?>

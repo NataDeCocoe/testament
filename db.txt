@@ -48,8 +48,9 @@ CREATE TABLE orders (
     payment_method VARCHAR(50) NOT NULL,
     subtotal DECIMAL(10,2) NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
-    status VARCHAR(50) DEFAULT 'Pending',
-    ordered_at DATE,
+    shipping_status VARCHAR(50) DEFAULT 'Processing',
+    payment_status VARCHAR(50) DEFAULT 'Unpaid',
+    ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 

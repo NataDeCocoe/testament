@@ -54,6 +54,7 @@ $routes = [
     'POST:/cart/remove/{id}' => 'CartController@remove',
     'GET:/cart/items' => 'CartController@getItems',
     'POST:/cart/update/{id}' => 'CartController@updateCartQuantity',
+    'POST:/cart/clear' => 'CartController@clearAfterCheckout',
 
     //CHECKOUT
     'GET:/checkout/getItems' => 'CartController@getItems',

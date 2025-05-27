@@ -345,18 +345,19 @@ aside button{
     visibility: hidden;
     min-width: 250px;
     margin-left: -125px;
-    background-color: #28A745FF;
+    background-color: #9e9f9e;
     color: #fff;
     text-align: center;
     border-radius: .5rem;
     padding: 16px;
     position: fixed;
     z-index: 1000;
-    left: 87%;
+    left: 85%;
+    right: 1rem;
     top: 30px;
     font-size: 16px;
     opacity: 0;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: opacity 0.4s ease-in, visibility 0.4s ease;
 }
 
 .toast.show {
