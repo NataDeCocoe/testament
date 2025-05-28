@@ -88,5 +88,31 @@ class Order {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getOrderWithProducts($orderId) {
+        // Get the order info
+        $stmt = $this->db->prepare("SELECT * FROM orders WHERE order_id = ?");
+        $stmt->execute([$orderId]);
+        $order = $stmt->fetch();
+
+        // Get the ordered products
+        $productsStmt = $this->db->prepare("
+            SELECT 
+                p.prod_name AS product_name,
+                p.prod_price,
+                oi.quantity,
+                (oi.quantity * p.prod_price) AS total_price
+            FROM ordered_items oi
+            JOIN products p ON oi.product_id = p.prod_id
+            WHERE oi.order_id = ?
+        ");
+        $productsStmt->execute([$orderId]);
+        $products = $productsStmt->fetchAll();
+
+        return [
+            'order' => $order,
+            'products' => $products
+        ];
+    }
 }
 ?>

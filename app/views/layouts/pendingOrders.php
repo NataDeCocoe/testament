@@ -10,7 +10,7 @@
 
     <?php if (!empty($orders)): ?>
         <?php foreach ($orders as $order): ?>
-            <div class="orders-row">
+            <div class="orders-row" data-id="<?= $order['order_id'] ?>">
                 <div class="col"><small><?= htmlspecialchars($order['ord_fname']) ?></small></div>
                 <div class="col"><small><?= htmlspecialchars($order['ord_lname']) ?></small></div>
                 <div class="col"><small><?= htmlspecialchars(date('F j, Y', strtotime($order['ordered_at']))) ?></small></div>
@@ -31,4 +31,5 @@
             <div class="col">No orders found.</div>
         </div>
     <?php endif; ?>
+
 </div>

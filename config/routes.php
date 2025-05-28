@@ -12,6 +12,7 @@ $routes = [
     'GET:/dashboard' => 'AdminController@showDashboard',
     'GET:/pending-orders' => 'Ordercontroller@getOrders',
     'GET:/pending-orders/view' => 'AdminController@showPendingOrders',
+    'GET:/pending-orders/details/{id}' => 'OrderController@orderDetails',
     'GET:/orders' => 'AdminController@showOrders',
     'GET:/inventory/view' => 'AdminController@showInventory',
     'GET:/inventory' => 'ProductController@getProducts',

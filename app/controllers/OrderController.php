@@ -111,5 +111,12 @@ class OrderController extends BaseController{
 
        $this->views('admin/pending', ['orders' => $orders]);
     }
+
+    public function orderDetails($id) {
+        $orderModel = new Order();
+        $data = $orderModel->getOrderWithProducts($id);
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
 }
 ?>
