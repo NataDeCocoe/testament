@@ -40,13 +40,13 @@
             <div class="col">Date</div>
             <div class="col">Total Amount</div>
             <div class="col">Method of Payment</div>
-            <div class="col">Shipping Status</div>
+            <div class="col">Order Status</div>
             <div class="col">Payment Status</div>
 
 
         </div>
 
-        <div class="orders-row">
+            <div class="orders-row">
 
             <div class="col"><small>Nathaniel Bartolome</small></div>
             <div class="col"><small>J&T Express</small></div>
@@ -54,9 +54,11 @@
             <div class="col"><span><small>₱</small></span> <small>800</small></div>
             <div class="col"><small>Gcash</small></div>
             <select class="col status" name="status" id="status" required>
+                <option value=""><small>Approved</small></option>
                 <option value=""><small>Processing</small></option>
                 <option value=""><small>Shipped</small></option>
                 <option value=""><small>Completed</small></option>
+                <option value=""><small>Canceled</small></option>
             </select>
             <select class="col status" name="status" id="status" required>
                 <option value="Unpaid"><small>Unpaid</small></option>

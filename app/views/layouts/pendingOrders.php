@@ -21,7 +21,7 @@
                         <i class="fa-solid fa-check"></i> Approved
                     </button>
                     <button class="delete-btn" data-id="<?= $order['order_id'] ?>">
-                        <i class="fa-solid fa-trash"></i> Delete
+                        <i class="fa-solid fa-close"></i> Reject
                     </button>
                 </div>
             </div>

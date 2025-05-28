@@ -44,6 +44,12 @@
             </a>
         </li>
         <li>
+            <a href="/my-orders">
+                <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/my-orders' ? 'active' : '' ?>">shopping_bag</span>
+                <span class="<?= $_SERVER['REQUEST_URI'] === '/my-orders' ? 'active' : '' ?>">Orders</span>
+            </a>
+        </li>
+        <li>
             <a href="/notification">
                 <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">notifications</span>
                 <span class="<?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">Notification</span>
