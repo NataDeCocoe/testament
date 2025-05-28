@@ -21,6 +21,9 @@ class HomeController extends BaseController{
     public function showSaved(){
         $this->views('pages/saved');
     }
+    public function showMyOrders(){
+        $this->views('pages/myOrders');
+    }
     public function showNotification(){
         $this->views('pages/notification');
     }

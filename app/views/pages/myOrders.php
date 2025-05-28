@@ -35,37 +35,19 @@ if (!isset($_SESSION['user_id'])) {
 <?php include __DIR__ . '/../layouts/sidenav.php'; ?>
 
 <main class="main">
-    <h1 class="headLabels">Saved</h1>
-    <div class="prodSavedBackCon">
-        <div class="innerProdCon">
-            <div class="savedBookItems">
-                <button class="material-symbols-rounded bDisplay alignBTN">bookmark</button>
-            </div>
-            <span>The Eve</span>
+    <h1 class="headLabels">My Orders</h1>
+    <div class="profileItemHistory">
+        <img class="img" src="/assets/images/newBook2.jpg" width="90" height="100" alt="">
+        <div class="notifContent">
+            <h4 class="notifHeader">The Eve</h4>
+            <p class="historyText">Total Item: <span>1pcs</span></p>
+            <p class="historyText">Price: <span>₱120</span></p>
         </div>
-        <div class="innerProdCon">
-            <div class="savedBookItems">
-                <button class="material-symbols-rounded bDisplay">bookmark</button>
-            </div>
-            <span>The World of War II</span>
+        <div class="notifTimestamp">
+            <p class="historyStatus"><small>Completed</small></p>
         </div>
-
-
-
     </div>
 
-    <?php
-    $productImage = '/resources/images/newBook2.jpg';
-    $targetClass = 'savedBookItems';
-    ?>
-
-
-    <script type="module">
-        import ImageInserter from '/resources/js/prodImage.js';
-
-        const imageInserter = new ImageInserter("<?= $productImage ?>", "<?= $targetClass ?>");
-        imageInserter.insert();
-    </script>
 
 </main>
 <footer>

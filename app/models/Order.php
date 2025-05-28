@@ -114,5 +114,6 @@ class Order {
             'products' => $products
         ];
     }
+
 }
 ?>

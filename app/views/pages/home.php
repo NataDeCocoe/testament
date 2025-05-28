@@ -11,6 +11,7 @@ if (!isset($_SESSION['user_id'])) {
     <title>TESTAMENT</title>
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
     <link rel="stylesheet" href="assets/css/homePages.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">

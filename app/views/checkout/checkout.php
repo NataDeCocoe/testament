@@ -82,7 +82,9 @@ if (!isset($_SESSION['user_id'])) {
 
             <div class="form-group">
                 <label for="phone" class="required">Phone</label>
-                <input type="tel" id="phone">
+                <input type="tel" id="phone" name="phone" pattern="09[0-9]{9}" maxlength="11"
+                       inputmode="numeric" placeholder="09XXXXXXXXX"
+                       required>
             </div>
 
             <div class="form-group">

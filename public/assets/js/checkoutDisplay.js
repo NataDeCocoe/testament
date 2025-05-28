@@ -163,6 +163,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 
+
+
+
 document.getElementById("placeOrderBtn").addEventListener("click", () => {
     fetch('/checkout/getItems')
         .then(res => res.json())
@@ -195,6 +198,13 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                     price: item.prod_price || item.price
                 };
             });
+
+            const phone = document.getElementById("phone").value.trim();
+            if (!/^09\d{9}$/.test(phone)) {
+                alert("Phone number must start with 09 and be exactly 11 digits.");
+                return;
+            }
+
 
             const data = {
                 firstName: document.getElementById("firstname").value,

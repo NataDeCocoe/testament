@@ -36,6 +36,7 @@ $routes = [
     'GET:/home' => 'HomeController@showHomePage',
     'GET:/categories' => 'HomeController@showCategory',
     'GET:/saved' => 'HomeController@showSaved',
+    'GET:/my-orders' => 'HomeController@showMyOrders',
     'GET:/notification' => 'HomeController@showNotification',
     'GET:/profile' => 'HomeController@showProfile',
     'GET:/profile' => 'ProfileController@showProfile',

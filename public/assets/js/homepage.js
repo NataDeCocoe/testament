@@ -15,7 +15,7 @@ function updateImage() {
 setInterval(() => {
     currentIndex = (currentIndex + 1) % images.length;
     updateImage();
-}, 5000);
+}, 4000);
 
 
 updateImage();
