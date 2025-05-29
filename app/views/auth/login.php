@@ -39,7 +39,7 @@
                         <input type="password" name="lpassword" class="form-control" id="lpassword" placeholder="Password">
                         <div class="invalid-feedback" id="passError"></div>
                     </div>
-                    <div class="d-flex justify-content-end"><small><a id="fpaswword" class="custom-color" href="#">Forgot
+                    <div class="d-flex justify-content-end"><small><a id="fpaswword" class="custom-color" href="/view/forgot-password">Forgot
                                 password?</a></small></div>
                     <button type="submit" class="btn btn-primary mt-3 w-100 bg-custom">Sign In</button>
                 </div>

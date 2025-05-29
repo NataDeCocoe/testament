@@ -346,6 +346,142 @@ form {
     background-color: white;
 }
 
+/*FORGOT PASSWORD PANEL*/
+.container {
+    margin-top: 15vh;
+    background: #fff;
+    padding: 2rem;
+    max-width: 350px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.icon {
+    font-size: 2.5rem;
+    color: #007bff;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin: 0.5rem 0;
+
+}
+
+p {
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 5px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+}
+
+.input-group input {
+    border: none;
+    background: transparent;
+    outline: none;
+    flex: 1;
+    font-size: 0.95rem;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.fBTN {
+    width: 100%;
+    background: #F8CC50;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+
+}
+
+.fBTN:hover {
+    background: rgba(97, 18, 12, 0.92);
+}
+
+.back-link {
+    margin-top: 1.5rem;
+}
+
+.back-link a {
+    color: #333;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+.circle1 {
+    width: 150px;
+    height: 150px;
+    background-color: #F8CC50;
+    top: 14%;
+    left: 30%;
+    animation: pulse 4s infinite ease-in-out;
+    z-index: -1;
+}
+
+.circle2 {
+    width: 100px;
+    height: 50px;
+    background-color: #7b1e1e;
+    bottom: 14%;
+    right: 34%;
+    animation: rotate 8s linear infinite;
+    z-index: -1;
+}
+
+/*.rectangle1 {*/
+/*    width: 180px;*/
+/*    height: 80px;*/
+/*    background-color: #ff6b6b;*/
+/*    top: 20%;*/
+/*    left: 55%;*/
+/*    transform: rotate(15deg);*/
+/*    animation: rotate 15s linear infinite;*/
+/*    border-radius: 0;*/
+/*    z-index: -1;*/
+/*}*/
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.2; }
+    50% { transform: scale(1.3); opacity: 0.4; }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(20deg); }
+    50% { transform: translateY(-15px) rotate(20deg); }
+}
 
 
 @media only screen and (min-width: 2560px) {
