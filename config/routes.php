@@ -7,12 +7,16 @@ $routes = [
     'GET:/' => 'HomeController@index',
     'GET:/about' => 'HomeController@showAboutUs',
     'GET:/contact' => 'HomeController@showContactUs',
+    'GET:/view/forgot-password' => 'AuthController@showForgotPasswordPage',
+    'POST:/forgot-password' => 'ForgotPasswordController@sendLink',
+
 
     //Admin
     'GET:/dashboard' => 'AdminController@showDashboard',
     'GET:/pending-orders' => 'Ordercontroller@getOrders',
     'GET:/pending-orders/view' => 'AdminController@showPendingOrders',
     'GET:/pending-orders/details/{id}' => 'OrderController@orderDetails',
+    'GET:/orders/pending' => 'OrderController@getOrderStatus',
     'GET:/orders' => 'AdminController@showOrders',
     'GET:/inventory/view' => 'AdminController@showInventory',
     'GET:/inventory' => 'ProductController@getProducts',

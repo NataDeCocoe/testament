@@ -15,6 +15,14 @@ class OrderController extends BaseController{
 
     }
 
+    public function getOrders(){
+        $orderModel = new Order();
+        $orders = $orderModel->getAllOrders();
+
+
+        $this->views('admin/pending', ['orders' => $orders]);
+    }
+
     public function place(){
         header('Content-Type: application/json');
         $body = json_decode(file_get_contents("php://input"), true);
@@ -104,19 +112,12 @@ class OrderController extends BaseController{
         }
     }
 
-    public function getOrders(){
-        $orderModel = new Order();
-        $orders = $orderModel->getAllOrders();
-
-
-       $this->views('admin/pending', ['orders' => $orders]);
-    }
-
     public function orderDetails($id) {
         $orderModel = new Order();
         $data = $orderModel->getOrderWithProducts($id);
         header('Content-Type: application/json');
         echo json_encode($data);
     }
+
 }
 ?>

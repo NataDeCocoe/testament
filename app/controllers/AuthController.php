@@ -14,6 +14,10 @@ class AuthController extends BaseController{
         $this->views('auth/register');
     }
 
+    public function showForgotPasswordPage(){
+        $this->views('auth/forgotPassword');
+    }
+
     public function register() {
         $response = ['success' => false, 'message' => ''];
 

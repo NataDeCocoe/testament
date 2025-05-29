@@ -56,12 +56,20 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function countAll()
-    {
+    public function countAll(){
         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM users");
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['total'] ?? 0;
+    }
+
+    public function saveResetToken($email, $token, $expiry) {
+        $stmt = $this->db->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (:email, :token, :expires_at)");
+        return $stmt->execute([
+            ':email' => $email,
+            ':token' => $token,
+            ':expires_at' => $expiry
+        ]);
     }
 }
 ?>
