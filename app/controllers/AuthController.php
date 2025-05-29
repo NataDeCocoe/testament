@@ -55,9 +55,8 @@ class AuthController extends BaseController{
             }
 
 
-//            $secretkey = 'PFaEXcN4KvQgrLD6lA4abvdu0gBCkzQyA/49tyq+hXI=';
             $passHashed = password_hash($password, PASSWORD_BCRYPT);
-//            $phoneHashed = hash_hmac('sha256', $phone, $secretkey);
+
 
 
 

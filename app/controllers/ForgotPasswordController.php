@@ -38,10 +38,10 @@ class ForgotPasswordController extends BaseController {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'natanyeet@gmail.com';
-            $mail->Password = 'nzksczbzsntvmznt'; // App Password
+            $mail->Username = 'your-mail@gmail.com';
+            $mail->Password = 'your-app-password'; // App Password
             $mail->SMTPSecure = 'tls';
-            $mail->Port = 587;
+            $mail->Port = 000;
 
             $mail->setFrom('no-reply@example.com', 'YourApp Support');
             $mail->addAddress($email);
