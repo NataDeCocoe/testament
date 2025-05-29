@@ -73,7 +73,9 @@ CREATE TABLE password_resets (
     email VARCHAR(255) NOT NULL,
     token VARCHAR(64) NOT NULL,
     expires_at DATETIME NOT NULL,
-    INDEX(token)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    INDEX (email),
+    INDEX (token)
 );
 
 
