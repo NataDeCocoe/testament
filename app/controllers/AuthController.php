@@ -18,6 +18,33 @@ class AuthController extends BaseController{
         $this->views('auth/forgotPassword');
     }
 
+    public function showResetPasswordPage(){
+        {
+            $token = $_GET['token'] ?? '';
+
+            if (!$token) {
+                echo "Invalid or missing token.";
+                return;
+            }
+
+            $userModel = new User();
+            $resetEntry = $userModel->getResetEntry(); // Get row from `password_resets` table
+
+            if (!$resetEntry || !password_verify($token, $resetEntry['token'])) {
+                echo "Invalid or expired token.";
+                return;
+            }
+
+            if (strtotime($resetEntry['expires_at']) < time()) {
+                echo "Token has expired.";
+                return;
+            }
+
+            // Show reset password form (pass token as hidden input)
+           $this->views('auth/resetPassword', ['token' => $token]);
+        }
+    }
+
     public function register() {
         $response = ['success' => false, 'message' => ''];
 
@@ -55,7 +82,7 @@ class AuthController extends BaseController{
             }
 
 
-            $passHashed = password_hash($password, PASSWORD_BCRYPT);
+            $passHashed = password_hash($password, PASSWORD_DEFAULT);
 
 
 

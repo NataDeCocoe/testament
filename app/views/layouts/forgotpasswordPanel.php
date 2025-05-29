@@ -8,8 +8,8 @@
     <form action="">
         <div>
             <div class="input-group">
-                <label for="email"></label>
-                <input type="email" id="email" placeholder="Email@example.com" />
+                <label for="fpassemail"></label>
+                <input type="email" id="fpassemail" placeholder="Email@example.com" />
             </div>
             <p class="error-message"></p>
             <button class="fBTN" id="submitBtn" type="submit">Submit</button>

@@ -1,6 +1,6 @@
 <!-- Footer -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<footer class="responsive-footer">
+
     <div class="footer-container">
         <div class="footer-section">
             <h4>Popular categories</h4>
@@ -48,4 +48,3 @@
     <div class="copyright">
         <small>© 2025 Testament. All rights reserved</small>
     </div>
-</footer>

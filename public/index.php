@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 global $routes;
 
 session_start();
+date_default_timezone_set('UTC');
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");

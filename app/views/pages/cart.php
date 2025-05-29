@@ -51,7 +51,7 @@ if (!isset($_SESSION['user_id'])) {
         </div>
     </div>
 </main>
-<footer>
+<footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
     <div id="toast" class="toast"></div>
 </footer>

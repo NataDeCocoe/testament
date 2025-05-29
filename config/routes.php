@@ -9,6 +9,8 @@ $routes = [
     'GET:/contact' => 'HomeController@showContactUs',
     'GET:/view/forgot-password' => 'AuthController@showForgotPasswordPage',
     'POST:/forgot-password' => 'ForgotPasswordController@sendLink',
+    'GET:/reset-password' => 'AuthController@showResetPasswordPage',
+    'POST:/reset-password' => 'ForgotPasswordController@handleReset',
 
 
     //Admin

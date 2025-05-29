@@ -1,14 +1,18 @@
 <?php
 require_once __DIR__ . '/../../config/database.php';
 
-class User {
+class User
+{
     private $db;
-    public function __construct() {
+
+    public function __construct()
+    {
         $database = new Database();
         $this->db = $database->getConnection();
     }
 
-    public function create($firstname, $lastname, $email, $phone_num, $address, $password){
+    public function create($firstname, $lastname, $email, $phone_num, $address, $password)
+    {
         $query = 'INSERT INTO users (firstname, lastname, email, phone_num, home_address, password) VALUES (:firstname, :lastname, :email, :phone_num, :home_address, :password)';
         $stmt = $this->db->prepare($query);
 
@@ -23,7 +27,8 @@ class User {
 
     }
 
-    public function findByEmail($email) {
+    public function findByEmail($email)
+    {
         $query = "SELECT * FROM users WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':email', $email);
@@ -32,7 +37,8 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function checkRole($email) {
+    public function checkRole($email)
+    {
         $query = "SELECT role FROM users WHERE email = :email";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':email', $email);
@@ -42,7 +48,8 @@ class User {
         return $result ? $result['role'] : null;
     }
 
-    public function findByPhone($phone){
+    public function findByPhone($phone)
+    {
         $query = "SELECT * FROM users WHERE phone_num = :phone";
         $stmt = $this->db->prepare($query);
         $stmt->bindParam(':phone', $phone);
@@ -50,26 +57,69 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function findById($id) {
+    public function findById($id)
+    {
         $stmt = $this->db->prepare("SELECT * FROM users WHERE id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function countAll(){
+    public function countAll()
+    {
         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM users");
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['total'] ?? 0;
     }
 
-    public function saveResetToken($email, $token, $expiry) {
-        $stmt = $this->db->prepare("INSERT INTO password_resets (email, token, expires_at) VALUES (:email, :token, :expires_at)");
+    public function saveResetToken($email, $hashedToken, $expiresAt)
+    {
+        $stmt = $this->db->prepare("
+            INSERT INTO password_resets (email, token, expires_at)
+            VALUES (:email, :token, :expires_at) ON DUPLICATE KEY UPDATE token = VALUES(token), expires_at = VALUES(expires_at)");
         return $stmt->execute([
             ':email' => $email,
-            ':token' => $token,
-            ':expires_at' => $expiry
+            ':token' => $hashedToken,
+            ':expires_at' => $expiresAt
         ]);
     }
+
+    public function deleteTokensForEmail($email) {
+        $stmt = $this->db->prepare("
+            DELETE FROM password_resets 
+            WHERE email = :email
+        ");
+        return $stmt->execute([':email' => $email]);
+    }
+
+    public function getResetTokenByEmail($email)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM password_resets WHERE email = :email");
+        $stmt->execute([':email' => $email]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getResetEntry()
+    {
+        $stmt = $this->db->prepare("SELECT * FROM password_resets ORDER BY created_at DESC LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function updateUserPassword($email, $hashedPassword)
+    {
+        $stmt = $this->db->prepare(" UPDATE users SET password = :password WHERE email = :email");
+        return $stmt->execute([
+            ':email' => $email,
+            ':password' => $hashedPassword
+        ]);
+    }
+
+    public function deleteResetToken($email)
+    {
+        $stmt = $this->db->prepare("DELETE FROM password_resets WHERE email = :email");
+        return $stmt->execute([':email' => $email]);
+    }
 }
+
 ?>

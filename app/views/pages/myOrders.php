@@ -13,6 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="/resources/images/Testament_Logo.png" sizes="any">
     <link rel="stylesheet" href="assets/css/homePages.css">
+    <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
@@ -49,7 +50,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
 </main>
-<footer>
+<footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
     <div class="menuButton">
         <button class="bDisplay"><span class="material-symbols-rounded">menu</span></button>

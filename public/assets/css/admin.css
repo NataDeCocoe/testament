@@ -376,23 +376,24 @@ aside button {
 }
 
 /*ALERTS FOR ADD PRODUCT*/
+/*Toast notif*/
 .toast {
     visibility: hidden;
     min-width: 250px;
-    margin-left: -125px;
-    background-color: #9e9f9e;
-    color: #fff;
+    background-color: #f0fdf4;
+    color: #14532d;
+    border: 1px solid #bbf7d0;
     text-align: center;
-    border-radius: .5rem;
-    padding: 16px;
+    border-radius: 10px;
+    padding: 12px 16px;
     position: fixed;
     z-index: 1000;
-    left: 85%;
-    right: 1rem;
-    top: 30px;
-    font-size: 16px;
+    right: 20px;
+    top: 20px;
+    font-size: 14px;
     opacity: 0;
-    transition: opacity 0.4s ease-in, visibility 0.4s ease;
+    transition: opacity 0.3s ease-out, visibility 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .toast.show {
@@ -401,11 +402,17 @@ aside button {
 }
 
 .toast.success {
-    background-color: #28a745;
+    background-color: #f0fdf4;
+    color: #14532d;
+    border: 1px solid #bbf7d0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .toast.error {
     background-color: #dc3545;
+    color: #fff;
+    border: 1px solid #dc3545;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /*MODAL FOR ORDER DETAILS*/
