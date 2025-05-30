@@ -15,7 +15,7 @@ class DeliveryController extends BaseController{
     public function getOptions() {
         $deliveryOptions = [
             [
-                'id' => 'j&t-express',
+                'id' => 'J&T Express',
                 'label' => 'J&T Express',
                 'logo' => 'jnt.png',
                 'default' => true

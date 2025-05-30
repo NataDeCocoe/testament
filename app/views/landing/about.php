@@ -41,8 +41,23 @@
             ante donec. Efficitur ex nostra accumsan magnis cubilia elit quam inceptos. Eleifend aenean sed curabitur, nulla
             aliquet pellentesque mauris. Tellus pharetra taciti etiam; sociosqu etiam finibus purus tempor integer.</p>
     </div>
+
+    <div class="d-flex justify-content-center cus-text mt-3">
+        <small>Sponsored by</small>
+    </div>
+    <div class="d-flex justify-content-center cus-text mt-1">
+        <small><a href="https://web.facebook.com/nikayla.rama?mibextid=wwXIfr&rdid=HZtc1ImwOiVs0aqO&share_url=https%3A%2F%2Fweb.facebook.com%2Fshare%2F18ZSjijGNt%2F%3Fmibextid%3DwwXIfr%26_rdc%3D1%26_rdr">Nhykaella Mari Rama</a></small>
+    </div>
+    <div class="d-flex justify-content-center cus-text mt-1">
+        <small><a href="">Jan Michael Pasalo</a></small>
+    </div>
+    <div class="d-flex justify-content-center cus-text mt-1">
+        <small><a href="">Nathaniel Bartolome</a></small>
+    </div>
+
     <div class="d-flex justify-content-center cus-text mt-3">
         <small>© 2025 Testament. All rights reserved</small>
+
     </div>
 </section>
 

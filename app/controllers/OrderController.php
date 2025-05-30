@@ -31,6 +31,25 @@ class OrderController extends BaseController{
         $this->views('admin/orders', ['orders' => $orders]);
     }
 
+    public function getPendingCount() {
+        header('Content-Type: application/json');
+
+        try {
+            $orderModel = new Order();
+            $count = $orderModel->getPendingCount();
+            echo json_encode([
+                'success' => true,
+                'count' => $count
+            ]);
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode([
+                'success' => false,
+                'error' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function place(){
         header('Content-Type: application/json');
         $body = json_decode(file_get_contents("php://input"), true);
@@ -127,7 +146,8 @@ class OrderController extends BaseController{
         echo json_encode($data);
     }
 
-    public function updatePendingOrderStatus(){
+    public function updatePendingOrderStatus()
+    {
         $data = json_decode(file_get_contents("php://input"), true);
 
         $orderId = $data['order_id'];
@@ -139,7 +159,7 @@ class OrderController extends BaseController{
         }
 
         $orderModel = new Order();
-        $success = $orderModel->updateOrderStatus($orderId, $status);
+        $success = $orderModel->updateAndProcessOrder($orderId, $status);
 
         echo json_encode(['success' => $success]);
     }

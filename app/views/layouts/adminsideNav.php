@@ -24,9 +24,10 @@
             </a>
         </li>
         <li>
-            <a href="/pending-orders">
+            <a href="/pending-orders" class="nav-item">
                 <span class="nav-icon material-symbols-rounded">pending_actions</span>
-                <span>Pending</span>
+                <span class="nav-text">Pending</span>
+                <span class="pending-badge" title="Pending orders"></span>
             </a>
         </li>
         <li>

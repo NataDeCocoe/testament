@@ -17,7 +17,7 @@
 
         <div class="footer-section">
             <h4>How can we help</h4>
-            <a href="#">Order tracking</a>
+            <a href="https://www.jtexpress.ph/track-and-trace">Order tracking</a>
             <a href="#">FAQ</a>
             <a href="#">Privacy policy</a>
         </div>
@@ -26,7 +26,7 @@
             <h4>Contact us</h4>
             <div class="contact-item">
                 <i class="fas fa-envelope"></i>
-                <span>testaments@gmail.com</span>
+                <span>testaments.services@gmail.com</span>
             </div>
             <div class="contact-item">
                 <i class="fas fa-phone"></i>

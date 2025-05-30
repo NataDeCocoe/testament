@@ -28,7 +28,7 @@ class Product {
     }
 
     public function getAllProd(){
-        $query = "SELECT * FROM products";
+        $query = "SELECT * FROM products ORDER BY created_at DESC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -85,5 +85,16 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function deductQuantity($productId, $quantity) {
+        $stmt = $this->db->prepare("UPDATE products SET prod_quan = prod_quan - :qty WHERE prod_id = :pid");
+        $stmt->execute([':qty' => $quantity, ':pid' => $productId]);
+    }
+
+    public function getProductPrice($productId) {
+        $stmt = $this->db->prepare("SELECT prod_price FROM products WHERE prod_id = :pid");
+        $stmt->execute([':pid' => $productId]);
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product['price'];
+    }
 }
 ?>

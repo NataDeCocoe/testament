@@ -9,6 +9,22 @@ class Order {
         $this->db = $database->getConnection();
     }
 
+    public function getPendingCount() {
+        $query = "SELECT COUNT(*) AS pending_count FROM orders 
+                 WHERE order_status = 'pending' AND 
+                 ordered_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)";
+
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return (int)$result['pending_count'];
+        } catch (PDOException $e) {
+            error_log("Database error in getPendingCount: " . $e->getMessage());
+            return 0; // Return 0 if there's an error
+        }
+    }
+
     public function create($orderData, $items){
 
         try {
@@ -135,6 +151,84 @@ class Order {
             'value' => $value,
             'order_id' => $orderId
         ]);
+    }
+
+    public function updateAndProcessOrder($orderId, $status)
+    {
+        if ($status === 'approved') {
+            // Get ordered items
+            $items = $this->getOrderItems($orderId);
+
+            // Check stock availability for all items first
+            foreach ($items as $item) {
+                $productId = $item['product_id'];
+                $quantity = $item['quantity'];
+
+                // Get current stock
+                $stockStmt = $this->db->prepare("SELECT prod_quan FROM products WHERE prod_id = :pid");
+                $stockStmt->execute([':pid' => $productId]);
+                $currentStock = (int) $stockStmt->fetchColumn();
+
+                if ($quantity > $currentStock) {
+                    // Not enough stock, stop processing and return error or false
+                    // You could throw an exception or return false here
+                    return false;
+                }
+            }
+
+            // If all stock checks passed, update order status
+            $stmt = $this->db->prepare("UPDATE orders SET order_status = :status WHERE order_id = :order_id");
+            $stmt->execute([
+                ':status' => $status,
+                ':order_id' => $orderId
+            ]);
+
+            // Deduct stock and insert into sales
+            foreach ($items as $item) {
+                $productId = $item['product_id'];
+                $quantity = $item['quantity'];
+
+                // Deduct product quantity
+                $deduct = $this->db->prepare("UPDATE products SET prod_quan = prod_quan - :qty WHERE prod_id = :pid");
+                $deduct->execute([':qty' => $quantity, ':pid' => $productId]);
+
+                // Get product price
+                $priceStmt = $this->db->prepare("SELECT prod_price FROM products WHERE prod_id = :pid");
+                $priceStmt->execute([':pid' => $productId]);
+                $price = $priceStmt->fetchColumn();
+
+                $total = $price * $quantity;
+
+                // Insert into sales
+                $sale = $this->db->prepare("INSERT INTO sales (order_id, product_id, quantity, price, total_price) 
+                                    VALUES (:oid, :pid, :qty, :price, :total)");
+                $sale->execute([
+                    ':oid' => $orderId,
+                    ':pid' => $productId,
+                    ':qty' => $quantity,
+                    ':price' => $price,
+                    ':total' => $total
+                ]);
+            }
+        } else {
+            // Just update status if not approved
+            $stmt = $this->db->prepare("UPDATE orders SET order_status = :status WHERE order_id = :order_id");
+            $stmt->execute([
+                ':status' => $status,
+                ':order_id' => $orderId
+            ]);
+        }
+
+        return true;
+    }
+
+
+
+    public function getOrderItems($orderId)
+    {
+        $stmt = $this->db->prepare("SELECT * FROM ordered_items WHERE order_id = :order_id");
+        $stmt->execute([':order_id' => $orderId]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

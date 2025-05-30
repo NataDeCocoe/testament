@@ -51,24 +51,65 @@ document.addEventListener('DOMContentLoaded', function () {
                           ${productHTML}
                     `;
 
-                    document.getElementById('orderDetailsContent').innerHTML = html;
-                    document.getElementById('orderDetailsModal').style.display = 'flex';
+                    document.getElementById('PendingOrderDetailsContent').innerHTML = html;
+                    document.getElementById('PendingOrderDetailsModal').style.display = 'flex';
                 })
                 .catch(err => {
-                    alert('Failed to load order details.');
+                    showToastError('Failed to load order details. Please try again later.')
                     console.error(err);
                 });
         });
     });
 
 
-    document.querySelector('#orderDetailsModal .close').addEventListener('click', function () {
-        document.getElementById('orderDetailsModal').style.display = 'none';
+    document.querySelector('#PendingOrderDetailsModal .close').addEventListener('click', function () {
+        document.getElementById('PendingOrderDetailsModal').style.display = 'none';
     });
 
-    document.getElementById('orderDetailsModal').addEventListener('click', function (e) {
+    document.getElementById('PendingOrderDetailsModal').addEventListener('click', function (e) {
         if (e.target === this) {
             this.style.display = 'none';
         }
     });
+});
+
+
+function updatePendingBadge() {
+    fetch('/pending-orders/badge/count')
+        .then(response => {
+            if (!response.ok) throw new Error('Network response was not ok');
+            return response.json();
+        })
+        .then(data => {
+            const navItem = document.querySelector('.nav-item');
+            const badge = document.querySelector('.pending-badge');
+
+            if (data.success) {
+                // Hide badge if count is 0, show if count > 0
+                if (data.count > 0) {
+                    navItem.classList.add('has-pending');
+                    // Uncomment below if you want to show the count instead of just dot
+                    // badge.textContent = data.count;
+                    // badge.classList.add('count');
+                } else {
+                    navItem.classList.remove('has-pending');
+                    // Uncomment below if using count badge
+                    // badge.classList.remove('count');
+                    // badge.textContent = '';
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error checking pending orders:', error);
+            // Optional: Show error state to user
+            document.querySelector('.pending-badge').style.backgroundColor = '#999';
+        });
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updatePendingBadge();
+
+    // Refresh every 5 minutes (300000ms)
+    setInterval(updatePendingBadge, 1000);
 });

@@ -32,8 +32,12 @@ $routes = [
     'GET:/admin/users/count' => 'UserController@countUsers',
     'GET:/admin/orders/count' => 'OrderController@countOrders',
 
+    //BADGE
+    'GET:/pending-orders/badge/count' => 'OrderController@getPendingCount',
 
-
+    //DASHBOARD
+    'GET:/sales/weekly' => 'SalesController@weeklySales',
+    'GET:/sales/daily' => 'SalesController@dailySales',
 
     // Auth
     'GET:/login' => 'AuthController@showLoginForm',
