@@ -61,9 +61,9 @@ class Order {
                 ");
                 $stmtItem->execute([
                     ':order_id' => $orderId,
-                    ':product_id' => $item['product_id'], // Changed from 'id'
+                    ':product_id' => $item['product_id'],
                     ':quantity' => $item['quantity'],
-                    ':price' => $item['price'] // Changed from 'prod_price'
+                    ':price' => $item['price']
                 ]);
             }
 
@@ -72,7 +72,7 @@ class Order {
 
         } catch (PDOException $e) {
             $this->db->rollBack();
-            return 'Order Transaction Failed: ' . $e->getMessage(); // helpful for debugging
+            return 'Order Transaction Failed: ' . $e->getMessage();
         }
     }
 
@@ -83,19 +83,19 @@ class Order {
         return $row['total'] ?? 0;
     }
 
-    public function getAllOrders(){
-        $stmt = $this->db->prepare("SELECT * FROM orders ORDER BY ordered_at DESC");
+    public function getAllPendingOrders(){
+        $stmt = $this->db->prepare("SELECT * FROM orders WHERE order_status = 'pending' ORDER BY ordered_at DESC");
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getOrderWithProducts($orderId) {
-        // Get the order info
+
         $stmt = $this->db->prepare("SELECT * FROM orders WHERE order_id = ?");
         $stmt->execute([$orderId]);
         $order = $stmt->fetch();
 
-        // Get the ordered products
+
         $productsStmt = $this->db->prepare("
             SELECT 
                 p.prod_name AS product_name,
@@ -113,6 +113,28 @@ class Order {
             'order' => $order,
             'products' => $products
         ];
+    }
+
+    public function getAllOrders(){
+        $stmt = $this->db->prepare("SELECT * FROM orders 
+                              WHERE order_status IN ('approved', 'processing', 'shipped', 'completed', 'cancelled') 
+                              ORDER BY ordered_at DESC");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function updateOrderStatus($orderId, $status){
+        $stmt = $this->db->prepare("UPDATE orders SET order_status = ? WHERE order_id = ?");
+        return $stmt->execute([$status, $orderId]);
+    }
+
+    public function updateStatus($orderId, $field, $value){
+        $sql = "UPDATE orders SET $field = :value WHERE order_id = :order_id";
+        $stmt = $this->db->prepare($sql);
+        return $stmt->execute([
+            'value' => $value,
+            'order_id' => $orderId
+        ]);
     }
 
 }

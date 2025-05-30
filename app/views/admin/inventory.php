@@ -125,7 +125,7 @@ if (!isset($_SESSION['user_id'])) {
 
 <div id="deleteConfirmModal" class="modal">
     <div class="modal-content">
-<!--        <h4>Delete Product</h4>-->
+
         <p id="deleteProductDetails"></p>
         <div class="modal-footer">
             <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>

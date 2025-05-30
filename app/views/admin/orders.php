@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
     <script type="text/javascript" src="assets/js/sidebar.js" defer></script>
+    <script type="text/javascript" src="assets/js/orders/orderList.js" defer></script>
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,42 +31,8 @@
     <div class="headerLabel">
         <h2>Orders List</h2>
     </div>
-
-
-    <div class="orders-container">
-        <div class="orders-header">
-
-            <div class="col">Name</div>
-            <div class="col">Courier</div>
-            <div class="col">Date</div>
-            <div class="col">Total Amount</div>
-            <div class="col">Method of Payment</div>
-            <div class="col">Order Status</div>
-            <div class="col">Payment Status</div>
-
-
-        </div>
-
-            <div class="orders-row">
-
-            <div class="col"><small>Nathaniel Bartolome</small></div>
-            <div class="col"><small>J&T Express</small></div>
-            <div class="col"><small>April 19, 2025</small></div>
-            <div class="col"><span><small>₱</small></span> <small>800</small></div>
-            <div class="col"><small>Gcash</small></div>
-            <select class="col status" name="status" id="status" required>
-                <option value=""><small>Approved</small></option>
-                <option value=""><small>Processing</small></option>
-                <option value=""><small>Shipped</small></option>
-                <option value=""><small>Completed</small></option>
-                <option value=""><small>Canceled</small></option>
-            </select>
-            <select class="col status" name="status" id="status" required>
-                <option value="Unpaid"><small>Unpaid</small></option>
-                <option value="Paid"><small>Paid</small></option>
-                <option value="Failed"><small>Failed</small></option>
-            </select>
-        </div>
+    <div id="product_list">
+        <?php include __DIR__ . '/../layouts/orderList.php'; ?>
     </div>
 </main>
 </body>

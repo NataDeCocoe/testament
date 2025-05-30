@@ -30,7 +30,7 @@
             </a>
         </li>
         <li>
-            <a href="/orders">
+            <a href="/ordered-list">
                 <span class="nav-icon material-symbols-rounded">orders</span>
                 <span>Orders</span>
             </a>

@@ -28,7 +28,7 @@
         <?php endforeach; ?>
     <?php else: ?>
         <div class="orders-row defaultDisplay">
-            <div class="col">No orders found.</div>
+            <div class="col">No pending orders found.</div>
         </div>
     <?php endif; ?>
 

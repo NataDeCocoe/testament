@@ -40,7 +40,7 @@ CREATE TABLE orders (
     user_id INT,
     ord_fname VARCHAR(65) NOT NULL,
     ord_lname VARCHAR(65) NOT NULL,
-    contact_number VARCHAR(20) NOT NULL UNIQUE,
+    contact_number VARCHAR(20) NOT NULL,
     delivery_address TEXT NOT NULL,
     building_address VARCHAR(100) NOT NULL,
     zip_code VARCHAR(20) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE orders (
     order_status ENUM('pending',
                         'approved', 'rejected',
                         'processing', 'shipped',
-                        'completed', 'cancelled') DEFAULT 'pending',
+                        'completed', 'canceled') DEFAULT 'pending',
     payment_status VARCHAR(50) DEFAULT 'Unpaid',
     ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id)

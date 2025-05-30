@@ -15,9 +15,11 @@ $routes = [
 
     //Admin
     'GET:/dashboard' => 'AdminController@showDashboard',
-    'GET:/pending-orders' => 'Ordercontroller@getOrders',
-    'GET:/pending-orders/view' => 'AdminController@showPendingOrders',
+    'GET:/pending-orders' => 'Ordercontroller@getPendingOrders',
     'GET:/pending-orders/details/{id}' => 'OrderController@orderDetails',
+    'GET:/ordered-list' => 'OrderController@getOrderedList',
+    'POST:/orders/update-status' => 'OrderController@updatePendingOrderStatus',
+    'POST:/orders/orders-status' => 'OrderController@updateOrderedStatus',
     'GET:/orders/pending' => 'OrderController@getOrderStatus',
     'GET:/orders' => 'AdminController@showOrders',
     'GET:/inventory/view' => 'AdminController@showInventory',
@@ -29,6 +31,7 @@ $routes = [
     'GET:/admin/inventory/count' => 'ProductController@countProducts',
     'GET:/admin/users/count' => 'UserController@countUsers',
     'GET:/admin/orders/count' => 'OrderController@countOrders',
+
 
 
 

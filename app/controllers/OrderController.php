@@ -15,12 +15,20 @@ class OrderController extends BaseController{
 
     }
 
-    public function getOrders(){
+    public function getPendingOrders(){
+        $orderModel = new Order();
+        $orders = $orderModel->getAllPendingOrders();
+
+
+        $this->views('admin/pending', ['orders' => $orders]);
+    }
+
+    public function getOrderedList(){
         $orderModel = new Order();
         $orders = $orderModel->getAllOrders();
 
 
-        $this->views('admin/pending', ['orders' => $orders]);
+        $this->views('admin/orders', ['orders' => $orders]);
     }
 
     public function place(){
@@ -84,7 +92,7 @@ class OrderController extends BaseController{
                 http_response_code(500);
                 echo json_encode([
                     'status' => 'error',
-                    'message' => $result // Will show the actual DB error now
+                    'message' => $result
                 ]);
             }
         } else {
@@ -117,6 +125,43 @@ class OrderController extends BaseController{
         $data = $orderModel->getOrderWithProducts($id);
         header('Content-Type: application/json');
         echo json_encode($data);
+    }
+
+    public function updatePendingOrderStatus(){
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $orderId = $data['order_id'];
+        $status = $data['status'];
+
+        if (!in_array($status, ['approved', 'rejected'])) {
+            echo json_encode(['success' => false, 'message' => 'Invalid status']);
+            return;
+        }
+
+        $orderModel = new Order();
+        $success = $orderModel->updateOrderStatus($orderId, $status);
+
+        echo json_encode(['success' => $success]);
+    }
+
+    public function updateOrderedStatus()
+    {
+        $data = json_decode(file_get_contents("php://input"), true);
+
+        $orderId = $data['order_id'];
+        $field = $data['field'];
+        $value = $data['value'];
+
+        $allowedFields = ['order_status', 'payment_status'];
+        if (!in_array($field, $allowedFields)) {
+            echo json_encode(['success' => false, 'message' => 'Invalid field']);
+            return;
+        }
+
+        $orderModel = new Order();
+        $result = $orderModel->updateStatus($orderId, $field, $value);
+
+        echo json_encode(['success' => $result]);
     }
 
 }

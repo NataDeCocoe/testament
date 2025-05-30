@@ -460,6 +460,37 @@ aside button {
     cursor: pointer;
 }
 
+/*ORDER STATUS AND PAYMENT STATUS COLOR*/
+.status-approved {
+    color: #13e824;
+}
+.status-processing {
+    color: orange;
+}
+.status-shipped {
+    color: #3182ce;
+}
+.status-completed {
+    color: green;
+}
+.status-canceled {
+    color: red;
+}
+
+.payment-unpaid {
+    color: orange;
+}
+.payment-paid {
+    color: green;
+}
+.payment-failed {
+    color: red;
+}
+
+
+
+
+
 
 @media (width > 768px) {
     .dashboard {

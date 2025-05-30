@@ -29,7 +29,7 @@ function loadCartPageItems() {
                 itemDiv.className = 'cart-item';
                 itemDiv.innerHTML = `
                     <div class="item-image">
-                        <img src="/${item.prod_img}" alt="${item.prod_name}" class="innerIMG">
+                        <img src="/${item.prod_img}" alt="${item.prod_name}" class="innerIMG" loading="lazy">
                     </div>
                     <div class="item-details">
                         <div class="item-name">${item.prod_name}</div>
