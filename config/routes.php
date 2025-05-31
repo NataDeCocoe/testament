@@ -62,6 +62,15 @@ $routes = [
     'GET:/categories/products' => 'ProductController@getAllProductsForCategories',
     'GET:/home/product/{id}' => 'ProductController@getProduct',
 
+    // Location
+    'GET:/location/regions' => 'LocationController@getRegions',
+    'GET:/location/province' => 'LocationController@getProvinces',
+    'GET:/location/muncity' => 'LocationController@getMunicipalities',
+    'GET:/location/barangay' => 'LocationController@getBarangays',
+
+
+
+
     //Cart
     'POST:/cart/add' => 'CartController@add',
     'GET:/cart/count' => 'CartController@count',

@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
     <script type="text/javascript" src="/assets/js/dashboardProducts.js" defer></script>
     <script type="text/javascript" src="/assets/js/checkoutDisplay.js" defer></script>
-    <script type="text/javascript" src="/assets/js/order.js" defer></script>
+    <script type="text/javascript" src="/assets/js/philAPI/getAllLocation.js" defer></script>
 </head>
 <body>
 
@@ -88,8 +88,35 @@ if (!isset($_SESSION['user_id'])) {
             </div>
 
             <div class="form-group">
-                <label for="address" class="required">Delivery address</label>
-                <input type="text" id="address" placeholder="Region, Province, City, Barangay">
+                <label for="country" class="required">Delivery address</label>
+
+               <div class="form-group" style="flex: 1;">
+                   <select id="region" name="region">
+                       <option disabled selected value="region">Select Region</option>
+
+                   </select>
+               </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <select id="province" name="province">
+                        <option disabled selected value="province">Select Province</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <select id="muncity" name="muncity">
+                        <option disabled selected value="muncity">Select Municipality/City</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <select id="barangay" name="barangay">
+                        <option disabled selected value="barangay">Select Barangay</option>
+
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">
