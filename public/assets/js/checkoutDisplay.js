@@ -210,7 +210,6 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 firstName: document.getElementById("firstname").value,
                 lastName: document.getElementById("lastname").value,
                 phone: document.getElementById("phone").value,
-                address: document.getElementById("address").value,
                 building: document.getElementById("building").value,
                 zip: document.getElementById("zip").value,
                 courier: document.querySelector('input[name="delivery"]:checked').value,
