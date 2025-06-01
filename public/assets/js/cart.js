@@ -14,20 +14,29 @@ function addToCart(prodId) {
             quantity: quantity
         })
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.status) {
-                showToast(data.message, data.status);
-                modal.classList.remove('show')
-                updateCartBadge(data.cartCount);
-            } else {
-                alert('Error adding product to cart.');
+        .then(res => {
+            if (!res.ok) throw new Error('Network response was not ok');
+            return res.text(); // first get raw text
+        })
+        .then(text => {
+            try {
+                const data = JSON.parse(text); // try parsing as JSON
+                if (data.status) {
+                    showToast(data.message, data.status);
+                    modal.classList.remove('show');
+                    updateCartBadge(data.cartCount);
+                } else {
+                    alert('Error adding product to cart.');
+                }
+            } catch (e) {
+                console.error('Response is not valid JSON:', text);
             }
         })
         .catch(err => {
             console.error('Cart error:', err);
         });
 }
+
 
 function updateCartBadge(count) {
     const badge = document.getElementById("cartBadge");

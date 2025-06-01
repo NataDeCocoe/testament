@@ -21,7 +21,7 @@ class Cart{
 
         $stmt = $this->db->prepare("
         SELECT 
-            c.id, 
+            c.cart_id, 
             c.quantity, 
             p.prod_id,
             p.prod_name, 
@@ -45,22 +45,23 @@ class Cart{
     {
         $user_id = $_SESSION['user_id'] ?? 1;
 
-
-        $stmt = $this->db->prepare("SELECT id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
+        // Check if the product already exists in cart
+        $stmt = $this->db->prepare("SELECT cart_id, quantity FROM cart WHERE user_id = ? AND product_id = ?");
         $stmt->execute([$user_id, $product_id]);
         $existing = $stmt->fetch();
 
         if ($existing) {
-
+            // Update quantity if product exists
             $newQuantity = $existing['quantity'] + $quantity;
-            $updateStmt = $this->db->prepare("UPDATE cart SET quantity = ? WHERE id = ?");
-            return $updateStmt->execute([$newQuantity, $existing['id']]);
+            $updateStmt = $this->db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ?");
+            return $updateStmt->execute([$newQuantity, $existing['cart_id']]);
         } else {
-
+            // Insert new product to cart
             $insertStmt = $this->db->prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (?, ?, ?)");
             return $insertStmt->execute([$user_id, $product_id, $quantity]);
         }
     }
+
 
     public function countItems()
     {
@@ -72,13 +73,13 @@ class Cart{
     }
 
     public function removeItem($cartId) {
-        $stmt = $this->db->prepare("DELETE FROM cart WHERE id = ? AND user_id = ?");
+        $stmt = $this->db->prepare("DELETE FROM cart WHERE cart_id = ? AND user_id = ?");
         return $stmt->execute([$cartId, $_SESSION['user_id']]);
     }
 
     public function updateQuantity($userId, $cartId, $quantity)
     {
-        $stmt = $this->db->prepare("UPDATE cart SET quantity = ? WHERE id = ? AND user_id = ?");
+        $stmt = $this->db->prepare("UPDATE cart SET quantity = ? WHERE cart_id = ? AND user_id = ?");
         return $stmt->execute([$quantity, $cartId, $userId]);
     }
 

@@ -61,7 +61,7 @@ class CartController extends BaseController{
 
         $formattedItems = array_map(function($item) {
             return [
-                'id' => $item['id'],
+                'id' => $item['cart_id'],
                 'name' => $item['prod_name'],
                 'quantity' => $item['quantity'],
                 'price' => (float)$item['prod_price'],
@@ -93,7 +93,7 @@ class CartController extends BaseController{
 
             $processedItems = array_map(function($item) {
                 return [
-                    'id' => $item['id'],
+                    'id' => $item['cart_id'],
                     'product_id' => $item['prod_id'],
                     'prod_id' => $item['prod_id'],
                     'prod_name' => $item['prod_name'],
