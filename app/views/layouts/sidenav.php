@@ -21,6 +21,10 @@
                 <button id="viewCartBTN" onclick="location.href='/cart'">VIEW CART</button>
             </div>
         </div>
+        <div class="menuButton">
+            <button class="bDisplay"><span class="material-symbols-rounded">menu</span></button>
+        </div>
+        <div id="toast" class="toast"></div>
     </div>
 </nav>
 <aside class="side">

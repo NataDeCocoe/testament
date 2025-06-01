@@ -975,18 +975,22 @@ footer {
 
 /* Mobile Menu Button */
 .menuButton {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     background-color: #f8cc50;
     border-radius: 50%;
     display: none;
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 90px;
+
     right: 20px;
     cursor: pointer;
+}
+
+.inside-menu{
+    font-size: 10px;
+
 }
 
 /* Responsive Styles */
@@ -997,6 +1001,10 @@ footer {
             "navbar"
             "main"
             "footer";
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        gap: 10px;
     }
 
     aside {
@@ -1044,6 +1052,8 @@ footer {
 
     #sCart {
         top: 0.5em;
+        position: static;
+        margin-right: 15px;
     }
 
     .prodBackCon,
@@ -1089,10 +1099,15 @@ footer {
     }
 
     .search-bar {
-        width: 170%;
+        width: 190%;
     }
 
     .carousel {
         height: 200px;
+    }
+
+    .cart-badge{
+        top: 1px;
+        right: 55px;
     }
 }
