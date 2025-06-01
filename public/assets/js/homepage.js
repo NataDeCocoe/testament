@@ -7,18 +7,23 @@ const images = [
 let currentIndex = 0;
 const container = document.getElementById('caro');
 
-function updateImage() {
-    container.style.backgroundImage = `url(${images[currentIndex]})`;
+container.style.backgroundImage = `url(${images[currentIndex]})`;
+
+function transitionToNextImage() {
+
+    container.classList.add('fade-out');
+
+    setTimeout(() => {
+        // Change image
+        currentIndex = (currentIndex + 1) % images.length;
+        container.style.backgroundImage = `url(${images[currentIndex]})`;
+
+        // Start fade in
+        container.classList.remove('fade-out');
+    }, 1000);
 }
 
-
-setInterval(() => {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateImage();
-}, 4000);
-
-
-updateImage();
+setInterval(transitionToNextImage, 4000);
 
 
 // window.addEventListener('resize', () => {
