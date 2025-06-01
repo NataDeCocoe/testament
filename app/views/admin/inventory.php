@@ -53,12 +53,22 @@ if (!isset($_SESSION['user_id'])) {
         <form id="productForm" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="productImage">Product Image</label>
-                <input name="prod_img" type="file" id="productImage" accept="image/*" max-size="5000000" onchange="preview Image(event)" required>
+                <input name="prod_img" type="file" id="productImage" accept="image/*" required>
             </div>
 
-            <div class="form-group">
-                <label for="productName">Product Name</label>
-                <input name="prod_name" type="text" id="productName" required>
+            <div class="form-row" style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="productName">Product Name</label>
+                    <input name="prod_name" type="text" id="productName" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <label for="category">Category</label>
+                    <select class="selCate" id="category" name="category_id" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <!-- Options will be dynamically inserted here -->
+                    </select>
+                </div>
             </div>
 
             <div class="form-group">
@@ -66,23 +76,48 @@ if (!isset($_SESSION['user_id'])) {
                 <textarea name="prod_desc" id="productDescription" required></textarea>
             </div>
 
-            <div class="form-group">
-                <label for="quantity">Quantity</label>
-                <input name="prod_quan" type="number" id="quantity" min="0" required>
+            <div class="form-row" style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="quantity">Quantity</label>
+                    <input name="prod_quan" type="number" id="quantity" min="0" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <label for="price">Price</label>
+                    <input name="prod_price" type="number" id="price" min="0" step="0.01" required>
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="price">Price</label>
-                <input name="prod_price" type="number" id="price" min="0" step="0.01" required>
+            <div class="form-row" style="display: flex; gap: 20px;">
+                <div class="form-group" style="flex: 1;">
+                    <label for="weight">Weight (kg)</label>
+                    <input name="weight" type="number" id="weight" step="0.01" min="0" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <label for="length">Length (cm)</label>
+                    <input name="length_cm" type="number" id="length" step="0.1" min="0" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <label for="width">Width (cm)</label>
+                    <input name="width_cm" type="number" id="width" step="0.1" min="0" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                    <label for="height">Height (cm)</label>
+                    <input name="height_cm" type="number" id="height" step="0.1" min="0" required>
+                </div>
             </div>
+
             <div class="modal-footer" id="addBtn">
                 <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
                 <button type="submit" class="btn btn-primary">Add Product</button>
             </div>
         </form>
-
     </div>
 </div>
+
 
 <div id="editProductModal" class="modal">
     <div class="modal-content">

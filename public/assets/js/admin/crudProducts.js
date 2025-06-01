@@ -1,8 +1,51 @@
-function openModal() {
-    document.getElementById('addProductModal').style.display = 'flex';
-    document.getElementById('productForm').reset();
-    document.getElementById('imagePreview').style.display = 'none';
-    document.getElementById('responseMessage').textContent = '';
+let addProductModal;
+
+// Initialize when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Get modal element
+    addProductModal = document.getElementById('addProductModal');
+
+    // Verify modal exists
+    if (!addProductModal) {
+        console.error('Modal element not found! Check your HTML for id="addProductModal"');
+        return;
+    }
+
+    // Set up event listeners for all "Add Product" buttons
+    document.querySelectorAll('[onclick="openModal()"]').forEach(button => {
+        button.addEventListener('click', openModal);
+    });
+});
+
+// Improved openModal function
+async function openModal() {
+    try {
+        // Verify modal exists
+        if (!addProductModal) {
+            throw new Error('Modal not initialized');
+        }
+
+        // Show modal
+        addProductModal.style.display = 'flex';
+
+        // Reset form
+        const form = document.getElementById('productForm');
+        if (form) form.reset();
+
+        // Hide image preview
+        const imagePreview = document.getElementById('imagePreview');
+        if (imagePreview) imagePreview.style.display = 'none';
+
+        // Clear messages
+        const responseMessage = document.getElementById('responseMessage');
+        if (responseMessage) responseMessage.textContent = '';
+
+        // Load categories
+        await fetchCategories();
+    } catch (error) {
+        console.error('Error opening modal:', error);
+        alert('Failed to open the product form. Please refresh the page.');
+    }
 }
 
 
@@ -28,6 +71,8 @@ document.getElementById('productForm').addEventListener('submit', async function
 
     const form = this;
     const fileInput = form.querySelector('input[name="prod_img"]');
+    const formData = new FormData(form);
+    console.log("Sending category_id:", formData.get("category_id"));  // should NOT be null!
 
 
     if (fileInput.files.length === 0) {
@@ -44,7 +89,7 @@ document.getElementById('productForm').addEventListener('submit', async function
         submitButton.disabled = true;
         submitButton.innerHTML = 'Uploading...';
 
-        const formData = new FormData(form);
+
         const response = await fetch('/admin/inventory', {
             method: 'POST',
             body: formData
@@ -200,3 +245,56 @@ function openDeleteModal() {
 function closeDeleteModal() {
     document.getElementById('deleteConfirmModal').style.display = 'none';
 }
+
+async function fetchCategories() {
+    const selectElement = document.getElementById('category');
+    if (!selectElement) {
+        console.error('Category dropdown not found');
+        return;
+    }
+
+    try {
+        // Show loading state
+        selectElement.innerHTML = '<option value="" disabled selected>Loading categories...</option>';
+
+
+        const response = await fetch('/get-categories');
+
+        if (!response.ok) {
+            throw new Error(`Server returned ${response.status} ${response.statusText}`);
+        }
+
+        const categories = await response.json();
+
+        if (!Array.isArray(categories)) {
+            throw new Error('Invalid categories data format');
+        }
+
+        populateCategoryDropdown(categories);
+    } catch (error) {
+        console.error('Failed to load categories:', error);
+        selectElement.innerHTML = '<option value="" disabled selected>Error loading categories</option>';
+    }
+}
+
+// Populate dropdown with categories
+function populateCategoryDropdown(categories) {
+    const selectElement = document.getElementById('category');
+    if (!selectElement) return;
+
+    // Clear existing options
+    selectElement.innerHTML = '';
+
+    // Add default option
+    const defaultOption = new Option('Select Category', '', true, true);
+    defaultOption.disabled = true;
+    selectElement.add(defaultOption);
+
+    // Add category options using correct key
+    categories.forEach((category) => {
+        const option = new Option(category.category_name, category.category_id); // ✅ key fix
+        selectElement.add(option);
+    });
+}
+
+

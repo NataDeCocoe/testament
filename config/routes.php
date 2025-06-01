@@ -69,9 +69,11 @@ $routes = [
     'GET:/location/barangay' => 'LocationController@getBarangays',
 
 
+    // Categories
+    'GET:/get-categories' => 'CategoriesController@getCategories',
 
 
-    //Cart
+    // Cart
     'POST:/cart/add' => 'CartController@add',
     'GET:/cart/count' => 'CartController@count',
     'GET:/cart/view' => 'CartController@view',

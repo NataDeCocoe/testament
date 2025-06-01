@@ -12,9 +12,7 @@ class ProductController extends BaseController{
     }
 
     public function addProduct() {
-
         header('Content-Type: application/json');
-
 
         $maxPostSize = $this->parseSize(ini_get('post_max_size'));
         if ($_SERVER['CONTENT_LENGTH'] > $maxPostSize) {
@@ -26,23 +24,33 @@ class ProductController extends BaseController{
             return;
         }
 
-
         try {
             $productModel = new Product();
 
-
+            // Basic product fields
             $prod_name = htmlspecialchars(trim($_POST['prod_name'] ?? ''));
             $prod_desc = htmlspecialchars(trim($_POST['prod_desc'] ?? ''));
             $prod_quan = (int)($_POST['prod_quan'] ?? 0);
             $prod_price = (float)($_POST['prod_price'] ?? 0.0);
+            $category_id = (int)($_POST['category_id'] ?? 0);
 
+            // New shipping-related fields
+            $weight = (float)($_POST['weight'] ?? 0.0); // in kg
+            $length = (float)($_POST['length_cm'] ?? 0.0); // in cm
+            $width = (float)($_POST['width_cm'] ?? 0.0); // in cm
+            $height = (float)($_POST['height_cm'] ?? 0.0); // in cm
 
+            // Validation
             if (empty($prod_name)) throw new Exception("Product name is required");
             if (strlen($prod_name) > 100) throw new Exception("Product name too long (max 100 chars)");
             if (empty($prod_desc)) throw new Exception("Description is required");
             if ($prod_quan <= 0) throw new Exception("Quantity must be positive");
             if ($prod_price <= 0) throw new Exception("Price must be positive");
-
+            if ($category_id <= 0) throw new Exception("Category is required");
+            if ($weight <= 0) throw new Exception("Weight must be positive");
+            if ($length <= 0) throw new Exception("Length must be positive");
+            if ($width <= 0) throw new Exception("Width must be positive");
+            if ($height <= 0) throw new Exception("Height must be positive");
 
             if (empty($_FILES['prod_img']['tmp_name'])) {
                 throw new Exception("No image file uploaded");
@@ -50,10 +58,10 @@ class ProductController extends BaseController{
 
             $prod_img = $this->handleImageUpload($_FILES['prod_img']);
 
-
             $created_at = date('Y-m-d H:i:s');
             $prod_code = mt_rand(100000, 999999);
 
+            // Update the method call with new parameters
             $result = $productModel->addProduct(
                 $prod_code,
                 $prod_name,
@@ -61,19 +69,29 @@ class ProductController extends BaseController{
                 $prod_quan,
                 $prod_price,
                 $prod_img,
-                $created_at
+                $created_at,
+                $category_id,
+                $weight,
+                $length,
+                $width,
+                $height
             );
 
             if (!$result) {
                 throw new Exception("Database operation failed");
             }
 
-
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Product added successfully',
                 'product_code' => $prod_code,
-                'image_path' => $prod_img
+                'image_path' => $prod_img,
+                'shipping_dimensions' => [
+                    'weight_kg' => $weight,
+                    'length_cm' => $length,
+                    'width_cm' => $width,
+                    'height_cm' => $height
+                ]
             ]);
 
         } catch (Exception $e) {

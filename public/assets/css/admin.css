@@ -537,7 +537,15 @@ aside button {
     100% { transform: scale(1); }
 }
 
-
+.selCate{
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 13px;
+    transition: border 0.3s;
+    color: black;
+}
 
 
 

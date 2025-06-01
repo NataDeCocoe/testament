@@ -21,9 +21,21 @@ CREATE TABLE products (
     prod_quan INT NOT NULL,
     prod_price DECIMAL(10,2) NOT NULL,
     prod_img VARCHAR(450) NOT NULL,
-    categories VARCHAR(65) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    category_id INT NOT NULL,
+    weight_kg DECIMAL(6,2) NOT NULL,
+    length_cm DECIMAL(6,2) NOT NULL,
+    width_cm DECIMAL(6,2) NOT NULL,
+    height_cm DECIMAL(6,2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_category
+        FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
+
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
+);
+
 
 CREATE TABLE cart (
     cart_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -41,7 +53,10 @@ CREATE TABLE orders (
     ord_fname VARCHAR(65) NOT NULL,
     ord_lname VARCHAR(65) NOT NULL,
     contact_number VARCHAR(20) NOT NULL,
-    delivery_address TEXT NOT NULL,
+    region_code VARCHAR(9) NOT NULL,
+    province_code VARCHAR(9) NOT NULL,
+    muncity_id INT NOT NULL,
+    barangay_code VARCHAR(9) NOT NULL,
     building_address VARCHAR(100) NOT NULL,
     zip_code VARCHAR(20) NOT NULL,
     courier VARCHAR(50) NOT NULL,
@@ -50,12 +65,18 @@ CREATE TABLE orders (
     subtotal DECIMAL(10,2) NOT NULL,
     total_amount DECIMAL(10,2) NOT NULL,
     order_status ENUM('pending',
-                        'approved', 'rejected',
-                        'processing', 'shipped',
-                        'completed', 'canceled') DEFAULT 'pending',
+                      'approved', 'rejected',
+                      'processing', 'shipped',
+                      'completed', 'canceled') DEFAULT 'pending',
     payment_status VARCHAR(50) DEFAULT 'Unpaid',
     ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
     FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+CREATE TABLE categories (
+    category_id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE ordered_items (
@@ -90,6 +111,16 @@ CREATE TABLE sales (
 
     FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
     FOREIGN KEY (product_id) REFERENCES products(prod_id) ON DELETE CASCADE
+);
+
+CREATE TABLE jnt_rates (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    origin_region VARCHAR(100) NOT NULL,
+    destination_region VARCHAR(100) NOT NULL,
+    base_rate DECIMAL(10,2) NOT NULL,
+    weight_rate DECIMAL(10,2) NOT NULL,
+    volumetric_divisor INT DEFAULT 6000,
+    UNIQUE KEY (origin_region, destination_region)
 );
 
 

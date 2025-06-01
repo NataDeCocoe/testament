@@ -1,18 +1,25 @@
 <?php
 require_once __DIR__ . '/../../config/database.php';
 
-class Product {
+class Product
+{
     private $db;
-    public function __construct() {
+
+    public function __construct()
+    {
         $database = new Database();
         $this->db = $database->getConnection();
 
     }
 
-    public function addProduct($prod_code, $prod_name, $prod_desc, $prod_quan, $prod_price, $prod_img, $created_at) {
+    public function addProduct($prod_code, $prod_name, $prod_desc, $prod_quan, $prod_price, $prod_img, $created_at, $category_id, $weight, $length, $width, $height){
         $query = "INSERT INTO products 
-    (prod_code, prod_name, prod_desc, prod_quan, prod_price, prod_img, created_at)
-    VALUES (:prod_code, :prod_name, :prod_desc, :prod_quan, :prod_price, :prod_img, :created_at)";
+        (prod_code, prod_name, prod_desc, prod_quan, prod_price, prod_img,
+         category_id, weight_kg, length_cm, width_cm, height_cm, created_at)
+        VALUES 
+        (:prod_code, :prod_name, :prod_desc, :prod_quan, :prod_price, :prod_img,
+         :category_id, :weight, :length, :width, :height, :created_at)";
+
 
         $stmt = $this->db->prepare($query);
 
@@ -23,24 +30,32 @@ class Product {
         $stmt->bindParam(':prod_price', $prod_price);
         $stmt->bindParam(':prod_img', $prod_img);
         $stmt->bindParam(':created_at', $created_at);
+        $stmt->bindParam(':category_id', $category_id);
+        $stmt->bindParam(':weight', $weight);
+        $stmt->bindParam(':length', $length);
+        $stmt->bindParam(':width', $width);
+        $stmt->bindParam(':height', $height);
 
         return $stmt->execute();
     }
 
-    public function getAllProd(){
+    public function getAllProd()
+    {
         $query = "SELECT * FROM products ORDER BY created_at DESC";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function find($id){
+    public function find($id)
+    {
         $stmt = $this->db->prepare("SELECT * FROM products WHERE prod_id = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function update($id, $data) {
+    public function update($id, $data)
+    {
         $sql = "UPDATE products SET 
                     prod_name = :name, 
                     prod_desc = :desc,
@@ -58,12 +73,14 @@ class Product {
         return $stmt->execute();
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         $stmt = $this->db->prepare("DELETE FROM products WHERE prod_id = ?");
         return $stmt->execute([$id]);
     }
 
-    public function countAllProducts(){
+    public function countAllProducts()
+    {
         $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM products");
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -85,16 +102,19 @@ class Product {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function deductQuantity($productId, $quantity) {
+    public function deductQuantity($productId, $quantity)
+    {
         $stmt = $this->db->prepare("UPDATE products SET prod_quan = prod_quan - :qty WHERE prod_id = :pid");
         $stmt->execute([':qty' => $quantity, ':pid' => $productId]);
     }
 
-    public function getProductPrice($productId) {
+    public function getProductPrice($productId)
+    {
         $stmt = $this->db->prepare("SELECT prod_price FROM products WHERE prod_id = :pid");
         $stmt->execute([':pid' => $productId]);
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
         return $product['price'];
     }
 }
+
 ?>

@@ -151,22 +151,22 @@ if (!isset($_SESSION['user_id'])) {
             <div class="order-summary">
                 <h2 style="margin-top: 0;">ORDER SUMMARY</h2>
                 <div class="summary-item">
-                    <span>1 x Phone Case - 3 Card</span>
-                    <span>$29.99</span>
+                    <span></span>
+                    <span></span>
                 </div>
                 <div class="summary-item">
                     <span>Subtotal</span>
-                    <span>$29.99</span>
+                    <span></span>
                 </div>
                 <div class="summary-item">
                     <span>Shipping</span>
-                    <span class="free">₱69.00</span>
+                    <span class="free"></span>
                 </div>
 
 
                 <div class="summary-total">
                     <span>ORDER TOTAL</span>
-                    <span>$32.09</span>
+                    <span></span>
                 </div>
 
             </div>
