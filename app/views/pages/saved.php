@@ -18,6 +18,7 @@ if (!isset($_SESSION['user_id'])) {
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
     <script type="text/javascript" src="/assets/js/cart.js" defer></script>
+    <script type="text/javascript" src="/assets/js/notification/getUnreadNotification.js" defer></script>
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {

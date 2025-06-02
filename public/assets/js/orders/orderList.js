@@ -40,9 +40,10 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    alert("Status updated successfully.");
+                    showToast("Status updated successfully.");
+                    setInterval(() => updateStatus() , 1000);
                 } else {
-                    alert("Failed to update.");
+                    showToastError("Failed to update.");
                 }
             });
     }
@@ -113,6 +114,7 @@ document.querySelectorAll('.orders-row').forEach(row => {
         </div>`;
 
             const html = `
+        <p><strong>User ID:</strong> ${order.user_id}</p>
         <p><strong>Name:</strong> ${order.ord_fname} ${order.ord_lname}</p>
         <p><strong>Contact Number:</strong> ${order.contact_number}</p>
         <p><strong>Delivery Address:</strong> ${order.delivery_address}</p>
@@ -146,6 +148,16 @@ document.getElementById('OrderedDetailsModal').addEventListener('click', functio
         this.style.display = 'none';
     }
 });
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.className = `toast show ${type}`;
+    toast.textContent = message;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
 
 function showToastError(message, type = 'error') {
     const toast = document.getElementById('toast');

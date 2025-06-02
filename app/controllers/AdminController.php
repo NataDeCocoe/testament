@@ -18,4 +18,8 @@ class AdminController extends BaseController{
         $this->views('admin/inventory');
     }
 
+    public function showCreateNotification(){
+        $this->views('admin/createNotification');
+    }
+
 }?>

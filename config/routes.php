@@ -14,8 +14,11 @@ $routes = [
 
 
     //Admin
+    'GET:/create-notification' => 'NotificationController@createForm',
+    'POST:/create-notification/send' => 'NotificationController@sendFromForm',
+    'GET:/notifications' => 'NotificationController@showNotifications',
     'GET:/dashboard' => 'AdminController@showDashboard',
-    'GET:/pending-orders' => 'Ordercontroller@getPendingOrders',
+    'GET:/pending-orders' => 'OrderController@getPendingOrders',
     'GET:/pending-orders/details/{id}' => 'OrderController@orderDetails',
     'GET:/ordered-list' => 'OrderController@getOrderedList',
     'POST:/orders/update-status' => 'OrderController@updatePendingOrderStatus',
@@ -50,7 +53,8 @@ $routes = [
     'GET:/categories' => 'HomeController@showCategory',
     'GET:/saved' => 'HomeController@showSaved',
     'GET:/my-orders' => 'HomeController@showMyOrders',
-    'GET:/notification' => 'HomeController@showNotification',
+    'GET:/notification' => 'NotificationController@showNotifications',
+    'GET:/notifications/unread-count' => 'NotificationController@getUnreadCount',
     'GET:/profile' => 'HomeController@showProfile',
     'GET:/profile' => 'ProfileController@showProfile',
     'GET:/cart' => 'HomeController@showCart',

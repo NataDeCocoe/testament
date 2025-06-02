@@ -537,7 +537,44 @@ aside button {
     100% { transform: scale(1); }
 }
 
-
+/*NOTIFICATION CONTENT*/
+.sidebar {
+    width: 80px;
+    background-color: #f4a261;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+.sidebar a {
+    color: #264653;
+    padding: 15px 0;
+    text-decoration: none;
+    font-size: 1.5rem;
+    transition: color 0.3s;
+}
+.sidebar a:hover {
+    color: #e76f51;
+}
+.content {
+    margin-left: 80px;
+    padding: 20px;
+    background: #fff;
+    min-height: 100vh;
+}
+.form-card {
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
 
 
 

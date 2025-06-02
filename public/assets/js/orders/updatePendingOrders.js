@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (!response.ok) {
                     throw new Error(`Network response was not ok: ${response.status}`);
                 }
-                // Try to parse JSON directly, fallback if fails
+
                 return response.json().catch(() => response.text());
             })
             .then(data => {

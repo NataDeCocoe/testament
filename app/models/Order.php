@@ -144,7 +144,7 @@ class Order {
         return $stmt->execute([$status, $orderId]);
     }
 
-    public function updateStatus($orderId, $field, $value){
+    public function updateStatus($orderId, $field, $value) {
         $sql = "UPDATE orders SET $field = :value WHERE order_id = :order_id";
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([
@@ -153,53 +153,78 @@ class Order {
         ]);
     }
 
+    public function deleteOrder($orderId) {
+        try {
+            $this->db->beginTransaction();
+
+            // Delete from ordered_items
+            $sqlItems = "DELETE FROM ordered_items WHERE order_id = :order_id";
+            $stmtItems = $this->db->prepare($sqlItems);
+            $stmtItems->execute(['order_id' => $orderId]);
+
+            // Delete from sales
+            $sqlSales = "DELETE FROM sales WHERE order_id = :order_id";
+            $stmtSales = $this->db->prepare($sqlSales);
+            $stmtSales->execute(['order_id' => $orderId]);
+
+            // Delete from orders
+            $sqlOrders = "DELETE FROM orders WHERE order_id = :order_id";
+            $stmtOrders = $this->db->prepare($sqlOrders);
+            $stmtOrders->execute(['order_id' => $orderId]);
+
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            return false;
+        }
+    }
+
     public function updateAndProcessOrder($orderId, $status)
     {
         if ($status === 'approved') {
-            // Get ordered items
+
             $items = $this->getOrderItems($orderId);
 
-            // Check stock availability for all items first
+
             foreach ($items as $item) {
                 $productId = $item['product_id'];
                 $quantity = $item['quantity'];
 
-                // Get current stock
+
                 $stockStmt = $this->db->prepare("SELECT prod_quan FROM products WHERE prod_id = :pid");
                 $stockStmt->execute([':pid' => $productId]);
                 $currentStock = (int) $stockStmt->fetchColumn();
 
                 if ($quantity > $currentStock) {
-                    // Not enough stock, stop processing and return error or false
-                    // You could throw an exception or return false here
                     return false;
                 }
             }
 
-            // If all stock checks passed, update order status
+
             $stmt = $this->db->prepare("UPDATE orders SET order_status = :status WHERE order_id = :order_id");
             $stmt->execute([
                 ':status' => $status,
                 ':order_id' => $orderId
             ]);
 
-            // Deduct stock and insert into sales
+
             foreach ($items as $item) {
                 $productId = $item['product_id'];
                 $quantity = $item['quantity'];
 
-                // Deduct product quantity
+
                 $deduct = $this->db->prepare("UPDATE products SET prod_quan = prod_quan - :qty WHERE prod_id = :pid");
                 $deduct->execute([':qty' => $quantity, ':pid' => $productId]);
 
-                // Get product price
+
                 $priceStmt = $this->db->prepare("SELECT prod_price FROM products WHERE prod_id = :pid");
                 $priceStmt->execute([':pid' => $productId]);
                 $price = $priceStmt->fetchColumn();
 
                 $total = $price * $quantity;
 
-                // Insert into sales
+
                 $sale = $this->db->prepare("INSERT INTO sales (order_id, product_id, quantity, price, total_price) 
                                     VALUES (:oid, :pid, :qty, :price, :total)");
                 $sale->execute([
@@ -211,7 +236,7 @@ class Order {
                 ]);
             }
         } else {
-            // Just update status if not approved
+
             $stmt = $this->db->prepare("UPDATE orders SET order_status = :status WHERE order_id = :order_id");
             $stmt->execute([
                 ':status' => $status,

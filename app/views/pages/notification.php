@@ -18,6 +18,7 @@ if (!isset($_SESSION['user_id'])) {
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
     <script type="text/javascript" src="/assets/js/cart.js" defer></script>
+    <script type="text/javascript" src="/assets/js/notification/getUnreadNotification.js" defer></script>
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {
@@ -36,63 +37,9 @@ if (!isset($_SESSION['user_id'])) {
 
 <main class="main">
     <h1 class="headLabels">Notifications</h1>
-    <div class="notifCard">
-        <img src="/assets/images/promotion.png" width="80" height="80" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">Promotion</h4>
-            <p class="notifText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in metus vitae dui sagittis sollicitudin sed non risus. dui sagittis sollicitudin sed non risus.</p>
-        </div>
-        <div class="notifTimestamp">
-            <p>20:41</p>
-        </div>
-    </div>
-
-    <div class="notifCard">
-        <img src="/assets/images/warning.png" width="80" height=80" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">Announcements</h4>
-            <p class="notifText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in metus vitae dui sagittis sollicitudin sed non risus. dui sagittis sollicitudin sed non risus.</p>
-        </div>
-        <div class="notifTimestamp">
-            <p>11:41</p>
-        </div>
-    </div>
-
-    <div class="notifCard">
-        <img src="/assets/images/approved.png" width="80" height=80" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">Order approved</h4>
-            <p class="notifText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in metus vitae dui sagittis sollicitudin sed non risus. dui sagittis sollicitudin sed non risus.</p>
-        </div>
-        <div class="notifTimestamp">
-            <p>09:11</p>
-        </div>
-
-    </div>
-    <div class="notifCard">
-        <img src="/assets/images/delivery.png" width="80" height=80" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">Order has been shipped</h4>
-            <p class="notifText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in metus vitae dui sagittis sollicitudin sed non risus. dui sagittis sollicitudin sed non risus.</p>
-
-        </div>
-        <div class="notifTimestamp">
-            <p>12:01</p>
-        </div>
-    </div>
-    <div class="notifCard">
-        <img src="/assets/images/approved.png" width="80" height=80" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">Order completed</h4>
-            <p class="notifText">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer in metus vitae dui sagittis sollicitudin sed non risus. dui sagittis sollicitudin sed non risus.</p>
-
-        </div>
-        <div class="notifTimestamp">
-            <p>11:11</p>
-        </div>
-    </div>
-
+    <?php include __DIR__ . '/../layouts/notificationCard.php'; ?>
 </main>
+
 <footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
     <div class="menuButton">

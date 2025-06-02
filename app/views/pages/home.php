@@ -12,6 +12,8 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="icon" href="/public/assets/images/Testament_Logo.png" sizes="any">
     <link rel="stylesheet" href="assets/css/homePages.css">
     <link rel="stylesheet" href="assets/css/footer.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,6 +22,7 @@ if (!isset($_SESSION['user_id'])) {
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
     <script type="text/javascript" src="/assets/js/dashboardProducts.js" defer></script>
     <script type="text/javascript" src="/assets/js/cart.js" defer></script>
+    <script type="text/javascript" src="/assets/js/notification/getUnreadNotification.js" defer></script>
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {

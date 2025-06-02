@@ -179,7 +179,12 @@ class OrderController extends BaseController{
         }
 
         $orderModel = new Order();
-        $result = $orderModel->updateStatus($orderId, $field, $value);
+
+        if ($field === 'order_status' && $value === 'canceled') {
+            $result = $orderModel->deleteOrder($orderId);
+        } else {
+            $result = $orderModel->updateStatus($orderId, $field, $value);
+        }
 
         echo json_encode(['success' => $result]);
     }

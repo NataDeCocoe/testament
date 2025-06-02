@@ -12,9 +12,9 @@
     </button>
     <ul class="nav-con">
         <li>
-            <a href="">
-                <span class="nav-icon material-symbols-rounded">account_circle</span>
-                <span>Accounts</span>
+            <a href="/create-notification">
+                <span class="nav-icon material-symbols-rounded">notification_add</span>
+                <span>Notification</span>
             </a>
         </li>
         <li>

@@ -20,6 +20,15 @@ function showToast(message, type = 'success') {
         toast.className = 'toast';
     }, 3000);
 }
+function showToastError(message, type = 'error') {
+    const toast = document.getElementById('toast');
+    toast.className = `toast show ${type}`;
+    toast.textContent = message;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
 
 
 //ADD PRODUCT FORM SUBMIT EVENT HANDLER
@@ -63,7 +72,7 @@ document.getElementById('productForm').addEventListener('submit', async function
         showToast(data.message, data.status);
 
         if (data.status === 'success') {
-            setTimeout(() => location.reload(), 1500);
+            setInterval(() => location.reload(), 1000);
         }
 
     } catch (error) {
@@ -161,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('confirmDeleteBtn').setAttribute('data-id', product.prod_id);
                         openDeleteModal();
                     } else {
-                        alert("Product not found.");
+                        showToastError("Product not found.");
                     }
                 })
                 .catch(() => alert("Error loading product data."));

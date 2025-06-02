@@ -120,6 +120,13 @@ class User
         $stmt = $this->db->prepare("DELETE FROM password_resets WHERE email = :email");
         return $stmt->execute([':email' => $email]);
     }
+
+    public function getAll()
+    {
+        $stmt = $this->db->query("SELECT id, CONCAT(firstname, ' ', lastname) AS fullname FROM users ORDER BY firstname ASC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 
 ?>

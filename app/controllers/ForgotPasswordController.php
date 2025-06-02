@@ -1,8 +1,8 @@
 <?php
 require_once 'BaseController.php';
-require_once _DIR_ . '/../../config/database.php';
-require_once _DIR_ . '/../../vendor/autoload.php';
-require_once _DIR_ . '/../models/User.php';
+require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../models/User.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -35,7 +35,7 @@ class ForgotPasswordController extends BaseController {
 
         error_log("Token generated for $email - Expires at: $expiresAt");
 
-        $resetLink = "http://localhost:8000/reset-password?token=" . urlencode($plainToken) . "&email=" . urlencode($email);
+        $resetLink = "https://testaments.site/reset-password?token=" . urlencode($plainToken) . "&email=" . urlencode($email);
 
         $mail = new PHPMailer(true);
         try {
@@ -45,7 +45,7 @@ class ForgotPasswordController extends BaseController {
             $mail->Username = 'testaments.services@gmail.com';
             $mail->Password = 'rjnvjzrjawrvkuzh';
             $mail->SMTPSecure = 'tls';
-            $mail->Port = 578;
+            $mail->Port = 587;
 
             $mail->setFrom('no-reply@example.com', 'Testaments');
             $mail->addAddress($email);
@@ -144,10 +144,7 @@ class ForgotPasswordController extends BaseController {
             </head>
             <body>
                 <div class="card">
-                    <div class="header">
-                        <img src="'.$logoUrl.'" alt="Company Logo" class="logo">
-                        <h2 style="margin: 0 0 10px; font-weight: 600;">Password Reset Request</h2>
-                    </div>
+                  
                     
                     
                     
@@ -165,9 +162,9 @@ class ForgotPasswordController extends BaseController {
                         <p>© '.date('Y').' Testaments. All rights reserved.</p>
                         <p class="small-text">This email was sent to you because you requested a password reset for your account.</p>
                         <p class="small-text">
-                            <a href="https://example.com" style="color: #1890ff; text-decoration: none; font-weight: 500;">Our Website</a> | 
+                            <a href="https://testaments.site/" style="color: #1890ff; text-decoration: none; font-weight: 500;">Our Website</a> | 
                             <a href="https://example.com/privacy" style="color: #1890ff; text-decoration: none; font-weight: 500;">Privacy Policy</a> | 
-                            <a href="https://example.com/contact" style="color: #1890ff; text-decoration: none; font-weight: 500;">Contact Us</a>
+                            <a href="https://testaments.site/contact" style="color: #1890ff; text-decoration: none; font-weight: 500;">Contact Us</a>
                         </p>
                     </div>
                 </div>
@@ -184,9 +181,9 @@ class ForgotPasswordController extends BaseController {
                 ."---\n"
                 ."© ".date('Y')." Testaments. All rights reserved.\n"
                 ."This email was sent to you because you requested a password reset for your account.\n"
-                ."Our Website: https://example.com\n"
+                ."Our Website: https://testaments.site\n"
                 ."Privacy Policy: https://example.com/privacy\n"
-                ."Contact Us: https://example.com/contact";
+                ."Contact Us: https://testaments.site/contact";
 
             $mail->send();
 

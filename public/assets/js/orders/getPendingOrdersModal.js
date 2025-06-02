@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     `;
 
                     let html = `
+                        <p><strong>Order ID:</strong> ${order.order_id}</p>
                         <p><strong>Name:</strong> ${order.ord_fname} ${order.ord_lname}</p>
                           <p><strong>Contact Number:</strong> ${order.contact_number}</p>
                           <p><strong>Delivery Address:</strong> ${order.delivery_address}</p>
@@ -85,17 +86,13 @@ function updatePendingBadge() {
             const badge = document.querySelector('.pending-badge');
 
             if (data.success) {
-                // Hide badge if count is 0, show if count > 0
+
                 if (data.count > 0) {
                     navItem.classList.add('has-pending');
-                    // Uncomment below if you want to show the count instead of just dot
-                    // badge.textContent = data.count;
-                    // badge.classList.add('count');
+
                 } else {
                     navItem.classList.remove('has-pending');
-                    // Uncomment below if using count badge
-                    // badge.classList.remove('count');
-                    // badge.textContent = '';
+
                 }
             }
         })
@@ -106,10 +103,10 @@ function updatePendingBadge() {
         });
 }
 
-// Initialize on page load
+
 document.addEventListener('DOMContentLoaded', function() {
     updatePendingBadge();
 
-    // Refresh every 5 minutes (300000ms)
+
     setInterval(updatePendingBadge, 1000);
 });
