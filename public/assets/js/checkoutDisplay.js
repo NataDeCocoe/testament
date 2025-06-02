@@ -35,58 +35,82 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
+
+
 //SUMMARY
-document.addEventListener('DOMContentLoaded', function () {
+
+function updateOrderSummary() {
     fetch('/checkout/getItems')
         .then(res => res.json())
         .then(data => {
             if (data.status && Array.isArray(data.items)) {
                 const orderSummary = document.querySelector('.order-summary');
                 let subtotal = 0;
-                let summaryHTML = `
-          <h2 style="margin-top: 0;">ORDER SUMMARY</h2>
-        `;
+                let summaryHTML = `<h2 style="margin-top: 0;">ORDER SUMMARY</h2>`;
 
                 data.items.forEach(item => {
                     const itemTotal = item.prod_price * item.quantity;
                     subtotal += itemTotal;
 
                     summaryHTML += `
-            <div class="summary-item">
-              <span>${item.quantity} x ${item.prod_name}</span>
-              <span>₱${itemTotal.toFixed(2)}</span>
-            </div>
-          `;
+                        <div class="summary-item">
+                          <span>${item.quantity} x ${item.prod_name}</span>
+                          <span>₱${itemTotal.toFixed(2)}</span>
+                        </div>
+                    `;
                 });
 
-                let perItem = 10;
+                const feeInput = document.getElementById('shippingFeeInput');
+                let shippingFee = 0;
+                if (feeInput && feeInput.value && !isNaN(parseFloat(feeInput.value))) {
+                    shippingFee = parseFloat(feeInput.value);
+                }
 
-                let basedShipping = 50;
-                const shippingFee = (perItem * data.items.length) + (basedShipping * data.items.length);
                 const grandTotal = subtotal + shippingFee;
 
                 summaryHTML += `
-          <div class="summary-item">
-            <span>Mechandise Subtotal</span>
-            <span>₱${subtotal.toFixed(2)}</span>
-          </div>
-          <div class="summary-item">
-            <span>Shipping Subtotal</span>
-            <span class="free">₱${shippingFee.toFixed(2)}</span>
-          </div>
-          <div class="summary-total">
-            <span>Total Payment</span>
-            <span>₱${grandTotal.toFixed(2)}</span>
-          </div>
-        `;
+                    <div class="summary-item">
+                      <span>Merchandise Subtotal</span>
+                      <span>₱${subtotal.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-item">
+                      <span>Shipping Subtotal</span>
+                      <span class="free">₱${shippingFee.toFixed(2)}</span>
+                    </div>
+                    <div class="summary-total">
+                      <span>Total Payment</span>
+                      <span>₱${grandTotal.toFixed(2)}</span>
+                    </div>
+                `;
 
                 orderSummary.innerHTML = summaryHTML;
+            } else {
+                console.warn('Cart is empty or invalid response.');
             }
         })
         .catch(error => {
             console.error('Error fetching cart items:', error);
         });
+}
+
+// Trigger once when page loads
+updateOrderSummary();
+
+// Trigger again after selecting shipping address
+document.getElementById('addressSelect')?.addEventListener('change', () => {
+    const checkShippingSet = setInterval(() => {
+        const feeInput = document.getElementById('shippingFeeInput');
+        if (feeInput && feeInput.value && !isNaN(parseFloat(feeInput.value))) {
+            clearInterval(checkShippingSet);
+            updateOrderSummary(); // Now we know shipping fee is set
+        }
+    }, 200); // Check every 200ms
+
+    // Optional: Stop trying after 5 seconds
+    setTimeout(() => clearInterval(checkShippingSet), 5000);
 });
+
+
 
 //METHOD OF PAYMENT
 document.addEventListener("DOMContentLoaded", function () {
@@ -175,17 +199,19 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 return;
             }
 
+            // Calculate subtotal
             let subtotal = 0;
-            const perItem = 10;
-            const basedShipping = 50;
-
             cartData.items.forEach(item => {
                 subtotal += item.prod_price * item.quantity;
             });
 
-            const shippingFee = (perItem * cartData.items.length) + (basedShipping * cartData.items.length);
+            // Get dynamic shipping fee (from hidden input)
+            const shippingFeeInput = document.getElementById('shippingFeeInput');
+            const shippingFee = parseFloat(shippingFeeInput?.value || 0);
+
             const grandTotal = subtotal + shippingFee;
 
+            // Prepare items
             const items = cartData.items.map(item => {
                 if (!item.prod_id && !item.product_id) {
                     console.error("Item missing product ID:", item);
@@ -199,25 +225,86 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                 };
             });
 
-            const phone = document.getElementById("phone").value.trim();
+            // Get form inputs
+            const firstNameInput = document.getElementById('firstname');
+            const lastNameInput = document.getElementById('lastname');
+            const phoneInput = document.getElementById('phone');
+            const buildingInput = document.getElementById('building');
+            const zipInput = document.getElementById('zip');
+            const selectedRegionCode = document.getElementById('region').value;
+            const selectedProvinceCode = document.getElementById('province').value;
+            const selectedMunicipalityId = document.getElementById('muncity').value;
+            const selectedBarangayCode = document.getElementById('barangay').value;
+
+            if (
+                !selectedRegionCode ||
+                !selectedProvinceCode ||
+                !selectedMunicipalityId ||
+                !selectedBarangayCode
+            ) {
+                alert("Please select all delivery address fields properly.");
+                return;
+            }
+
+            // Get courier
+            const courierInput = document.querySelector('#deliveryOptions input[name="delivery"]:checked');
+            const selectedCourier = courierInput ? courierInput.value : null;
+
+            // Get payment method
+            const paymentOptions = document.querySelectorAll('.payment-option');
+            let selectedPaymentMethod = null;
+            paymentOptions.forEach(option => {
+                if (option.classList.contains('selected')) {
+                    const text = option.textContent.toLowerCase();
+                    if (text.includes('cash')) selectedPaymentMethod = 'Cash on Delivery';
+                    else if (text.includes('paypal')) selectedPaymentMethod = 'paypal';
+                }
+            });
+
+            // Validate text fields
+            if (
+                !firstNameInput.value.trim() ||
+                !lastNameInput.value.trim() ||
+                !phoneInput.value.trim() ||
+                !buildingInput.value.trim() ||
+                !zipInput.value.trim()
+            ) {
+                alert("Please fill all required fields.");
+                return;
+            }
+
+            // Validate phone number format
+            const phone = phoneInput.value.trim();
             if (!/^09\d{9}$/.test(phone)) {
                 alert("Phone number must start with 09 and be exactly 11 digits.");
                 return;
             }
 
+            if (!selectedCourier) {
+                alert("Please select a delivery option.");
+                return;
+            }
+            if (!selectedPaymentMethod) {
+                alert("Please select a payment method.");
+                return;
+            }
 
             const data = {
-                firstName: document.getElementById("firstname").value,
-                lastName: document.getElementById("lastname").value,
-                phone: document.getElementById("phone").value,
-                building: document.getElementById("building").value,
-                zip: document.getElementById("zip").value,
-                courier: document.querySelector('input[name="delivery"]:checked').value,
-                payment_method: document.getElementById("payment_method").value,
-                shipping_fee: shippingFee,
+                firstName: firstNameInput.value.trim(),
+                lastName: lastNameInput.value.trim(),
+                phone: phone,
+                building: buildingInput.value.trim(),
+                zip: zipInput.value.trim(),
+                region_code: selectedRegionCode,
+                province_code: selectedProvinceCode,
+                muncity_id: selectedMunicipalityId,
+                barangay_code: selectedBarangayCode,
+                courier: selectedCourier,
+                payment_method: selectedPaymentMethod,
                 subtotal: subtotal,
                 total: grandTotal,
                 items: items,
+                shipping_fee: shippingFee
             };
 
             console.log("Sending order data:", data);
@@ -231,11 +318,19 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
             })
                 .then(async res => {
                     const contentType = res.headers.get('content-type');
+                    const text = await res.text();
+
                     if (!contentType || !contentType.includes('application/json')) {
-                        const text = await res.text();
-                        throw new Error(`Expected JSON, got: ${text.substring(0, 100)}`);
+                        console.error("Response is not JSON, here's the raw response:", text);
+                        throw new Error(`Expected JSON but received non-JSON response.`);
                     }
-                    return res.json();
+
+                    try {
+                        return JSON.parse(text);
+                    } catch (e) {
+                        console.error("Failed to parse JSON:", e, "Response text:", text);
+                        throw e;
+                    }
                 })
                 .then(response => {
                     if (response.status === 'success') {
@@ -256,22 +351,20 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                     }
                 })
                 .catch(err => {
-                    fetch('/orders/place', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data)
-                    })
-                        .then(res => res.text())
-                        .then(text => {
-                            console.log("Raw server response:", text);
-                            alert("Error placing order. See console for details.");
-                        })
-                        .catch(console.error);
+                    console.error(err);
+                    alert("Error placing order. See console for details.");
                 });
+
+        })
+        .catch(err => {
+            console.error("Failed to fetch cart items:", err);
+            alert("Could not get cart items. Please try again.");
         });
 });
+
+
+
+
 
 
 

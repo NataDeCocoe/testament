@@ -52,7 +52,7 @@ if (!isset($_SESSION['user_id'])) {
 
 
     <h1 id="mostPopular">Most Popular</h1>
-    <?php include __DIR__ . '/../layouts/allProductCard.php'; ?>
+        <?php include __DIR__ . '/../layouts/allProductCard.php'; ?>
 
     <div class="container">
         <div class="hero">

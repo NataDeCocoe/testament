@@ -25,70 +25,152 @@ class Order {
         }
     }
 
-    public function create($orderData, $items){
-
+    public function create($orderData, $items) {
         try {
+            // Verify database connection
+            if (!$this->db) {
+                throw new Exception("Database connection failed");
+            }
+
             $this->db->beginTransaction();
 
-            error_log("Order data: " . print_r($orderData, true));
-            error_log("Order items: " . print_r($items, true));
-
-            $query = ("
-            INSERT INTO orders (
-                user_id, ord_fname, ord_lname, contact_number, delivery_address, building_address, 
-                zip_code, courier, shipping_fee, payment_method, subtotal, total_amount, ordered_at
-            ) VALUES (
-                :user_id, :ord_fname, :ord_lname, :contact_number, :delivery_address, :building_address, 
-                :zip_code, :courier, :shipping_fee, :payment_method, :subtotal, :total_amount, NOW()
-            )
-        ");
+            // 1. Insert order
+            $query = "
+        INSERT INTO orders (
+            user_id, ord_fname, ord_lname, contact_number,
+            region_code, province_code, muncity_id, barangay_code,
+            building_address, zip_code,
+            courier, shipping_fee, payment_method,
+            subtotal, total_amount, order_status, payment_status
+        ) VALUES (
+            :user_id, :ord_fname, :ord_lname, :contact_number,
+            :region_code, :province_code, :muncity_id, :barangay_code,
+            :building_address, :zip_code,
+            :courier, :shipping_fee, :payment_method,
+            :subtotal, :total_amount, :order_status, :payment_status
+        )";
 
             $stmt = $this->db->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Failed to prepare order statement: " . implode(' ', $this->db->errorInfo()));
+            }
 
-            $stmt->execute([
-                ':user_id' => $orderData['user_id'],
-                ':ord_fname' => $orderData['ord_fname'],
-                ':ord_lname' => $orderData['ord_lname'],
-                ':contact_number' => $orderData['contact_number'],
-                ':delivery_address' => $orderData['delivery_address'],
-                ':building_address' => $orderData['building_address'],
-                ':zip_code' => $orderData['zip_code'],
-                ':courier' => $orderData['courier'],
-                ':shipping_fee' => $orderData['shipping_fee'],
-                ':payment_method' => $orderData['payment_method'],
-                ':subtotal' => $orderData['subtotal'],
-                ':total_amount' => $orderData['total_amount']
+            $executed = $stmt->execute([
+                ':user_id' => $orderData['user_id'] ?? null,
+                ':ord_fname' => $orderData['ord_fname'] ?? '',
+                ':ord_lname' => $orderData['ord_lname'] ?? '',
+                ':contact_number' => $orderData['contact_number'] ?? '',
+                ':region_code' => $orderData['region_code'] ?? '',
+                ':province_code' => $orderData['province_code'] ?? '',
+                ':muncity_id' => $orderData['muncity_id'] ?? 0,
+                ':barangay_code' => $orderData['barangay_code'] ?? '',
+                ':building_address' => $orderData['building_address'] ?? '',
+                ':zip_code' => $orderData['zip_code'] ?? '',
+                ':courier' => $orderData['courier'] ?? '',
+                ':shipping_fee' => $orderData['shipping_fee'] ?? 0,
+                ':payment_method' => $orderData['payment_method'] ?? '',
+                ':subtotal' => $orderData['subtotal'] ?? 0,
+                ':total_amount' => $orderData['total_amount'] ?? 0,
+                ':order_status' => $orderData['order_status'] ?? 'pending',
+                ':payment_status' => $orderData['payment_status'] ?? 'Unpaid'
             ]);
+
+            if (!$executed) {
+                throw new Exception("Failed to execute order insertion: " . implode(' ', $stmt->errorInfo()));
+            }
 
             $orderId = $this->db->lastInsertId();
 
+            // 2. Validate and insert items
             foreach ($items as $item) {
-                $check = $this->db->prepare("SELECT COUNT(*) FROM products WHERE prod_id = ?");
-                $check->execute([$item['product_id']]);
-                if ($check->fetchColumn() == 0) {
+                // Get complete product details
+                $product = $this->db->prepare("
+                SELECT prod_name, prod_code, weight_kg, length_cm, width_cm, height_cm 
+                FROM products 
+                WHERE prod_id = ?
+            ");
+
+                if (!$product->execute([$item['product_id'] ?? 0])) {
+                    throw new Exception("Product query failed: " . implode(' ', $product->errorInfo()));
+                }
+
+                $productData = $product->fetch(PDO::FETCH_ASSOC);
+
+                if (!$productData) {
                     throw new Exception("Product ID {$item['product_id']} does not exist");
+                }
+
+                // Calculate subtotal
+                $subtotal = ($item['quantity'] ?? 0) * ($item['price'] ?? 0);
+
+                // Insert order item
+                $stmtItem = $this->db->prepare("
+                INSERT INTO ordered_items (
+                    order_id, prod_id, product_name, product_code,
+                    quantity, price, subtotal,
+                    weight_kg, length_cm, width_cm, height_cm
+                ) VALUES (
+                    :order_id, :prod_id, :product_name, :product_code,
+                    :quantity, :price, :subtotal,
+                    :weight_kg, :length_cm, :width_cm, :height_cm
+                )
+            ");
+
+                if (!$stmtItem) {
+                    throw new Exception("Failed to prepare item statement: " . implode(' ', $this->db->errorInfo()));
+                }
+
+                $itemExecuted = $stmtItem->execute([
+                    ':order_id' => $orderId,
+                    ':prod_id' => $item['product_id'],
+                    ':product_name' => $productData['prod_name'],
+                    ':product_code' => $productData['prod_code'],
+                    ':quantity' => $item['quantity'] ?? 0,
+                    ':price' => $item['price'] ?? 0,
+                    ':subtotal' => $subtotal,
+                    ':weight_kg' => $productData['weight_kg'],
+                    ':length_cm' => $productData['length_cm'],
+                    ':width_cm' => $productData['width_cm'],
+                    ':height_cm' => $productData['height_cm']
+                ]);
+
+                if (!$itemExecuted) {
+                    throw new Exception("Failed to insert order item: " . implode(' ', $stmtItem->errorInfo()));
+                }
+
+                // Update product stock if needed
+                if (isset($item['reduce_stock']) && $item['reduce_stock']) {
+                    $update = $this->db->prepare("
+                    UPDATE products SET prod_quan = GREATEST(0, prod_quan - ?) 
+                    WHERE prod_id = ?
+                ");
+                    if (!$update->execute([$item['quantity'], $item['product_id']])) {
+                        throw new Exception("Stock update failed: " . implode(' ', $update->errorInfo()));
+                    }
                 }
             }
 
-            foreach ($items as $item) {
-                $stmtItem = $this->db->prepare("
-                    INSERT INTO ordered_items (order_id, product_id, quantity, price)
-                    VALUES (:order_id, :product_id, :quantity, :price)
-                ");
-                $stmtItem->execute([
-                    ':order_id' => $orderId,
-                    ':product_id' => $item['product_id'],
-                    ':quantity' => $item['quantity'],
-                    ':price' => $item['price']
-                ]);
-            }
-
             $this->db->commit();
-            return true;
+            return [
+                'success' => true,
+                'order_id' => $orderId,
+                'order_status' => $orderData['order_status'] ?? 'pending'
+            ];
 
         } catch (PDOException $e) {
             $this->db->rollBack();
-            return 'Order Transaction Failed: ' . $e->getMessage();
+            error_log("Order Error: " . $e->getMessage());
+            return [
+                'success' => false,
+                'error' => 'Database error: ' . $e->getMessage()
+            ];
+        } catch (Exception $e) {
+            $this->db->rollBack();
+            error_log("Order Processing Error: " . $e->getMessage());
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
         }
     }
 

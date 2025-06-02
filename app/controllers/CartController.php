@@ -99,7 +99,11 @@ class CartController extends BaseController{
                     'prod_name' => $item['prod_name'],
                     'prod_price' => (float)$item['prod_price'],
                     'quantity' => (int)$item['quantity'],
-                    'prod_img' => $item['prod_img']
+                    'prod_img' => $item['prod_img'],
+                    'weight' => $item['weight_kg'],
+                    'length' => $item['length_cm'],
+                    'width' => $item['width_cm'],
+                    'height' => $item['height_cm'],
                 ];
             }, $items);
 

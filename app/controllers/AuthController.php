@@ -28,7 +28,7 @@ class AuthController extends BaseController{
             }
 
             $userModel = new User();
-            $resetEntry = $userModel->getResetEntry(); // Get row from `password_resets` table
+            $resetEntry = $userModel->getResetEntry();
 
             if (!$resetEntry || !password_verify($token, $resetEntry['token'])) {
                 echo "Invalid or expired token.";
@@ -40,7 +40,7 @@ class AuthController extends BaseController{
                 return;
             }
 
-            // Show reset password form (pass token as hidden input)
+
            $this->views('auth/resetPassword', ['token' => $token]);
         }
     }

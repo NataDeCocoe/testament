@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(data => {
                 data.forEach(barangay => {
                     const option = document.createElement("option");
-                    option.value = barangay.muncity_id;
+                    option.value = barangay.code;
                     option.textContent = barangay.description;
                     barangaySelect.appendChild(option);
                 });

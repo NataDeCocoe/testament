@@ -5,13 +5,18 @@ require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../models/Product.php';
 require_once __DIR__ . '/../models/Cart.php';
 require_once __DIR__ . '/../models/Order.php';
+require_once '../app/helpers/ShippingCalculator.php';
 
 class OrderController extends BaseController{
     private $cartModel;
+    private $db;
     private $productModel;
     public function __construct(){
         $this->cartModel = new Cart();
         $this->productModel = new Product();
+
+        $database = new Database();
+        $this->db = $database->getConnection();
 
     }
 
@@ -50,75 +55,100 @@ class OrderController extends BaseController{
         }
     }
 
-    public function place(){
+    public function place() {
         header('Content-Type: application/json');
-        $body = json_decode(file_get_contents("php://input"), true);
+        // Ensure this path is correct
 
-        if (!$body) {
-            error_log("Invalid JSON received");
-            http_response_code(400);
-            echo json_encode(["success" => false, "message" => "Invalid JSON"]);
-            exit;
-        }
-
-        error_log("Order payload: " . print_r($body, true));
-
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        try {
+            // Get and validate input
             $data = json_decode(file_get_contents("php://input"), true);
-            file_put_contents('log_order.txt', print_r($data, true));
             if (!$data) {
-                http_response_code(400);
-                echo json_encode(['status' => 'error', 'message' => 'Invalid JSON']);
-                return;
+                throw new Exception("Invalid JSON input");
             }
-            $required = ['firstName', 'lastName', 'phone', 'address', 'zip'];
+
+            error_log("Order payload: " . print_r($data, true));
+
+            // Required fields validation
+            $required = [
+                'firstName', 'lastName', 'phone',
+                'region_code', 'province_code', 'muncity_id', 'barangay_code',
+                'building', 'zip', 'courier', 'payment_method',
+                'subtotal', 'total', 'items'
+            ];
+
             foreach ($required as $field) {
-                if (empty($data[$field])) {
-                    http_response_code(400);
-                    echo json_encode(['status' => 'error', 'message' => "Missing required field: $field"]);
-                    return;
+                if (empty($data[$field]) || $data[$field] === 'undefined') {
+                    throw new Exception("Missing required field: $field");
                 }
             }
 
-            $orderModel = new Order();
+            // Validate items
+            if (!is_array($data['items']) || count($data['items']) === 0) {
+                throw new Exception("No items in order");
+            }
 
+            // Prepare items and validate format
+            $items = array_map(function($item) {
+                if (empty($item['product_id']) || empty($item['quantity']) || empty($item['price'])) {
+                    throw new Exception("Invalid item format");
+                }
+                return [
+                    'product_id' => $item['product_id'],
+                    'quantity' => (int)$item['quantity'],
+                    'price' => (float)$item['price'],
+                    'reduce_stock' => $item['reduce_stock'] ?? true
+                ];
+            }, $data['items']);
+
+            // Calculate shipping fee based on region and product details
+            $destinationRegion = $data['region_code'];
+            $shippingFee = ShippingCalculator::calculate($items, $destinationRegion, $this->db);
+
+            // Prepare order data
+            $orderModel = new Order();
             $orderData = [
                 'user_id' => $_SESSION['user_id'] ?? 1,
-                'ord_fname' => $data['firstName'] ?? null,
-                'ord_lname' => $data['lastName'] ?? null,
+                'ord_fname' => $data['firstName'],
+                'ord_lname' => $data['lastName'],
                 'contact_number' => $data['phone'],
-                'delivery_address' => $data['address'],
+                'region_code' => $data['region_code'],
+                'province_code' => $data['province_code'],
+                'muncity_id' => (int)$data['muncity_id'],
+                'barangay_code' => $data['barangay_code'],
                 'building_address' => $data['building'],
                 'zip_code' => $data['zip'],
                 'courier' => $data['courier'],
-                'shipping_fee' => floatval($data['shipping_fee']),
+                'shipping_fee' => $shippingFee,
                 'payment_method' => $data['payment_method'],
-                'subtotal' => floatval($data['subtotal']),
-                'total_amount' => floatval($data['total']),
-                'shipping_status' => 'Processing',
-                'payment_status' => 'Unpaid',
-                'ordered_at' => date('m-d-Y h:i A')
+                'subtotal' => (float)$data['subtotal'],
+                'total_amount' => (float)$data['subtotal'] + $shippingFee,
+                'order_status' => 'pending',
+                'payment_status' => 'Unpaid'
             ];
 
-            $items = $data['items'] ?? [];
-
+            // Create order
             $result = $orderModel->create($orderData, $items);
 
-            if ($result === true) {
-                echo json_encode(['status' => 'success', 'message' => 'Order placed successfully']);
-            } else {
-                http_response_code(500);
+            if (isset($result['success']) && $result['success']) {
                 echo json_encode([
-                    'status' => 'error',
-                    'message' => $result
+                    'status' => 'success',
+                    'message' => 'Order placed successfully',
+                    'order_id' => $result['order_id']
                 ]);
+            } else {
+                throw new Exception($result['error'] ?? 'Order creation failed');
             }
-        } else {
-            http_response_code(405);
-            echo json_encode(['status' => 'error', 'message' => 'Method not allowed']);
+
+        } catch (Exception $e) {
+            error_log("Order Error: " . $e->getMessage());
+            http_response_code(400);
+            echo json_encode([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
     }
+
 
     public function countOrders(){
         header('Content-Type: application/json');

@@ -26,7 +26,11 @@ class Cart{
             p.prod_id,
             p.prod_name, 
             p.prod_price, 
-            p.prod_img
+            p.prod_img,
+            p.weight_kg,
+            p.length_cm,
+            p.width_cm,
+            p.height_cm
         FROM cart c
         JOIN products p ON c.product_id = p.prod_id
         WHERE c.user_id = ?

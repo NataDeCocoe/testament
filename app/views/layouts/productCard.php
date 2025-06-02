@@ -60,7 +60,7 @@
 
                 <div class="quantity-wrap">
                     <label>Quantity:</label>
-                    <input type="number" value="1" min="1">
+                    <input type="number" value="1">
                 </div>
 
                 <h3 class="total-price"></h3>

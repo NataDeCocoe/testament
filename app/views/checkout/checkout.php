@@ -150,27 +150,32 @@ if (!isset($_SESSION['user_id'])) {
         <div class="bottom-right">
             <div class="order-summary">
                 <h2 style="margin-top: 0;">ORDER SUMMARY</h2>
+
                 <div class="summary-item">
                     <span></span>
                     <span></span>
-                </div>
-                <div class="summary-item">
-                    <span>Subtotal</span>
-                    <span></span>
-                </div>
-                <div class="summary-item">
-                    <span>Shipping</span>
-                    <span class="free"></span>
                 </div>
 
+                <div class="summary-item">
+                    <span>Subtotal</span>
+                    <span class="subtotal">₱0.00</span> <!-- ✅ Required -->
+                </div>
+
+                <div class="summary-item">
+                    <input type="hidden" id="shippingFeeInput" value="">
+
+                    <span>Shipping</span>
+                    <span class="shipping-fee">₱0.00</span> <!-- ✅ Optional but used -->
+                </div>
 
                 <div class="summary-total">
                     <span>ORDER TOTAL</span>
-                    <span></span>
+                    <span class="total">₱0.00</span> <!-- ✅ Required -->
                 </div>
 
             </div>
         </div>
+
 
         <button class="complete-order" id="placeOrderBtn">
             <i class="fas fa-lock"></i> PLACE ORDER

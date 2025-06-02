@@ -70,7 +70,6 @@ CREATE TABLE orders (
                       'completed', 'canceled') DEFAULT 'pending',
     payment_status VARCHAR(50) DEFAULT 'Unpaid',
     ordered_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
@@ -79,15 +78,24 @@ CREATE TABLE categories (
     category_name VARCHAR(100) NOT NULL UNIQUE
 );
 
+
 CREATE TABLE ordered_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
-    product_id INT NOT NULL,
+    prod_id INT NOT NULL,
+    product_name VARCHAR(65) NOT NULL,
+    product_code INT NOT NULL,
     quantity INT NOT NULL,
-    price DECIMAL(10,2),
-    FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    FOREIGN KEY (product_id) REFERENCES products(prod_id)
+    price DECIMAL(10,2) NOT NULL,
+    subtotal DECIMAL(10,2) NOT NULL,
+    weight_kg DECIMAL(6,2) NOT NULL,
+    length_cm DECIMAL(6,2) NOT NULL,
+    width_cm DECIMAL(6,2) NOT NULL,
+    height_cm DECIMAL(6,2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id) ON DELETE CASCADE,
+    FOREIGN KEY (prod_id) REFERENCES products(prod_id)
 );
+
 
 CREATE TABLE password_resets (
     id INT AUTO_INCREMENT PRIMARY KEY,
