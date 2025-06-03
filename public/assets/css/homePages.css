@@ -1377,6 +1377,7 @@ footer {
 
     .navbar-toggler {
         display: inline-block;
+        margin-top: -5px;
     }
 
     .mobile-menu-collapse {
@@ -1493,7 +1494,14 @@ footer {
     #sCart {
         top: 0.5em;
         position: static;
-        margin-right: 15px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .navbar-toggler-icon{
+        margin-top: -10px;
+        margin-left: 5px;
     }
 
     .prodBackCon,
@@ -1548,7 +1556,7 @@ footer {
 
     .cart-badge{
         top: 1px;
-        right: 55px;
+        right: 65px;
     }
 
     .innerProdItems{
@@ -1612,7 +1620,7 @@ footer {
         width: 100%;
         font-size: x-large;
         margin-top: 10px;
-       
+
     }
 
     .historyText {
