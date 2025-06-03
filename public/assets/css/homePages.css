@@ -1332,6 +1332,33 @@ footer {
     border-color: transparent;
 }
 
+/*Saved bookmark*/
+.modal-body {
+    position: relative;
+}
+
+.save-icon {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.save-svg {
+    transition: stroke 0.5s, fill 0.8s;
+    fill: none;
+    stroke: #a0a0a0;
+    opacity: 0.7;
+}
+
+.save-icon.saved .save-svg {
+    fill: #f44336;   /* Red fill when saved */
+    stroke: #f44336; /* Red stroke when saved */
+    opacity: 1;
+}
+
+
 
 
 /* Responsive Styles */
@@ -1407,7 +1434,25 @@ footer {
         padding: 1.25rem;
         margin: 0;
     }
-
+    .save-icon {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.6rem;
+        cursor: pointer;
+        z-index: 10;
+    }
+    .innerA {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 0.4em;
+        color: white;
+        padding: 0.5em;
+        font-size: 0.8em;
+        bottom: .5rem;
+        left: .9rem;
+        display: none;
+        transition: opacity 0.3s ease;
+    }
     .collections {
         flex-direction: column;
         align-items: center;
@@ -1480,7 +1525,7 @@ footer {
     }
 
     .product-img {
-        width: 320px;
+        width: 17rem;
         height: 270px;
     }
 

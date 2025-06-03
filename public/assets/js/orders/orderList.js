@@ -114,7 +114,6 @@ document.querySelectorAll('.orders-row').forEach(row => {
         </div>`;
 
             const html = `
-        <p><strong>User ID:</strong> ${order.user_id}</p>
         <p><strong>Name:</strong> ${order.ord_fname} ${order.ord_lname}</p>
         <p><strong>Contact Number:</strong> ${order.contact_number}</p>
         <p><strong>Delivery Address:</strong> ${order.delivery_address}</p>

@@ -48,6 +48,13 @@
         <span class="close-modal" onclick="closeModal()">&times;</span>
 
         <div class="modal-body">
+   <span class="save-icon" onclick="toggleSave(this)">
+    <svg class="save-svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#a0a0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-6.5-4.5-9-9c-1.5-3 0-7 4.5-7 2.5 0 4 1.5 4.5 2 0.5-0.5 2-2 4.5-2 4.5 0 6 4 4.5 7-2.5 4.5-9 9-9 9z"></path>
+    </svg>
+</span>
+
+
             <div class="modal-left">
                 <img src="" alt="Product Image" class="product-img">
             </div>
@@ -69,6 +76,7 @@
         </div>
     </div>
 </div>
+
 
 
 

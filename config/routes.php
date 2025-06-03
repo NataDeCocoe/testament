@@ -55,7 +55,6 @@ $routes = [
     'GET:/my-orders' => 'HomeController@showMyOrders',
     'GET:/notification' => 'NotificationController@showNotifications',
     'GET:/notifications/unread-count' => 'NotificationController@getUnreadCount',
-    'GET:/profile' => 'HomeController@showProfile',
     'GET:/profile' => 'ProfileController@showProfile',
     'GET:/cart' => 'HomeController@showCart',
     'GET:/checkout' => 'HomeController@showCheckout',
