@@ -53,6 +53,7 @@ $routes = [
     'GET:/categories' => 'HomeController@showCategory',
     'GET:/saved' => 'HomeController@showSaved',
     'GET:/my-orders' => 'HomeController@showMyOrders',
+    'GET:/profile/orders/data' => 'OrderController@userOrdersAjax',
     'GET:/notification' => 'NotificationController@showNotifications',
     'GET:/notifications/unread-count' => 'NotificationController@getUnreadCount',
     'GET:/profile' => 'ProfileController@showProfile',

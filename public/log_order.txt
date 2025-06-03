@@ -1,23 +1,23 @@
 Array
 (
-    [firstName] => d
-    [lastName] => f
-    [phone] => 09120702560
-    [address] => Test
-    [building] => e
-    [zip] => e
+    [firstName] => Nathaniel
+    [lastName] => Bartolome
+    [phone] => 09120475896
+    [address] => Prk. 6-A, Burgos Street, Tagum City
+    [building] => Home
+    [zip] => 8100
     [courier] => J&T Express
-    [payment_method] => Cash on Delivery
+    [payment_method] => PayPal
     [shipping_fee] => 60
-    [subtotal] => 97
-    [total] => 157
+    [subtotal] => 200
+    [total] => 260
     [items] => Array
         (
             [0] => Array
                 (
-                    [product_id] => 1
+                    [product_id] => 7
                     [quantity] => 1
-                    [price] => 97
+                    [price] => 200
                 )
 
         )

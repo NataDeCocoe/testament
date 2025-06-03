@@ -18,6 +18,8 @@ if (!isset($_SESSION['user_id'])) {
     <script type="text/javascript" src="/resources/js/homePage.js" defer></script>
     <script type="text/javascript" src="/assets/js/sidebar.js" defer></script>
     <script type="text/javascript" src="/assets/js/cart.js" defer></script>
+    <script type="text/javascript" src="/assets/js/orders/orderHistory.js" defer></script>
+
     <script>
         try {
             if (localStorage.getItem("sidebar-collapsed") === "true") {
@@ -36,17 +38,10 @@ if (!isset($_SESSION['user_id'])) {
 
 <main class="main">
     <h1 class="headLabels">My Orders</h1>
-    <div class="profileItemHistory">
-        <img class="img" src="/assets/images/newBook2.jpg" width="90" height="100" alt="">
-        <div class="notifContent">
-            <h4 class="notifHeader">The Eve</h4>
-            <p class="historyText">Total Item: <span>1pcs</span></p>
-            <p class="historyText">Price: <span>₱120</span></p>
-        </div>
-        <div class="notifTimestamp">
-            <p class="historyStatus"><small>Completed</small></p>
-        </div>
+    <div id="orderHistoryContainer" class="order-history-container">
+
     </div>
+
 
 
 </main>

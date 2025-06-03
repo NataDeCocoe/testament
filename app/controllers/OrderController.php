@@ -189,5 +189,27 @@ class OrderController extends BaseController{
         echo json_encode(['success' => $result]);
     }
 
+    public function userOrdersAjax()
+    {
+
+
+        if (!isset($_SESSION['user_id'])) {
+            http_response_code(401);
+            echo json_encode(['error' => 'Unauthorized']);
+            return;
+        }
+
+        $userId = $_SESSION['user_id'];
+
+
+        $orderModel = new Order();
+        $orders = $orderModel->getUserOrders($userId);
+
+        header('Content-Type: application/json');
+        echo json_encode($orders);
+    }
+
+
+
 }
 ?>

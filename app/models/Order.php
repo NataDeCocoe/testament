@@ -256,5 +256,24 @@ class Order {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getUserOrders($userId)
+    {
+        $sql = "SELECT 
+                o.order_id, o.order_status,
+                oi.quantity, oi.price,
+                p.prod_name, p.prod_img
+            FROM orders o
+            JOIN ordered_items oi ON o.order_id = oi.order_id
+            JOIN products p ON oi.product_id = p.prod_id
+            WHERE o.user_id = :user_id
+            ORDER BY o.ordered_at DESC";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['user_id' => $userId]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }
 ?>

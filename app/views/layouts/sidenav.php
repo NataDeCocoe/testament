@@ -29,7 +29,10 @@
             </li>
             <li>
                 <a href="/notification">
-                    <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">notifications</span>
+        <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">
+            notifications
+            <span id="notif-count-mobile" class="notif-badge">0</span>
+        </span>
                     <span class="<?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">Notification</span>
                 </a>
             </li>
@@ -109,10 +112,10 @@
         </li>
         <li>
             <a href="/notification">
-    <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">
-      notifications
-      <span id="notif-count" class="notif-badge" style="display:none;">0</span>
-    </span>
+        <span class="navIcon material-symbols-rounded <?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">
+            notifications
+            <span id="notif-count-desktop" class="notif-badge">0</span>
+        </span>
                 <span class="<?= $_SERVER['REQUEST_URI'] === '/notification' ? 'active' : '' ?>">Notification</span>
             </a>
         </li>
