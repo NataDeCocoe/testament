@@ -1264,22 +1264,23 @@ footer {
 }
 
 .notifHeader h4 {
-    font-size: 0.95rem; /* Slightly smaller for mobile */
-    font-weight: 700; /* Bolder to match the image */
+    font-size: 0.95rem;
+    font-weight: 700;
     color: #333;
 }
 
 .notifText {
-    font-size: 0.8rem; /* Smaller description text */
+    font-size: 0.8rem;
     line-height: 1.3;
-    -webkit-line-clamp: 3; /* Allow more lines to match the image */
+    -webkit-line-clamp: 3;
     color: #666;
+    text-align: start;
 }
 
 .notifTimestamp {
-    font-size: 0.7rem; /* Smaller timestamp */
-    margin-left: auto; /* Align to the right */
-    margin-top: 0; /* Remove negative margin */
+    font-size: 0.7rem;
+    margin-left: auto;
+    margin-top: 0;
     color: #999;
 }
 
@@ -1433,6 +1434,7 @@ footer {
     main {
         padding: 1.25rem;
         margin: 0;
+        width: 90%;
     }
     .save-icon {
         position: absolute;
@@ -1580,6 +1582,30 @@ footer {
         bottom: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 999;
+    }
+
+    .profileItemHistory {
+        flex-direction: row;
+        align-items: center;
+
+        padding: 0.75rem;
+        border-radius: 0.8rem;
+    }
+
+    .profileItemHistory img {
+        width: 90px;
+        height: 100px;
+        flex-shrink: 0;
+    }
+
+    .notifHeader {
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        font-size: x-large;
+        margin-top: 10px;
+        margin-bottom: -20px;
     }
 
 

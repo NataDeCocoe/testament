@@ -69,34 +69,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-
-    const menuButton = document.querySelector('.mobile-menu-button');
-    const mobileMenu = document.querySelector('.mobile-menu-collapse');
-
-
-    console.log('menuButton:', menuButton);
-    console.log('mobileMenu:', mobileMenu);
-
-
-    if (menuButton && mobileMenu) {
-        menuButton.addEventListener('click', function(e) {
-            e.stopPropagation();
-            mobileMenu.classList.toggle('show');
-            document.body.classList.toggle('menu-open');
-        });
-
-
-        document.addEventListener('click', function(event) {
-            if (mobileMenu.classList.contains('show')) {
-                if (!event.target.closest('.mobile-side') && !event.target.closest('.mobile-menu-button')) {
-                    mobileMenu.classList.remove('show');
-                    document.body.classList.remove('menu-open');
-                }
-            }
-        });
-    } else {
-        console.warn('Warning: One or more elements (.mobile-menu-button or .mobile-menu-collapse) not found in the DOM.');
-    }
-});
-

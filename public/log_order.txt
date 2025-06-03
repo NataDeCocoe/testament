@@ -1,0 +1,25 @@
+Array
+(
+    [firstName] => d
+    [lastName] => f
+    [phone] => 09120702560
+    [address] => Test
+    [building] => e
+    [zip] => e
+    [courier] => J&T Express
+    [payment_method] => Cash on Delivery
+    [shipping_fee] => 60
+    [subtotal] => 97
+    [total] => 157
+    [items] => Array
+        (
+            [0] => Array
+                (
+                    [product_id] => 1
+                    [quantity] => 1
+                    [price] => 97
+                )
+
+        )
+
+)
