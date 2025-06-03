@@ -161,6 +161,12 @@ footer {
     border-radius: 0.5rem;
 }
 
+.profileItemHistory img {
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
 /* Profile Styles */
 .profileItems {
     position: relative;
@@ -1084,6 +1090,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    font-size: larger;
 }
 
 .notifHeader h4 {
@@ -1605,7 +1612,19 @@ footer {
         width: 100%;
         font-size: x-large;
         margin-top: 10px;
-        margin-bottom: -20px;
+       
+    }
+
+    .historyText {
+        color: grey;
+        font-size: 15px;
+    }
+
+    .historyStatus{
+        top: 20px;
+        color: green;
+        font-size: small;
+
     }
 
 
