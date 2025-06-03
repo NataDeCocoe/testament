@@ -46,7 +46,8 @@ if (!isset($_SESSION['user_id'])) {
             <img id="profilePic" src="/assets/images/newBook.jpg" alt="Profile Picture">
         </div>
         <div>
-            <h1 id="firstname"><?= htmlspecialchars($user['firstname']) ?></h1>
+            <h1 id="firstname"><?= /** @var TYPE_NAME $user */
+                htmlspecialchars($user['firstname']) ?></h1>
             <h1 id="lastname"><?= htmlspecialchars($user['lastname']) ?></h1>
             <p id="conNum"><?= htmlspecialchars($user['phone_num']) ?></p>
             <p id="emailAd"><?= htmlspecialchars($user['email']) ?></p>
@@ -95,9 +96,7 @@ if (!isset($_SESSION['user_id'])) {
 </main>
 <footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
-    <div class="menuButton">
-        <button class="bDisplay"><span class="material-symbols-rounded">menu</span></button>
-    </div>
+    <div id="toast" class="toast"></div>
 </footer>
 </body>
 </html>

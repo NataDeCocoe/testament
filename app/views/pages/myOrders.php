@@ -52,9 +52,7 @@ if (!isset($_SESSION['user_id'])) {
 </main>
 <footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
-    <div class="menuButton">
-        <button class="bDisplay"><span class="material-symbols-rounded">menu</span></button>
-    </div>
+    <div id="toast" class="toast"></div>
 </footer>
 </body>
 </html>

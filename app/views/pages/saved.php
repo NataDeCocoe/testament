@@ -55,25 +55,10 @@ if (!isset($_SESSION['user_id'])) {
 
     </div>
 
-    <?php
-    $productImage = '/resources/images/newBook2.jpg';
-    $targetClass = 'savedBookItems';
-    ?>
-
-
-    <script type="module">
-        import ImageInserter from '/resources/js/prodImage.js';
-
-        const imageInserter = new ImageInserter("<?= $productImage ?>", "<?= $targetClass ?>");
-        imageInserter.insert();
-    </script>
-
 </main>
 <footer class="responsive-footer">
     <?php include __DIR__ . '/../layouts/footer.php'; ?>
-    <div class="menuButton">
-        <button class="bDisplay"><span class="material-symbols-rounded">menu</span></button>
-    </div>
+    <div id="toast" class="toast"></div>
 </footer>
 </body>
 </html>
