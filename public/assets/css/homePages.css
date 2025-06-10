@@ -18,7 +18,7 @@ body {
         "sidebar navbar"
         "sidebar main"
         "sidebar footer";
-    transition: grid-template-columns 0.5s ease;
+    transition: grid-template-columns 0.3s ease;
 }
 
 body.sb-collapse {
@@ -659,6 +659,10 @@ footer {
 
 /* Text Tags */
 .nTag {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 5.5rem;
     text-align: start;
     margin-top: 0.5rem;
 }
@@ -1305,7 +1309,6 @@ footer {
     flex-direction: row; /* Keep header and timestamp on the same line */
     align-items: center;
     gap: 0.5rem;
-    width: 100%;
 }
 
 .notifHeader h4 {
@@ -1404,6 +1407,29 @@ footer {
     opacity: 1;
 }
 
+.savedItemsContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row */
+    gap: .1rem;
+}
+
+
+.innerProdCon {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.savedItemsContainer::-webkit-scrollbar {
+    height: 6px;
+}
+
+.savedItemsContainer::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+}
+
+
+
 /* Status Color Classes */
 .status-orange {
     color: #ff9800;
@@ -1456,6 +1482,10 @@ footer {
 
 /* Responsive Styles */
 @media only screen and (max-width: 768px) {
+    .savedItemsContainer {
+        grid-template-columns: 1fr 1fr; /* 2 columns on tablets */
+    }
+
     .notif-badge {
         position: absolute;
         top: -4px;
@@ -1526,6 +1556,10 @@ footer {
         justify-items: center;
         align-items: center;
         gap: 10px;
+        transition: grid-template-columns 1s ease;
+    }
+    body.sb-collapse {
+        grid-template-columns: 13.5rem 1fr;
     }
 
     aside {
@@ -1701,7 +1735,7 @@ footer {
     .profileItemHistory {
         flex-direction: row;
         align-items: center;
-
+        width: 85%;
         padding: 0.75rem;
         border-radius: 0.8rem;
     }
@@ -1719,10 +1753,9 @@ footer {
     }
 
     .notifHeader {
-        flex-direction: row;
+        text-align: left;
         align-items: center;
         gap: 0.5rem;
-        width: 100%;
         font-size: x-large;
         margin-top: 10px;
 
@@ -1732,8 +1765,44 @@ footer {
         color: grey;
         font-size: 15px;
     }
+    .innerA {
+        display: none !important;
+    }
+    .skeleton-text {
+        display: inline-block;
+        width: 100px;
+        height: 16px;
+        margin-top: 8px;
+        border-radius: 4px;
+        background-color: #e0e0e0;
+        animation: blinkShimmer 1.2s infinite ease-in-out;
+    }
+}
 
 
+@media (max-width: 480px) {
+    .savedItemsContainer {
+        grid-template-columns: 1fr;
+    }
+    .innerA {
+        display: none !important;
+    }
 
+    .notifHeader {
+        flex-direction: row;
+        text-align: left;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        font-size: x-large;
+        margin-top: 10px;
+    }
+    .profileItemHistory {
+        flex-direction: row;
+        align-items: center;
+        width: 80%;
+        padding: 0.75rem;
+        border-radius: 0.8rem;
+    }
 
 }

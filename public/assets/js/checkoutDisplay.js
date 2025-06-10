@@ -171,7 +171,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
         .then(res => res.json())
         .then(cartData => {
             if (!cartData.items || cartData.items.length === 0) {
-                alert("Your cart is empty.");
+                showToastError("Your cart is empty.");
                 return;
             }
 
@@ -201,20 +201,33 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
 
             const phone = document.getElementById("phone").value.trim();
             if (!/^09\d{9}$/.test(phone)) {
-                alert("Phone number must start with 09 and be exactly 11 digits.");
+                showToastError("Phone number must start with 09 and be exactly 11 digits.");
                 return;
             }
 
+            const zip = document.getElementById("zip").value.trim();
+            if (!/^\d+$/.test(zip)) {
+                showToastError("Zip code must contain only numbers.");
+                return;
+            }
+
+            const paymentMethod = document.getElementById("payment_method").value.trim();
+            const selectedPaymentRadio = document.querySelector('input[name="payment"]:checked');
+
+            if (!selectedPaymentRadio || !paymentMethod) {
+                showToastError("Please select a payment method before placing your order.", 'error');
+                return;
+            }
 
             const data = {
                 firstName: document.getElementById("firstname").value,
                 lastName: document.getElementById("lastname").value,
-                phone: document.getElementById("phone").value,
+                phone: phone,
                 address: document.getElementById("address").value,
                 building: document.getElementById("building").value,
-                zip: document.getElementById("zip").value,
+                zip: zip,
                 courier: document.querySelector('input[name="delivery"]:checked').value,
-                payment_method: document.getElementById("payment_method").value,
+                payment_method: paymentMethod,
                 shipping_fee: shippingFee,
                 subtotal: subtotal,
                 total: grandTotal,
@@ -246,14 +259,13 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                             .then(res => res.json())
                             .then(clearRes => {
                                 if (clearRes.status === 'success') {
-                                    alert("Order placed and cart cleared!");
                                     window.location.href = "/success";
                                 } else {
-                                    alert("Order placed, but failed to clear cart.");
+                                    showToastError("Order placed, but failed to clear cart.");
                                 }
                             });
                     } else {
-                        alert("Order failed: " + response.message);
+                        showToastError("Order failed: " + response.message);
                     }
                 })
                 .catch(err => {
@@ -267,7 +279,7 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
                         .then(res => res.text())
                         .then(text => {
                             console.log("Raw server response:", text);
-                            alert("Error placing order. See console for details.");
+                            showToastError("Error placing order. See console for details.");
                         })
                         .catch(console.error);
                 });
@@ -276,4 +288,14 @@ document.getElementById("placeOrderBtn").addEventListener("click", () => {
 
 
 
+
+function showToastError(message, type = 'error') {
+    const toast = document.getElementById('toast');
+    toast.className = `toast show ${type}`;
+    toast.textContent = message;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
 

@@ -60,6 +60,10 @@ $routes = [
     'GET:/cart' => 'HomeController@showCart',
     'GET:/checkout' => 'HomeController@showCheckout',
 
+    // Saved
+    'POST:/saved/toggle' => 'SavedController@toggle',
+    'GET:/saved/get' => 'SavedController@getUserSaved',
+
     // Pages
     'GET:/home/products' => 'ProductController@getAllForNewRealease',
     'GET:/home/all-products' => 'ProductController@getAllProducts',

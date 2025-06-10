@@ -65,11 +65,12 @@ class Cart{
     public function countItems()
     {
         $user_id = $_SESSION['user_id'] ?? 1;
-        $stmt = $this->db->prepare("SELECT SUM(quantity) as total FROM cart WHERE user_id = ?");
+        $stmt = $this->db->prepare("SELECT COUNT(*) as total FROM cart WHERE user_id = ?");
         $stmt->execute([$user_id]);
         $row = $stmt->fetch();
         return $row ? (int) $row['total'] : 0;
     }
+
 
     public function removeItem($cartId) {
         $stmt = $this->db->prepare("DELETE FROM cart WHERE id = ? AND user_id = ?");

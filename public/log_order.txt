@@ -2,12 +2,12 @@ Array
 (
     [firstName] => Nathaniel
     [lastName] => Bartolome
-    [phone] => 09120475896
+    [phone] => 09120475811
     [address] => Prk. 6-A, Burgos Street, Tagum City
     [building] => Home
     [zip] => 8100
     [courier] => J&T Express
-    [payment_method] => PayPal
+    [payment_method] => Cash on Delivery
     [shipping_fee] => 60
     [subtotal] => 200
     [total] => 260
@@ -15,7 +15,7 @@ Array
         (
             [0] => Array
                 (
-                    [product_id] => 7
+                    [product_id] => 16
                     [quantity] => 1
                     [price] => 200
                 )

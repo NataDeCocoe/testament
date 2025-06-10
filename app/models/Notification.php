@@ -14,6 +14,9 @@ class Notification {
     public function send($data) {
         $image = isset($data['img']) && !empty($data['img']) ? $data['img'] : null;
 
+
+        date_default_timezone_set('Asia/Manila');
+
         $sql = "INSERT INTO notifications (user_id, title, message, img, created_at)
             VALUES (:user_id, :title, :message, :img, :created_at)";
 
@@ -29,6 +32,8 @@ class Notification {
 
         return $success;
     }
+
+
 
     public function getUserNotifications($userId)
     {

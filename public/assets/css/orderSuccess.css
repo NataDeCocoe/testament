@@ -1,0 +1,233 @@
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(5deg);
+    }
+    50% {
+        transform: translateY(-50px) rotate(5deg);
+    }
+}
+
+body {
+    background: #fef6e4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Changed to min-height for better scroll handling */
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden; /* Only hide horizontal overflow */
+    position: relative;
+    box-sizing: border-box; /* Ensure padding/margins don't break layout */
+}
+
+.book {
+    position: absolute;
+    opacity: 0.15;
+    z-index: -1;
+    animation: float 6s ease-in-out infinite;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1));
+    font-size: clamp(2rem, 5vw, 2.5rem); /* Responsive font size */
+}
+
+.book:nth-child(2n) {
+    animation-delay: 1s;
+}
+
+.book:nth-child(3n) {
+    animation-delay: 2s;
+}
+
+/* Card styling */
+.card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    padding: clamp(1.5rem, 5vw, 2.5rem) clamp(2rem, 6vw, 3rem); /* Responsive padding */
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 90%; /* Flexible width for smaller screens */
+    width: clamp(300px, 80vw, 600px); /* Responsive width */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: float1 6s ease-in-out infinite;
+    margin: 1rem; /* Add margin for smaller screens */
+}
+
+@keyframes float1 {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(0deg);
+    }
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(244,211,94,0.1) 0%, rgba(255,255,255,0) 70%);
+    z-index: -1;
+}
+
+/* Check icon styling */
+.check-icon {
+    font-size: clamp(2.5rem, 8vw, 3.5rem); /* Responsive icon size */
+    color: #28a745;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+}
+
+/* Typography */
+.card h1 {
+    color: #2f3e46;
+    margin-bottom: 1.5rem;
+    font-size: clamp(1.5rem, 5vw, 1.8rem); /* Responsive font size */
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.lead-text {
+    color: #4a5759;
+    font-size: clamp(0.9rem, 3vw, 1rem); /* Responsive font size */
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+}
+
+.secondary-text {
+    color: #6c757d;
+    font-size: clamp(0.8rem, 2.5vw, 0.9rem); /* Responsive font size */
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: clamp(0.5rem, 2vw, 1rem); /* Responsive gap */
+    margin-top: 2rem;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.btn {
+    display: inline-block;
+    padding: clamp(0.6rem, 2vw, 0.8rem) clamp(1.2rem, 3vw, 1.8rem); /* Responsive padding */
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: clamp(0.75rem, 2vw, 0.85rem); /* Responsive font size */
+    letter-spacing: 0.5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn-primary {
+    background: #f4d35e;
+    color: #000;
+    box-shadow: 0 4px 15px rgba(244, 211, 94, 0.3);
+}
+
+.btn-primary:hover {
+    background: #faae2b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 211, 94, 0.4);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: #2f3e46;
+    border: 1px solid #ddd;
+}
+
+.btn-secondary:hover {
+    background: rgba(0,0,0,0.02);
+    border-color: #ccc;
+}
+
+/* Media Queries for Tablets and Phones */
+@media (max-width: 768px) { /* Tablets and smaller */
+    .card {
+        padding: clamp(1rem, 4vw, 2rem) clamp(1.5rem, 5vw, 2.5rem);
+        max-width: 95%;
+    }
+
+    .check-icon {
+        font-size: clamp(2rem, 7vw, 3rem);
+    }
+
+    .card h1 {
+        font-size: clamp(1.3rem, 4.5vw, 1.6rem);
+    }
+
+    .lead-text {
+        font-size: clamp(0.85rem, 2.8vw, 0.95rem);
+    }
+
+    .secondary-text {
+        font-size: clamp(0.75rem, 2.3vw, 0.85rem);
+    }
+
+    .action-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: center;
+    }
+
+    .btn {
+        width: 100%; /* Full-width buttons */
+        max-width: 250px; /* Limit button width */
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+
+
+    @keyframes float1 {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+            transform: translateY(-10px) rotate(0deg);
+        }
+    }
+
+
+    .book {
+        font-size: clamp(1.5rem, 4vw, 2rem); /* Smaller icons on phones */
+        animation: none; /* Disable animation to reduce clutter */
+    }
+
+    .card {
+        padding: clamp(0.8rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2rem);
+        margin: 0.5rem;
+    }
+
+    .check-icon {
+        font-size: clamp(2.8rem, 6vw, 2.5rem);
+        margin-top: 20px;
+        margin-bottom: -50px;
+    }
+
+    .card h1 {
+        font-size: clamp(1.2rem, 4vw, 1.4rem);
+    }
+
+    .lead-text {
+        font-size: clamp(0.8rem, 2.5vw, 0.9rem);
+    }
+
+    .secondary-text {
+        font-size: clamp(0.7rem, 2vw, 0.8rem);
+    }
+
+    .btn {
+        padding: clamp(0.5rem, 1.5vw, 0.7rem) clamp(1rem, 2.5vw, 1.5rem);
+        font-size: clamp(0.7rem, 1.8vw, 0.8rem);
+    }
+}
