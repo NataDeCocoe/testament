@@ -13,7 +13,8 @@ class User
 
     public function create($firstname, $lastname, $email, $phone_num, $address, $password)
     {
-        $query = 'INSERT INTO users (firstname, lastname, email, phone_num, home_address, password) VALUES (:firstname, :lastname, :email, :phone_num, :home_address, :password)';
+        $query = 'INSERT INTO users (firstname, lastname, email, phone_num, home_address, password)
+              VALUES (:firstname, :lastname, :email, :phone_num, :home_address, :password)';
         $stmt = $this->db->prepare($query);
 
         $stmt->bindParam('firstname', $firstname);
@@ -23,9 +24,10 @@ class User
         $stmt->bindParam('home_address', $address);
         $stmt->bindParam('password', $password);
 
-        return $stmt->execute();
-
+        return $stmt->execute(); // Let the controller catch errors
     }
+
+
 
     public function findByEmail($email)
     {
@@ -127,6 +129,25 @@ class User
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-}
+    public function saveVerificationToken($email, $token) {
+        $stmt = $this->db->prepare("UPDATE users SET verification_token = :token WHERE email = :email");
+        $stmt->execute([
+            ':token' => $token,
+            ':email' => $email
+        ]);
+    }
 
+    public function verifyUser($email, $token)
+    {
+        $query = "UPDATE users SET is_verified = 1, verification_token = NULL, verified_at = NOW()
+              WHERE email = :email AND verification_token = :token AND is_verified = 0";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam('email', $email);
+        $stmt->bindParam('token', $token);
+        return $stmt->execute();
+    }
+
+
+}
 ?>

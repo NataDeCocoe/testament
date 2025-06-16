@@ -10,7 +10,10 @@ CREATE TABLE users (
     home_address VARCHAR(100) NOT NULL,
     password VARCHAR(255) NOT NULL,
     role ENUM('admin', 'customer') DEFAULT 'customer',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    is_verified TINYINT(1) DEFAULT 0,
+    verification_token VARCHAR(255) DEFAULT NULL,
+    verified_at TIMESTAMP NULL DEFAULT NULL
 );
 
 CREATE TABLE products (

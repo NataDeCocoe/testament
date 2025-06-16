@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         window.location.href = "/home";
                     }
                 } else {
-                    if (data.error === "invalid_email") {
+                    if (data.error === "user_not_found") {
                         emailInput.classList.add("is-invalid");
                         passwordInput.classList.add("is-invalid");
                         emailError.textContent = "Email not found.";
@@ -67,6 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
                         passwordInput.classList.add("is-invalid");
                         passwordError.textContent = "Incorrect password.";
                         passwordError.style.display = "block";
+                    }else if (data.error === "not_verified"){
+                        emailInput.classList.add("is-invalid");
+                        passwordInput.classList.add("is-invalid");
+                        emailError.textContent = "Email is not verified.";
+                        emailError.style.display = "block";
                     }
                 }
             })
@@ -111,23 +116,6 @@ function validateForm() {
 
     return valid;
 }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     const links = document.querySelectorAll(".nav-link");
-//     const currentPage = window.location.pathname.split("/").pop();
-//
-//
-//     links.forEach(link => link.classList.remove("active"));
-//
-//
-//     links.forEach(link => {
-//         const linkPage = link.getAttribute("href").split("/").pop();
-//
-//         if (linkPage === currentPage) {
-//             link.classList.add("active");
-//         }
-//     });
-// });
 
 document.addEventListener("DOMContentLoaded", function () {
     const checkbox = document.getElementById('chk-box');

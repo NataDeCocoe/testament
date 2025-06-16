@@ -26,6 +26,9 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         let isValid = true;
 
+        const submitBtn = document.getElementById("r-button");
+        const btnText = document.getElementById("r-btn-text");
+        const btnSpinner = document.getElementById("r-btn-spinner");
 
         [firstName, lastName, email, phone, address, password, confirmPass].forEach(field => {
             field.classList.remove("is-invalid", "is-valid");
@@ -120,15 +123,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (isValid) {
             try {
+
+                submitBtn.disabled = true;
+                btnText.classList.add("d-none");
+                btnSpinner.classList.remove("d-none");
+
                 const formData = new FormData(rform);
                 const response = await fetch('/register', {
                     method: 'POST',
                     body: formData
                 });
-                const data = await response.json();
 
-                if (data.success) {
+                const data = await response.json(); // read response body as JSON no matter what
 
+                if (response.ok && data.success) {
                     Swal.fire({
                         title: 'Registered!',
                         text: data.message,
@@ -140,28 +148,33 @@ document.addEventListener("DOMContentLoaded", function () {
                         }
                     });
                 } else {
-
                     Swal.fire({
                         title: 'Registration Failed',
                         text: data.message,
-                        icon: 'error'
+                        icon: 'warning'
                     });
 
+                    email.classList.remove("is-invalid");
+                    phone.classList.remove("is-invalid");
+                    phoneError.textContent = '';
 
-                    if (data.message.includes('Email')) {
+                    if (data.message.toLowerCase().includes('email')) {
                         email.classList.add("is-invalid");
-
                     }
-                    if (data.message.includes('phone')) {
+
+                    if (data.message.toLowerCase().includes('phone')) {
                         phone.classList.add("is-invalid");
                         phoneError.textContent = data.message;
                     }
-
-
                 }
             } catch (error) {
                 Swal.fire('Error', 'Could not connect to server', 'error');
+            } finally {
+                submitBtn.disabled = false;
+                btnText.classList.remove("d-none");
+                btnSpinner.classList.add("d-none");
             }
+
         }
     });
 
@@ -187,26 +200,6 @@ document.addEventListener("DOMContentLoaded", function () {
             conPass.style.display = "none";
         }
     });
-
-
-
-
-    // emailInput.addEventListener("input", function () {
-    //     if (emailInput.value.trim() !== "") {
-    //         emailInput.classList.remove("is-invalid");
-    //         emailInput.classList.add("is-valid");
-    //         emailError.style.display = "none";
-    //     }
-    // });
-
-
-    // password.addEventListener("input", function () {
-    //     if (password.value.trim().length >= 6) {
-    //         password.classList.remove("is-invalid");
-    //         passError.classList.add("is-valid");
-    //         passError.style.display = "none";
-    //     }
-    // });
 });
 
 

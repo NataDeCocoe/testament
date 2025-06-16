@@ -39,19 +39,32 @@ class ForgotPasswordController extends BaseController {
 
         $mail = new PHPMailer(true);
         try {
+            $mail->SMTPKeepAlive = true;
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
             $mail->Username = 'testaments.services@gmail.com';
             $mail->Password = 'rjnvjzrjawrvkuzh';
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
 
-            $mail->setFrom('no-reply@example.com', 'Testaments');
+            $mail->setFrom('testaments.services@gmail.com', 'Testaments');
+            $mail->addReplyTo('support@testaments.site', 'Testaments');
             $mail->addAddress($email);
             $mail->isHTML(true);
             $mail->Subject = 'Password Reset Request for Your Account';
-            $logoUrl = 'https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png';
+            $mail->CharSet = 'UTF-8';
+            $mail->Encoding = 'base64';
+
+            $mail->addCustomHeader('X-Mailer', 'PHPMailer');
+            $mail->addCustomHeader('List-Unsubscribe', '<mailto:support@testaments.site>');
+
+
+            $mail->addCustomHeader('Precedence', 'bulk');
+            $mail->addCustomHeader('X-Priority', '3');
+            $mail->addCustomHeader('X-MSMail-Priority', 'Normal');
+
+
 
             $mail->Body = '
             <!DOCTYPE html>

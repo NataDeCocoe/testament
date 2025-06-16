@@ -10,6 +10,9 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <link rel="stylesheet" href="/assets/css/index.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="/assets/js/validator.js" defer></script>
@@ -85,7 +88,10 @@
             </div>
         </div>
         <div class="d-flex justify-content-center pt-2 mt-2">
-            <button type="submit" class="btn btn-primary bg-custom" id="r-button" disabled>Register</button>
+            <button type="submit" class="btn btn-primary bg-custom" id="r-button" disabled>
+                <span id="r-btn-text">Register</span>
+                <span id="r-btn-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+            </button>
         </div>
         <div>
         </div>

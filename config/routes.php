@@ -47,6 +47,8 @@ $routes = [
     'GET:/register' => 'AuthController@showRegisterForm',
     'POST:/login' => 'AuthController@login',
     'POST:/register' => 'AuthController@register',
+    'GET:/verify' => 'AuthController@verify',
+    'GET:/verified' => 'AuthController@verifiedSuccess',
 
     // User
     'GET:/home' => 'HomeController@showHomePage',
